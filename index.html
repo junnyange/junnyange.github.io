@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>허준상 | Junsang Heo</title>
+<meta name="description" content="동국대학교 컴퓨터공학전공 허준상의 포트폴리오. 프로젝트, 기술 스택, 배운 것과 생각을 정리했습니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#0b1120;
+    --panel:rgba(30,41,59,.45);
+    --text:#cbd5e1;
+    --muted:#8b97ad;
+    --dim:#56627a;
+    --head:#e8edf5;
+    --accent:#5eead4;
+    --accent-2:#93c5fd;
+    --accent-bg:rgba(45,212,191,.10);
+    --line:rgba(148,163,184,.14);
+    --line-2:rgba(148,163,184,.28);
+    --warn:#fcd34d;
+    --ok:#4ade80;
+    --mono:"JetBrains Mono","Pretendard Variable",Pretendard,ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--text);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;word-break:keep-all}
+  ::selection{background:rgba(94,234,212,.3);color:#fff}
+  a{color:inherit;text-decoration:none}
+  code{font-family:var(--mono);font-size:.88em;color:var(--head);background:rgba(148,163,184,.1);padding:1px 6px;border-radius:4px}
+
+  /* background: cursor spotlight + faint grid */
+  .spot{pointer-events:none;position:fixed;inset:0;z-index:0;
+    background:radial-gradient(640px at var(--x,30%) var(--y,20%),rgba(29,78,216,.14),transparent 80%)}
+  .grid-bg{pointer-events:none;position:fixed;inset:0;z-index:0;opacity:.5;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:72px 72px;
+    mask-image:radial-gradient(ellipse 70% 60% at 20% 30%,#000 10%,transparent 70%);
+    -webkit-mask-image:radial-gradient(ellipse 70% 60% at 20% 30%,#000 10%,transparent 70%)}
+
+  .shell{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 48px;display:flex;gap:72px}
+
+  /* ================= LEFT (sticky hero) ================= */
+  .side{position:sticky;top:0;height:100vh;width:45%;display:flex;flex-direction:column;justify-content:space-between;padding:88px 0 64px}
+  .status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.02em;padding:6px 12px 6px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(15,23,42,.6)}
+  .status .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.55)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+
+  .side h1{margin-top:28px;font-size:60px;line-height:1.02;color:var(--head);font-weight:800;letter-spacing:-.045em}
+  .side h1 .en{display:block;margin-top:14px;font-family:var(--mono);font-size:14px;font-weight:500;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+
+  /* statement headline: weight + color contrast */
+  .statement{margin-top:26px;max-width:420px;font-size:23px;line-height:1.5;letter-spacing:-.02em;font-weight:300;color:var(--muted)}
+  .statement strong{font-weight:700;color:var(--head)}
+  .statement .hl{font-weight:700;color:var(--accent);position:relative;white-space:nowrap}
+  .statement .hl:after{content:"";position:absolute;left:0;right:0;bottom:2px;height:6px;background:rgba(94,234,212,.14);border-radius:2px;z-index:-1}
+
+  .langs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:22px}
+  .langs .lk{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-right:4px}
+  .langs span:not(.lk){font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--head);background:var(--accent-bg);border:1px solid rgba(94,234,212,.28);border-radius:999px;padding:2px 11px}
+  .langs.ai{margin-top:10px}
+  .langs.ai .lk{min-width:76px}
+  .langs .lk{min-width:76px}
+  .langs.ai span:not(.lk){color:#c4b5fd;background:rgba(167,139,250,.10);border-color:rgba(167,139,250,.32)}
+  .focus{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .focus span{font-family:var(--mono);font-size:12px;color:var(--text);border:1px solid var(--line-2);border-radius:6px;padding:3px 10px;background:rgba(15,23,42,.5)}
+  .focus span b{color:var(--accent);font-weight:500;margin-right:6px}
+
+  .toc{margin-top:52px;list-style:none}
+  .toc a{display:flex;align-items:center;gap:14px;padding:9px 0;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);transition:color .2s}
+  .toc a .n{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:0;width:18px}
+  .toc a .bar{display:inline-block;height:1px;width:28px;background:var(--dim);transition:all .25s}
+  .toc a:hover,.toc a.on{color:var(--head)}
+  .toc a.on .n{color:var(--accent)}
+  .toc a:hover .bar,.toc a.on .bar{width:64px;background:var(--head)}
+
+  .side-foot{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .social{display:flex;gap:18px;align-items:center}
+  .social a{color:var(--muted);transition:color .15s,transform .15s;display:inline-flex}
+  .social a:hover{color:var(--head);transform:translateY(-2px)}
+  .social svg{width:22px;height:22px}
+  .loc{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+
+  /* ================= RIGHT ================= */
+  main{width:55%;padding:88px 0}
+  section{margin-bottom:120px;scroll-margin-top:72px}
+
+  /* section header row: index / label ---- meta */
+  .sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:28px}
+  .sec-h .idx{font-family:var(--mono);font-size:12px;color:var(--accent)}
+  .sec-h h2{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--head)}
+  .sec-h .rule{flex:1;height:1px;background:var(--line);transform:translateY(-4px)}
+  .sec-h .meta{font-family:var(--mono);font-size:12px;color:var(--dim)}
+
+  .about p{margin-bottom:18px;color:var(--muted);font-size:16.5px}
+  .about p.lead{font-size:20px;line-height:1.6;color:var(--text);letter-spacing:-.015em;font-weight:400}
+  .about p.lead b{color:var(--head);font-weight:700}
+  .about b{color:var(--head);font-weight:600}
+  .about a.lnk{color:var(--head);font-weight:600;border-bottom:1px solid var(--line-2)}
+  .about a.lnk:hover{color:var(--accent);border-color:var(--accent)}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:28px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .facts div{background:var(--bg);padding:16px 18px}
+  .facts .v{font-size:24px;font-weight:800;color:var(--head);letter-spacing:-.03em;line-height:1.2}
+  .facts .k{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-top:4px}
+
+  /* ----- project cards ----- */
+  .cards{list-style:none;display:flex;flex-direction:column;gap:14px}
+  .cards:hover .card{opacity:.55}
+  .cards .card:hover{opacity:1}
+  .card{position:relative;padding:24px 26px 22px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(30,41,59,.35),rgba(15,23,42,.2));transition:opacity .2s,border-color .2s,transform .2s,background .2s}
+  .card:hover{border-color:rgba(94,234,212,.35);background:linear-gradient(180deg,rgba(30,41,59,.6),rgba(15,23,42,.35));transform:translateY(-2px)}
+  .card.feat:before{content:"";position:absolute;left:26px;right:26px;top:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.7}
+  .card .top{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--dim)}
+  .card .top .no{color:var(--accent)}
+  .card .top .sep{width:18px;height:1px;background:var(--line-2)}
+  .card .top .kind{margin-left:auto;color:var(--muted);border:1px solid var(--line-2);border-radius:999px;padding:1px 10px}
+  .card h3{margin-top:12px;font-size:21px;font-weight:700;color:var(--head);line-height:1.35;letter-spacing:-.025em}
+  .card h3 .arr{display:inline-block;margin-left:6px;font-size:15px;color:var(--dim);transition:transform .2s,color .2s}
+  .card:hover h3{color:var(--accent)}
+  .card:hover h3 .arr{transform:translate(3px,-3px);color:var(--accent)}
+  .card .sub{font-size:14px;color:var(--muted);margin-top:4px}
+  .card .role{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+  .card .role span:before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent-2);margin-right:7px;vertical-align:2px}
+  .card .role b{color:var(--text);font-weight:600}
+  .card p.d{margin-top:12px;font-size:14.8px;color:var(--muted)}
+  .card ul{margin:12px 0 0;list-style:none}
+  .card ul li{position:relative;padding-left:18px;font-size:14.5px;color:var(--muted);margin-bottom:7px}
+  .card ul li:before{content:"";position:absolute;left:2px;top:11px;width:7px;height:1px;background:var(--accent)}
+  .card ul li b{color:var(--text);font-weight:600}
+  .stretch{position:absolute;inset:0;z-index:0;border-radius:12px}
+  .card .body{position:relative;z-index:1;pointer-events:none}
+  .card .body details,.card .body a{pointer-events:auto}
+  .card .body a.in{color:var(--text);border-bottom:1px solid var(--line-2)}
+  .card .body a.in:hover{color:var(--accent);border-color:var(--accent)}
+
+  details{margin-top:14px}
+  summary{cursor:pointer;font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--accent);list-style:none;display:inline-flex;align-items:center;gap:8px;user-select:none}
+  summary::-webkit-details-marker{display:none}
+  summary:before{content:"+";display:inline-grid;place-items:center;width:16px;height:16px;border:1px solid rgba(94,234,212,.5);border-radius:4px;font-size:12px;line-height:1;transition:transform .2s}
+  details[open] summary:before{content:"−"}
+  .metric{margin-top:14px;font-size:13.5px;color:var(--text);background:rgba(94,234,212,.06);border:1px solid rgba(94,234,212,.18);padding:10px 14px;border-radius:8px}
+  .metric .lab{font-family:var(--mono);font-size:11px;color:var(--accent);display:block;margin-bottom:2px}
+
+  .hl2{color:var(--head);font-weight:600}
+  .sec-intro{color:var(--muted);font-size:15px;margin:-8px 0 22px}
+  .sec-intro b{color:var(--head);font-weight:600}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 6px;margin-top:14px;font-size:12.5px}
+  .flow .fl-lab{font-family:var(--mono);font-size:11px;color:var(--accent);width:36px;flex:none}
+  .flow .st{color:var(--text);background:rgba(148,163,184,.08);border:1px solid var(--line);border-radius:6px;padding:2px 9px;line-height:1.6;white-space:nowrap}
+  .flow .st em{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-left:4px}
+  .flow .st.on{color:var(--accent);border-color:rgba(94,234,212,.4);background:var(--accent-bg)}
+  .flow i{font-style:normal;color:var(--dim);font-size:11px}
+  .req{margin-top:16px;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+  .req-h,.req-r{display:grid;grid-template-columns:42% 58%}
+  .req-h span{font-family:var(--mono);font-size:11px;color:var(--accent);padding:8px 14px;background:rgba(94,234,212,.06)}
+  .req-r span{padding:10px 14px;border-top:1px solid var(--line);color:var(--muted);line-height:1.6}
+  .req-r span:first-child{color:var(--text)}
+  .req-r span:first-child b{display:block;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--accent-2);margin-bottom:2px}
+  .req-r span:last-child{border-left:1px solid var(--line)}
+  .fix{margin-top:16px;border:1px solid rgba(252,211,77,.22);border-radius:10px;overflow:hidden;font-size:13.5px;background:rgba(252,211,77,.03)}
+  .fix-h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;padding:9px 14px;background:rgba(252,211,77,.06);border-bottom:1px solid rgba(252,211,77,.16)}
+  .fix-h .lab{font-family:var(--mono);font-size:11px;color:var(--warn)}
+  .fix-h .res{font-size:12.5px;color:var(--muted)}
+  .fix-h .res b{color:var(--head)}
+  .fix-r{display:grid;grid-template-columns:52px 1fr;gap:10px;padding:8px 14px;color:var(--muted);line-height:1.6}
+  .fix-r + .fix-r{border-top:1px dashed var(--line)}
+  .fix-r > span:first-child{font-size:11.5px;font-weight:700;padding-top:1px}
+  .fix-r .sym{color:#fca5a5}.fix-r .cau{color:var(--warn)}.fix-r .sol{color:var(--accent)}
+  .fix-r b{color:var(--text)}
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+  .nums div{border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:rgba(15,23,42,.35)}
+  .nums b{display:block;font-size:22px;font-weight:800;color:var(--head);letter-spacing:-.03em;line-height:1.2}
+  .nums span{font-size:12px;color:var(--dim)}
+  .metric b{color:var(--head)}
+  .pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .pill{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--accent);background:var(--accent-bg);padding:3px 10px;border-radius:6px;line-height:1.6}
+  .pill.l2{color:#a5b4c8;background:rgba(148,163,184,.10)}
+  .pill.l3{color:var(--warn);background:rgba(252,211,77,.09)}
+
+  .more{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:14px;font-weight:600;color:var(--head);border-bottom:1px solid var(--line-2);padding-bottom:2px}
+  .more:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* ----- skills ----- */
+  .skill-row{display:grid;grid-template-columns:110px 1fr;gap:20px;padding:16px 0;border-bottom:1px dashed var(--line)}
+  .skill-row:last-of-type{border-bottom:none}
+  .skill-row .k{font-family:var(--mono);font-size:12px;color:var(--dim);padding-top:3px}
+  .skill-row .pills{margin-top:0}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px;font-size:12.5px;color:var(--dim)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:8px;height:8px;border-radius:2px;display:inline-block}
+
+  /* ----- learning: leader-line timeline ----- */
+  .tl{list-style:none}
+  .tl li{padding:16px 0;border-bottom:1px solid var(--line)}
+  .tl li:last-child{border-bottom:none}
+  .tl .row{display:flex;align-items:center;gap:14px}
+  .tl h3{font-size:16px;font-weight:600;color:var(--head);letter-spacing:-.01em}
+  .tl .lead-line{flex:1;min-width:24px;border-bottom:1px dotted var(--line-2);transform:translateY(-3px)}
+  .tl .date{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line-2);border-radius:999px;padding:1px 10px;white-space:nowrap}
+  .tl li.now .date{color:var(--accent);border-color:rgba(94,234,212,.45)}
+  .tl li.now .date:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:7px;vertical-align:1px}
+  .tl p{margin-top:6px;font-size:14.5px;color:var(--muted);max-width:560px}
+  .tl p a.in{color:var(--text);border-bottom:1px solid var(--line-2)}
+
+  /* ----- thoughts ----- */
+  .beliefs{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px;counter-reset:b}
+  .beliefs li{counter-increment:b;padding:22px 22px 20px;border:1px solid var(--line);border-radius:12px;background:rgba(15,23,42,.35);transition:border-color .2s}
+  .beliefs li:hover{border-color:var(--line-2)}
+  .beliefs li:before{content:counter(b,decimal-leading-zero);display:block;font-family:var(--mono);font-size:28px;font-weight:500;color:transparent;-webkit-text-stroke:1px rgba(94,234,212,.6);line-height:1;margin-bottom:14px}
+  .beliefs h3{font-size:16px;color:var(--head);font-weight:700;line-height:1.45;letter-spacing:-.015em}
+  .beliefs p{font-size:14px;color:var(--muted);margin-top:8px}
+
+  .todo{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--warn);border:1px dashed rgba(252,211,77,.5);border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:2px;letter-spacing:0;white-space:nowrap}
+  .todo-block{margin-top:10px;font-size:13px;color:var(--warn);opacity:.85}
+
+  /* ----- contact ----- */
+  .contact .big{font-size:40px;line-height:1.2;font-weight:800;letter-spacing:-.04em;color:var(--head)}
+  .contact .big span{font-weight:300;color:var(--muted)}
+  .contact p{margin-top:14px;color:var(--muted)}
+  .mail{display:inline-flex;align-items:center;gap:12px;margin-top:26px;padding:14px 22px;border:1px solid var(--accent);border-radius:10px;color:var(--accent);font-family:var(--mono);font-weight:500;font-size:14.5px;transition:background .15s,transform .15s}
+  .mail:hover{background:var(--accent-bg);transform:translateY(-2px)}
+  .mail .go{transition:transform .15s}
+  .mail:hover .go{transform:translateX(3px)}
+  footer{margin-top:80px;padding-top:20px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--dim);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  /* labels that contain Korean: use sans so spacing stays tight */
+  .status,.todo,.facts .k,summary,.tl .date,.card .top .kind,.side h1 .en .ko{font-family:inherit;letter-spacing:0;font-variant-numeric:tabular-nums}
+  .status{font-size:12.5px}
+  summary{font-size:13px;font-weight:600}
+
+  /* ================= responsive ================= */
+  @media (max-width:1024px){
+    .shell{display:block;padding:0 24px}
+    .side{position:relative;height:auto;width:100%;padding:64px 0 36px}
+    .toc{display:none}
+    .side-foot{margin-top:32px}
+    main{width:100%;padding:16px 0 64px}
+    section{margin-bottom:88px}
+    .sec-h{position:sticky;top:0;z-index:5;margin:0 -24px 20px;padding:14px 24px;background:rgba(11,17,32,.85);backdrop-filter:blur(8px)}
+    .cards:hover .card{opacity:1}
+  }
+  @media (max-width:640px){
+    .side h1{font-size:46px}
+    .statement{font-size:20px}
+    .facts{grid-template-columns:1fr 1fr 1fr}
+    .facts .v{font-size:20px}
+    .facts div{padding:14px 12px}
+    .facts .k{font-size:11.5px;line-height:1.4}
+    .card{padding:20px 18px}
+    .card.feat:before{left:18px;right:18px}
+    .card .top .kind{display:none}
+    .flow .fl-lab{width:100%}
+    .req-h{display:none}
+    .req-r{grid-template-columns:1fr}
+    .req-r span:last-child{border-left:none;border-top:1px dashed var(--line)}
+    .nums b{font-size:18px}
+    .skill-row{grid-template-columns:1fr;gap:8px}
+    .beliefs{grid-template-columns:1fr}
+    .tl .row{flex-wrap:wrap;gap:6px 10px}
+    .tl .lead-line{display:none}
+    .contact .big{font-size:30px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="spot" id="spot"></div>
+
+<div class="shell">
+
+  <!-- ===== LEFT ===== -->
+  <header class="side">
+    <div>
+      <div class="status"><span class="dot"></span>신입 개발자 포지션 찾는 중</div>
+      <h1>허준상<span class="en">Junsang Heo · Full-stack (지망)</span></h1>
+      <p class="statement">화면에서 끝나지 않고 <span class="hl">검증</span>과 <span class="hl">배포</span>까지 <strong>책임지는 개발자</strong>가 되고 싶습니다.</p>
+      <div class="langs"><span class="lk">Languages</span><span>C</span><span>C++</span><span>Python</span><span>JavaScript</span><span>Java</span></div>
+      <div class="langs ai"><span class="lk">AI Tools</span><span>Claude Code</span><span>Aside</span><span>Orca</span><span>Gemini</span></div>
+      <div class="focus">
+        <span><b>FE</b>React</span>
+        <span><b>QA</b>Z3 Solver</span>
+        <span><b>CI</b>Jenkins · SonarQube · Docker</span>
+        <span><b>DATA</b>Selenium · BeautifulSoup</span>
+      </div>
+      <nav>
+        <ul class="toc">
+          <li><a href="#about"><span class="n">01</span><span class="bar"></span>About</a></li>
+          <li><a href="#projects"><span class="n">02</span><span class="bar"></span>Projects</a></li>
+          <li><a href="#automation"><span class="n">03</span><span class="bar"></span>AI Automation</a></li>
+          <li><a href="#skills"><span class="n">04</span><span class="bar"></span>Skills</a></li>
+          <li><a href="#learning"><span class="n">05</span><span class="bar"></span>Learning</a></li>
+          <li><a href="#thoughts"><span class="n">06</span><span class="bar"></span>Thoughts</a></li>
+          <li><a href="#contact"><span class="n">07</span><span class="bar"></span>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="side-foot">
+      <div class="social">
+        <a href="https://github.com/junnyange" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+        </a>
+        <a href="https://wnstkddl.tistory.com" target="_blank" rel="noopener" aria-label="Tech Blog" title="Tech Blog (Tistory)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M12 8v9"/></svg>
+        </a>
+        <a href="mailto:junsang13454@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        </a>
+      </div>
+      <span class="loc">Seoul, KR · DGU CSE</span>
+    </div>
+  </header>
+
+  <!-- ===== RIGHT ===== -->
+  <main>
+
+    <section id="about" class="about">
+      <div class="sec-h"><span class="idx">01</span><h2>About</h2><span class="rule"></span><span class="meta">DGU · CSE 4학년</span></div>
+      <p class="lead">팀 프로젝트에서는 주로 <b>프론트엔드</b>를 맡았지만, 거기서 멈추지 않고 서비스가 맞게 동작하는지 <b>검증하는 로직</b>과 코드 품질을 지키는 <b>빌드 및 분석 파이프라인</b>까지 손을 대 왔습니다.</p>
+      <p>동국대학교 <b>컴퓨터공학전공 4학년</b>입니다. 공개SW프로젝트에서는 졸업요건 판정이 정말 맞는지 확인하기 위해 <b>Z3 Solver</b>로 검증 로직을 만들었고, GitHub Webhook에서 <b>Jenkins</b>, <b>SonarQube</b>로 이어지는 정적 분석 흐름을 구성했습니다. 소프트웨어공학 프로젝트에서는 유스케이스, 클래스, 시퀀스 다이어그램으로 설계하고 <b>API 명세</b>와 <b>1주 단위 스프린트</b>로 개발하면서, <b>React</b>로 마이페이지, 랭킹, 역량평가 화면을 만들어 Spring 서버와 연동했습니다.</p>
+      <p>배운 내용은 <a class="lnk" href="https://wnstkddl.tistory.com" target="_blank" rel="noopener">기술 블로그</a>에 정리하고 있습니다. <span class="todo">작성 필요</span></p>
+      <div class="facts">
+        <div><div class="v">3</div><div class="k">팀 프로젝트</div></div>
+        <div><div class="v">126</div><div class="k">OSSP · 동개 내 커밋</div></div>
+        <div><div class="v">5</div><div class="k">소개 프로젝트</div></div>
+      </div>
+      <p class="todo-block">위 소개는 레포와 커밋 기록을 바탕으로 쓴 초안입니다. 본인 말투로 다듬어 주세요. (취미나 개인적인 이야기 한 줄을 넣으면 인상이 좋아집니다. 예: 사회인야구 투수) 숫자 카드의 커밋 수는 OSSP 64 + 동개 62 기준입니다.</p>
+    </section>
+
+    <section id="projects">
+      <div class="sec-h"><span class="idx">02</span><h2>Selected Projects</h2><span class="rule"></span><span class="meta">2022 — 2026</span></div>
+      <ol class="cards">
+
+        <li class="card feat">
+          <a class="stretch" href="https://github.com/CSID-DGU/2023-1-OSSP1-1921-5" target="_blank" rel="noopener" aria-label="졸업할 수 있을까 GitHub"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.01</span><span class="sep"></span><span>2023.03 — 2023.06</span><span class="kind">Team · 6명</span></div>
+            <h3>졸업할 수 있을까?<span class="arr">↗</span></h3>
+            <div class="sub">공개SW프로젝트 · 동국대 컴퓨터공학과 졸업요건 판정 서비스</div>
+            <div class="role"><span><b>FrontEnd</b></span><span><b>Z3 Solver</b> 검증</span><span><b>Jenkins / SonarQube</b> CI</span><span><b>Docker</b> 환경 구성</span><span>주제 발표</span><span>커밋 64개</span></div>
+            <p class="d">성적 파일을 올리면 연도별 졸업요건에 맞춰 졸업 가능 여부와 남은 이수 과목을 알려주는 웹 서비스입니다. 2022년 프로젝트를 이어받아 <b class="hl2">"학업 이수 체계가 바뀌어도 계속 쓸 수 있는 졸업요건 검증 시스템"</b>을 목표로 개선했습니다.</p>
+
+            <div class="flow" aria-label="CI 파이프라인">
+              <span class="fl-lab">CI</span>
+              <span class="st">GitHub push</span><i>→</i><span class="st">Webhook <em>구성</em></span><i>→</i><span class="st">Jenkins <em>Docker</em></span><i>→</i><span class="st">SonarScanner</span><i>→</i><span class="st on">SonarQube <em>Docker</em></span>
+            </div>
+            <div class="flow" aria-label="Z3 검증 흐름">
+              <span class="fl-lab">Z3</span>
+              <span class="st">졸업요건 xlsx</span><i>→</i><span class="st">과목별 Int 변수 · 조건</span><i>→</i><span class="st">And / Or → Bool</span><i>→</i><span class="st">성적 xlsx 입력</span><i>→</i><span class="st on">요건별 True / False</span>
+            </div>
+
+            <div class="metric"><span class="lab">TEAM RESULT · 기존 프로젝트 검증</span>테스트 데이터 <b>170개</b>(7종)로 돌려보니 졸업 가능 여부는 맞아 보였지만, 세부 항목까지 모두 맞은 데이터는 <b>2개</b>뿐이었습니다. 이렇게 찾은 <b>판정 오류 7건</b>을 칸반 이슈로 등록하고 개선 목표로 삼았습니다.</div>
+
+            <details>
+              <summary>내가 한 일</summary>
+              <ul>
+                <li><b>Z3 Solver 졸업요건 검증</b>: 테스트 데이터의 정답을 사람이 일일이 확인하거나 알고리즘에 하드코딩하지 않으려고, 교수님 피드백을 받아 Z3 SMT Solver를 도입했습니다. 졸업요건 엑셀에서 필수과목을 읽어 과목별 Int 변수와 이수 조건(&gt; 0)을 만들고, And / Or로 묶은 Bool 변수(예: 전공필수 충족 여부)를 Solver에 추가했습니다. 성적 엑셀은 <code>CSE2018 == 3</code> 같은 제약으로 넣어, 모델 결과에서 요건별 충족 여부와 남은 과목을 확인합니다.</li>
+                <li>연도별 요건과 신설 과목을 반영했습니다. 확장 방향도 설계했는데, <b>학수번호 변경</b>(예: 2021년 EAS 변경)은 Implies로 예전 번호와 연결하고, 최소 이수학점 요건은 엑셀 값이 바뀌면 Solver 변수도 따라 바뀌는 구조입니다.</li>
+                <li><b>CI / 정적 분석</b>: 프론트, 백엔드, Solver를 나눠 개발하다 보니 팀원마다 따로 push하는 코드를 통합할 때 오류와 보안 이슈를 잡기 어려웠습니다. 그래서 GitHub, Jenkins, SonarQube를 연동했습니다. Jenkinsfile 파이프라인은 SCM checkout 다음에 SonarQube Analysis 단계가 이어지고, 빌드가 끝나면 SonarScanner가 바로 정적 분석을 돌립니다. <b>GitHub Webhook</b>으로 push하면 바로 빌드와 분석이 돌고 결과가 GitHub에 코멘트로 달리는 자동화까지 구성했습니다. 하지만 Jenkins가 로컬 서버 환경에서 돌아가는 한계가 있어서, 최종적으로는 수동 빌드로 바꿨습니다. 자동 코멘트도 무엇을 고쳤는지 추적하기 어려워 뺐습니다.</li>
+                <li><b>Docker로 CI 환경 구성</b>: Jenkins와 SonarQube를 각각 Docker 이미지로 컨테이너화했습니다. 도구마다 독립된 환경에서 안정적으로 돌고, 여러 도구를 연동하기도 쉬워서입니다. 두 컨테이너는 Docker 내부 네트워크 주소로 연결했습니다. SonarScanner 속성에는 Jenkins 컨테이너 안의 작업 경로(<code>/var/jenkins_home/workspace</code>)와 컨테이너 안 Node 실행 경로를 지정해서 Python, JavaScript, Java 코드를 함께 분석하게 했습니다. 일부 코드가 분석되지 않던 문제도 이 속성 파일을 고쳐서 해결했습니다.</li>
+                <li><b>분석 결과 반영</b>: SonarQube가 찾은 Critical / Major 이슈를 원인과 해결책까지 정리했습니다. 0으로 나누기 예외, Optional의 null 처리(<code>Optional.empty()</code>, <code>ofNullable</code>), finally 안의 return, <code>==</code> 대신 <code>equals</code> 비교, 보안용 난수(<code>SecureRandom</code>), 항상 참인 조건문 같은 것들이고, 수정한 뒤 다시 분석해서 확인했습니다. CSRF 보호 비활성화, HTTP 메서드 허용 범위 같은 보안 이슈도 따로 문서화했습니다.</li>
+                <li><b>SW 개발보안</b>: 개발보안 가이드에서 적용할 항목(업로드 파일 검증, HTTP 응답분할, 암호키 관리)과 정적 분석 도구 Yasca를 정리해 팀에 공유했습니다.</li>
+                <li><b>협업 방식</b>: Notion과 GitHub 칸반 보드로 작업을 카드 단위로 관리했습니다. 동시에 진행하는 작업 수(WIP)는 프론트와 백엔드 각 3개, 공통 1개로 제한했습니다. 주제 발표도 맡았습니다.</li>
+              </ul>
+              <div class="metric"><span class="lab">TEAM RESULT · 성능</span>600건 동시 요청에서 새 Spring 서버 평균 15초, 기존 Node.js 서버 평균 12초로 동등한 수준 확인</div>
+            </details>
+            <div class="pills">
+              <span class="pill">Z3</span><span class="pill">Python</span><span class="pill">Jenkins</span><span class="pill">SonarQube</span><span class="pill">Docker</span><span class="pill">React</span><span class="pill">Spring</span><span class="pill">MySQL</span><span class="pill l2">Kanban</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="card feat">
+          <a class="stretch" href="https://github.com/juhno1023/Donggae" target="_blank" rel="noopener" aria-label="Donggae GitHub"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.02</span><span class="sep"></span><span>2023.09 — 2023.12</span><span class="kind">Team · 5명</span></div>
+            <h3>Donggae<span class="arr">↗</span></h3>
+            <div class="sub">소프트웨어공학개론 · 동국대 개발자 팀 모집 커뮤니티 (팀 Otus)</div>
+            <div class="role"><span><b>FrontEnd</b></span><span>UML 설계 · API 명세</span><span>React · Spring 연동</span><span>커밋 62개</span></div>
+            <p class="d">개발자를 꿈꾸는 학생들이 팀원을 찾고 교류하는 웹 서비스입니다. GitHub 연동 로그인, 성향과 기술 스택 기반 추천, GitHub 활동 기반 랭킹, 역량 평가 기능을 제공합니다. 요구사항부터 설계, 스프린트까지 <b class="hl2">소프트웨어공학 프로세스를 그대로 밟아</b> 만들었습니다.</p>
+
+            <div class="flow" aria-label="개발 프로세스">
+              <span class="fl-lab">설계</span>
+              <span class="st">유스케이스 <em>9/26</em></span><i>→</i><span class="st">클래스 <em>10/3</em></span><i>→</i><span class="st">시퀀스 <em>10/10</em></span><i>→</i><span class="st">UI 디자인 <em>10/28</em></span>
+            </div>
+            <div class="flow" aria-label="구현 프로세스">
+              <span class="fl-lab">구현</span>
+              <span class="st">백로그 · 사용자 스토리 <em>11/2</em></span><i>→</i><span class="st">API 명세</span><i>→</i><span class="st on">1주 스프린트 × 4 <em>11/3 – 12/1</em></span>
+            </div>
+
+            <div class="nums">
+              <div><b>35</b><span>API 엔드포인트 명세</span></div>
+              <div><b>4</b><span>1주 단위 스프린트</span></div>
+              <div><b>3</b><span>UML 다이어그램 종류</span></div>
+            </div>
+
+            <details>
+              <summary>내가 한 일</summary>
+              <ul>
+                <li><b>설계</b>: 팀원 5명이 회의록을 남기며 유스케이스, 클래스, 시퀀스 다이어그램과 UI 디자인을 차례로 만들고, 피드백 회의(10/1, 10/9)를 거쳐 유스케이스와 클래스 설계를 수정했습니다.</li>
+                <li><b>API 명세 기반 연동</b>: Notion API 명세서에 기능, URL, 메서드, Request, Response, 담당자를 적고 <b>BE 테스트 → FE + BE 연동 테스트</b> 2단계로 상태를 관리했습니다. 저는 로그인(GitHub OAuth), 회원가입, 마이페이지 조회와 수정, 랭킹, 모집글 검색, 팀 지원 등 7개 API의 담당자로 화면 연동을 맡았습니다.</li>
+                <li><b>스프린트 / 칸반</b>: 백로그 회의에서 기능을 사용자 스토리로 바꾸고 우선순위를 정했습니다. 그 뒤 Notion 칸반 카드를 스프린트와 Front / Back 팀으로 나눠 1주 단위로 진행했고, 코드는 GitHub으로 관리했습니다.</li>
+                <li><b>마이페이지</b>: 내 정보 조회와 수정 화면을 만들고, 백준 아이디를 입력하면 백준 랭크를 미리보기 카드에 보여줍니다.</li>
+                <li><b>랭킹</b>: 커밋, 이슈, PR 수로 계산한 동개 랭크를 받아와 보여줍니다.</li>
+                <li><b>메인 / 모집 / 회원가입 / 로그인</b>: 메인페이지 디자인과 데이터 조회 및 수정 연동, 팀원 모집 글 페이지, 회원가입과 로그인 페이지를 만들었습니다.</li>
+                <li><b>역량 평가</b>: 테스트 목록과 문제 상세 페이지를 만들고 문제 데이터를 받아와 렌더링했습니다.</li>
+              </ul>
+            </details>
+            <div class="pills">
+              <span class="pill">React</span><span class="pill">React Router</span><span class="pill">Axios</span><span class="pill">Spring Boot</span><span class="pill">GitHub OAuth</span><span class="pill l2">UML</span><span class="pill l2">Scrum</span><span class="pill l2">Notion</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="card feat">
+          <a class="stretch" href="https://github.com/junnyange/oliveyoung-Global-K-Beauty-Scrapper" target="_blank" rel="noopener" aria-label="K-Beauty Scraper GitHub"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.03</span><span class="sep"></span><span>2025.12 — 2026.01</span><span class="kind">공모전 팀 · 데이터 수집 담당</span></div>
+            <h3>Olive Young Global K-Beauty Scraper<span class="arr">↗</span></h3>
+            <div class="sub">아모레퍼시픽 AI INNOVATION CHALLENGE 참가 · K-Beauty 리테일 인사이트 분석용 데이터 수집</div>
+            <div class="role"><span><b>Data Provider</b></span><span>요구사항 반영</span><span>크롤러 장애 대응</span><span>Selenium · BeautifulSoup</span></div>
+            <p class="d">리뷰로 K-Beauty 트렌드를 분석하는 AI Agent 팀에서 <b class="hl2">다른 팀원이 쓸 데이터를, 그 사람이 원하는 형태로 맞춰 넘기는 역할</b>을 맡았습니다. 리뷰 특징을 뽑는 분석 담당과 데이터를 적재하는 인프라 담당의 요청을 받을 때마다 컬럼, 수집 범위, 품질 기준을 고쳐서 데이터 버전을 올렸습니다.</p>
+
+            <div class="flow" aria-label="데이터 전달 이력">
+              <span class="fl-lab">전달</span>
+              <span class="st">v1 첫 공유 <em>12/23</em></span><i>→</i><span class="st">v2 피부 정보 분리 · 2,760 리뷰 <em>12/27</em></span><i>→</i><span class="st">품질 요구사항 수신 <em>12/29</em></span><i>→</i><span class="st on">최종 · 성분 추가 · 9,069 리뷰 <em>1/4</em></span>
+            </div>
+
+            <div class="req" aria-label="요청과 반영">
+              <div class="req-h"><span>받은 요청</span><span>데이터에 반영한 것</span></div>
+              <div class="req-r"><span><b>분석 담당</b> 피부 타입과 고민별로 리뷰 특징을 뽑고 싶다</span><span>한 칸에 뭉쳐 있던 피부 정보를 톤 / 타입 / 고민으로 나눠 다시 전달했고, 최종본은 분석 입력 형식에 맞춰 <code>skin_type</code>, <code>skin_concern</code>으로 정리</span></div>
+              <div class="req-r"><span><b>분석 담당</b> 성분은 데이터에 있을 때만 쓰고 추론하지 않는다</span><span>제품 상세의 성분 팝업까지 열어 <code>ingredients</code> 컬럼을 새로 수집 (92개 제품 중 87개 확보)</span></div>
+              <div class="req-r"><span><b>인프라 담당</b> 목표 데이터 양을 늘려달라</span><span>제품당 리뷰 상한을 30에서 100으로 올려 2,760개에서 9,069개로 늘리고, 추가 수집처로 6개 플랫폼의 수집 가능성을 검토</span></div>
+              <div class="req-r"><span><b>인프라 담당</b> CSV 형식 표준화, 중복 제거, UTF-8</span><span>아마존 데이터와 컬럼 이름을 맞추고 <code>source</code> 컬럼으로 출처를 구분했습니다. 리뷰 앞 50자와 작성일 조합으로 중복을 거르고, 엑셀에서도 깨지지 않게 UTF-8(BOM)로 저장</span></div>
+            </div>
+
+            <div class="fix" aria-label="멈춘 크롤러 고치기">
+              <div class="fix-h"><span class="lab">TROUBLESHOOTING · 멈춘 크롤러 고치기</span><span class="res">24개에서 멈추던 수집 → <b>92개 제품 전체 완주</b></span></div>
+              <div class="fix-r"><span class="sym">증상</span><span>제품 목록이 첫 화면 <b>24개에서 더 넘어가지 않음</b> (93개 중 24개만 수집)</span></div>
+              <div class="fix-r"><span class="cau">원인</span><span>목록이 번호 페이지가 아니라 'More' 버튼으로 아래에 붙는 구조였고, 버튼 글자(More (1/4) → (2/4))와 위치가 계속 바뀌어 고정 선택자로는 클릭이 실패</span></div>
+              <div class="fix-r"><span class="sol">해결</span><span>버튼을 화면 가운데로 스크롤한 뒤 JS로 클릭했습니다. 버튼 글자의 숫자를 정규식으로 읽어 마지막 페이지에서 반복을 끝내고, 클릭 후 로딩을 기다리며, 이미 본 항목은 건너뛰게 했습니다.</span></div>
+              <div class="fix-r"><span class="sym">증상</span><span>피부 정보가 없는 리뷰를 만나면 <b>NoneType 오류로 수집이 끊김</b></span></div>
+              <div class="fix-r"><span class="sol">해결</span><span>리뷰마다 값을 <code>N/A</code>로 먼저 채우고, 피부 정보 영역과 <code>dt</code> / <code>dd</code>가 있을 때만 읽도록 파싱을 바꿨습니다. 최종 9,069개 중 6,479개가 피부 정보 없이도 끊기지 않고 저장됐습니다.</span></div>
+              <div class="fix-r"><span class="sym">증상</span><span>성분 팝업이 열린 채 남으면 <b>다음 스크롤과 More 클릭이 가려져 진행이 막힘</b></span></div>
+              <div class="fix-r"><span class="sol">해결</span><span>닫기 버튼을 클래스 선택자로 먼저 찾고, 실패하면 버튼 글자로 다시 찾아 JS로 닫게 했습니다. 성분 표가 없는 제품은 <code>N/A</code>로 두고 넘어갑니다.</span></div>
+              <div class="fix-r"><span class="sol">대비</span><span>92개 제품을 도는 긴 실행이 한 건 때문에 통째로 죽지 않도록, 제품 단위로 예외를 격리하고 <b>10개마다 자동 저장</b>했습니다. 직접 중단하거나 예상 못한 오류가 나도 그때까지 모은 데이터를 저장하고 종료합니다.</span></div>
+            </div>
+
+            <div class="nums">
+              <div><b>92</b><span>제품 (검색 결과 전체)</span></div>
+              <div><b>9,069</b><span>리뷰 (최종 전달본)</span></div>
+              <div><b>3</b><span>데이터 버전 전달</span></div>
+            </div>
+
+            <details>
+              <summary>수집 과정에서 한 일</summary>
+              <ul>
+                <li><b>데이터 소싱 판단</b>: 쿠팡, 레딧, X, 인스타그램, 아마존, 틱톡의 robots.txt, 공식 API, 차단 리스크를 표로 비교했습니다. 리뷰를 합법적으로 모을 수 있는 경로를 고르고, 이용약관 준수, 개인정보 비식별화, 출처 명시 원칙을 팀에 공유했습니다.</li>
+                <li><b>robots.txt 판별 오류 해결</b>: <code>Disallow: /delivery</code>인데도 <code>RobotFileParser.can_fetch</code>가 계속 True를 반환해서 원인을 추적했습니다. 상단의 <code>Allow: /</code>가 먼저 적용되는 게 원인이었고, 파싱 직후 이 규칙만 제거하도록 보정해 금지 경로는 수집하지 않고 건너뛰게 했습니다.</li>
+                <li><b>값 가공</b>: 반쪽 별 아이콘 조합으로 표시되는 별점은 채워진 조각 수 × 0.125로 5점 만점 수치로 바꿨습니다. 첫 버전을 넘길 때는 리뷰 빈도 상위 키워드(블랙헤드, 건성)도 같이 공유했습니다.</li>
+              </ul>
+            </details>
+            <div class="pills">
+              <span class="pill">Python</span><span class="pill">Selenium</span><span class="pill">BeautifulSoup</span><span class="pill">urllib.robotparser</span><span class="pill l2">CSV 스키마 설계</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="card">
+          <a class="stretch" href="https://github.com/junnyange/JungTongDiscordBot" target="_blank" rel="noopener" aria-label="Discord Bot GitHub"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.04</span><span class="sep"></span><span>2022</span><span class="kind">Personal</span></div>
+            <h3>JungTong Discord Bot<span class="arr">↗</span></h3>
+            <div class="sub">Python 디스코드 봇</div>
+            <p class="d">discord.py로 회원가입, 내 정보(레벨, 보유 자산) 조회, 주사위 게임 명령어를 만들고, 엑셀 파일에 유저 데이터를 저장해 Embed로 보여주는 봇입니다.</p>
+            <div class="pills">
+              <span class="pill">Python</span><span class="pill">discord.py</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="card">
+          <a class="stretch" href="https://github.com/junnyange?tab=repositories" target="_blank" rel="noopener" aria-label="알고리즘 레포"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.05</span><span class="sep"></span><span>2022</span><span class="kind">Personal</span></div>
+            <h3>알고리즘 &amp; 자료구조 기록<span class="arr">↗</span></h3>
+            <div class="sub">C++ 풀이와 자료구조 직접 구현</div>
+            <ul>
+              <li><a class="in" href="https://github.com/junnyange/CodingTestStep" target="_blank" rel="noopener">CodingTestStep</a>: 백준 단계별 문제 풀이 (입출력부터 문자열, 기초 수학까지)</li>
+              <li><a class="in" href="https://github.com/junnyange/BOJ-code" target="_blank" rel="noopener">BOJ-code</a>: 스택, 큐, 덱, 재귀(하노이) 문제 풀이</li>
+              <li><a class="in" href="https://github.com/junnyange/DataStructure" target="_blank" rel="noopener">DataStructure</a>: 배열 리스트, 정렬 리스트, 배열 / 연결 스택과 큐 직접 구현</li>
+            </ul>
+            <div class="pills"><span class="pill">C++</span></div>
+          </div>
+        </li>
+      </ol>
+      <a class="more" href="https://github.com/junnyange?tab=repositories" target="_blank" rel="noopener">전체 레포 보기 <span>↗</span></a>
+    </section>
+
+    <section id="automation">
+      <div class="sec-h"><span class="idx">03</span><h2>AI Automation</h2><span class="rule"></span><span class="meta">daily use</span></div>
+      <p class="sec-intro">반복되는 일은 AI 에이전트에게 맡기고, 저는 <b>무엇을 읽고 어떤 기준으로 정리할지</b> 규칙을 설계합니다. 실제로 매일 쓰고 있는 것만 적었습니다.</p>
+      <ol class="cards">
+        <li class="card">
+          <div class="body">
+            <div class="top"><span class="no">A.01</span><span class="sep"></span><span>2026.10 — 운영 중</span><span class="kind">Personal · 실사용</span></div>
+            <h3>학업 일정 자동 브리핑</h3>
+            <div class="sub">구글 캘린더, 이클래스, 네이버 메일을 매일 아침 하나의 브리핑으로</div>
+            <div class="role"><span><b>요구사항 · 프롬프트 설계</b></span><span>예약 루틴</span><span>교차 검증</span></div>
+            <p class="d">과제 마감은 이클래스, 일정은 구글 캘린더, 공지는 메일로 흩어져 있어서 매번 세 곳을 확인해야 했습니다. 그래서 AI 에이전트가 매일 오전 8시에 세 곳을 <b class="hl2">읽기 전용으로</b> 확인하고, 마감순으로 정리해서 알려주는 루틴을 만들었습니다.</p>
+
+            <div class="flow" aria-label="브리핑 흐름">
+              <span class="fl-lab">매일</span>
+              <span class="st">08:00 예약 실행</span><i>→</i><span class="st">캘린더 · 이클래스 · 메일 읽기</span><i>→</i><span class="st">중복 합치기 · 마감순 정렬</span><i>→</i><span class="st">[긴급] 표시</span><i>→</i><span class="st on">브리핑 알림</span>
+            </div>
+
+            <div class="nums">
+              <div><b>3</b><span>데이터 소스</span></div>
+              <div><b>10</b><span>브리핑 실행 (첫 주)</span></div>
+              <div><b>5</b><span>놓칠 뻔한 마감 · 변경 발견</span></div>
+            </div>
+
+            <details>
+              <summary>내가 한 일</summary>
+              <ul>
+                <li><b>규칙 설계</b>: 확인할 곳(캘린더 일정, 이클래스 예정된 할 일, 최근 24시간 메일)과 읽기 전용 원칙을 정했습니다. 메일 읽음 처리, 삭제, 일정 수정은 하지 않습니다. 메일은 교수님, 조교, 팀원, 학교, 답장이 필요하거나 기한이 있는 메일을 우선하고, 광고와 로그인 알림은 빼도록 했습니다. 출력은 "오늘 일정 → 7일 내 마감 → 확인할 메일" 순서로 정하고, 오늘이나 내일 마감은 [긴급]으로 표시했습니다.</li>
+                <li><b>교차 검증으로 누락 찾기</b>: 캘린더와 이클래스 할 일 목록만으로는 빠지는 일정이 있어서 강좌 공지까지 대조했습니다. 그 결과 목록에 없던 학습 마감 2건, 마감 연장 1건(10/28 → 11/4), 중간고사 일정을 찾아 캘린더에 반영했고, 메일로만 온 장학금 서약서 기한도 브리핑에서 따로 짚어냈습니다. 캘린더에는 30분 일찍 넣어둔 시간과 실제 마감 시간을 구분해 보여주고, 수강 완료 여부는 사이버출결(출석 인정 시간 대비 실제 수강 시간)로 확인했습니다.</li>
+                <li><b>이벤트 기반 루틴</b>: 교수님 서명 일정을 잡을 때는 07시부터 23시까지 20분마다 메일을 확인하는 루틴을 만들었습니다. 답장에 시간이 있으면 캘린더에 일정을 만들고, 일이 끝나면 루틴을 정리했습니다.</li>
+                <li><b>운영 중 문제 해결</b>: 브리핑이 하루에 두 번 오는 현상이 생겨 실행 기록을 확인했습니다. 3일 연속, 8시에 PC가 절전 상태였다가 깨어날 때 놓친 실행을 따라잡으며 몇십 초 간격으로 두 번 실행되는 패턴이었습니다. 또 브리핑이 캘린더와 이클래스를 대조하면서 저장이 빠진 일정 1건을 잡아내 바로 보완했고, 이후 일정을 바꾸면 저장 결과까지 확인하는 것을 원칙으로 삼았습니다.</li>
+              </ul>
+            </details>
+            <div class="pills">
+              <span class="pill">Aside</span><span class="pill">AI Agent</span><span class="pill">Prompt Design</span><span class="pill">Scheduled Routine</span><span class="pill l2">Google Calendar</span><span class="pill l2">Browser Automation</span>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="skills">
+      <div class="sec-h"><span class="idx">04</span><h2>Skills</h2><span class="rule"></span><span class="meta">stack</span></div>
+      <div class="legend">
+        <span><i style="background:var(--accent)"></i>직접 기능 구현</span>
+        <span><i style="background:#a5b4c8"></i>사용 경험</span>
+        <span><i style="background:var(--warn)"></i>학습 중</span>
+        <span class="todo">숙련도 확인 필요</span>
+      </div>
+      <div class="skill-row"><div class="k">language</div><div class="pills">
+        <span class="pill">C</span><span class="pill">C++</span><span class="pill">Python</span><span class="pill">JavaScript</span><span class="pill">Java</span><span class="pill l2">HTML / CSS</span><span class="pill l3">C#</span>
+      </div></div>
+      <div class="skill-row"><div class="k">frontend</div><div class="pills">
+        <span class="pill">React</span><span class="pill">React Router</span><span class="pill">Axios / Fetch</span><span class="pill l2">MUI</span><span class="pill l2">Tailwind CSS</span>
+      </div></div>
+      <div class="skill-row"><div class="k">backend</div><div class="pills">
+        <span class="pill l2">Node.js / Express</span><span class="pill l2">Spring Boot</span><span class="pill l2">MySQL</span><span class="pill l2">Google Apps Script</span>
+      </div></div>
+      <div class="skill-row"><div class="k">data</div><div class="pills">
+        <span class="pill">Z3 Solver</span><span class="pill">Selenium</span><span class="pill">BeautifulSoup</span>
+      </div></div>
+      <div class="skill-row"><div class="k">devops</div><div class="pills">
+        <span class="pill">Git / GitHub</span><span class="pill">Jenkins</span><span class="pill">SonarQube</span><span class="pill">Docker</span>
+      </div></div>
+      <div class="skill-row"><div class="k">ai</div><div class="pills">
+        <span class="pill">Claude Code</span><span class="pill">Aside · AI 브라우저 에이전트</span><span class="pill">Orca · 에이전트 IDE</span><span class="pill">Gemini</span><span class="pill">Prompt Design</span><span class="pill">Scheduled Routine</span>
+      </div></div>
+      <div class="skill-row"><div class="k">process</div><div class="pills">
+        <span class="pill l2">UML</span><span class="pill l2">API 명세</span><span class="pill l2">Scrum / Kanban</span><span class="pill l2">Notion</span>
+      </div></div>
+      <div class="skill-row"><div class="k">exploring</div><div class="pills">
+        <span class="pill l3">Unity</span><span class="pill l3">AR Foundation</span>
+      </div></div>
+    </section>
+
+    <section id="learning">
+      <div class="sec-h"><span class="idx">05</span><h2>Learning</h2><span class="rule"></span><span class="meta">timeline</span></div>
+      <ol class="tl">
+        <li class="now">
+          <div class="row"><h3>암호학 · 공학선형대수학 · 종합설계1</h3><span class="lead-line"></span><span class="date">2026 · now</span></div>
+          <p>정수 연산, 유클리드와 확장 유클리드 알고리즘 같은 암호 수학을 <a class="in" href="https://wnstkddl.tistory.com" target="_blank" rel="noopener">블로그</a>에 정리하고 있고, 종합설계1에서 팀 프로젝트를 진행 중입니다.</p>
+        </li>
+        <li>
+          <div class="row"><h3>아모레퍼시픽 AI INNOVATION CHALLENGE 참가</h3><span class="lead-line"></span><span class="date">2025.12 — 2026.01</span></div>
+          <p>팀이 크롤링, 전처리, 임베딩(ChromaDB), RAG 에이전트로 이어지는 파이프라인을 만드는 동안 수집 단계를 맡아, 분석과 인프라 담당이 바로 쓸 수 있게 요청받은 형식과 품질 기준에 맞춰 데이터를 정리해 넘겼습니다.</p>
+        </li>
+        <li>
+          <div class="row"><h3>소프트웨어공학개론</h3><span class="lead-line"></span><span class="date">2023 · 2학기</span></div>
+          <p>회의록, UML(유스케이스, 클래스, 시퀀스), 사용자 스토리, API 명세, 스프린트와 칸반까지 요구사항에서 구현으로 이어지는 팀 개발 프로세스를 처음부터 끝까지 밟아봤습니다.</p>
+        </li>
+        <li>
+          <div class="row"><h3>공개SW프로젝트</h3><span class="lead-line"></span><span class="date">2023 · 1학기</span></div>
+          <p>기존 오픈소스를 이어받아 테스트 데이터로 정확도를 검증하고, 제약 조건 검증(Z3)과 CI, 정적 분석(Jenkins, SonarQube), SW 개발보안을 처음 다뤘습니다.</p>
+        </li>
+        <li>
+          <div class="row"><h3>자료구조 · 객체지향 프로그래밍</h3><span class="lead-line"></span><span class="date">2022</span></div>
+          <p>C++로 리스트, 스택, 큐를 직접 구현하며 동작 원리를 익히고 백준으로 기본기를 다졌습니다.</p>
+        </li>
+      </ol>
+      <p class="todo-block">학기 표기는 레포 날짜 기준 추정입니다. 실제 수강 시기로 고쳐 주세요.</p>
+    </section>
+
+    <section id="thoughts">
+      <div class="sec-h"><span class="idx">06</span><h2>Thoughts</h2><span class="rule"></span><span class="meta">what I believe</span></div>
+      <ol class="beliefs">
+        <li><h3>"동작한다"는 확인해야 하는 주장이다 <span class="todo">작성 필요</span></h3><p>졸업요건 판정을 Solver로 검증했던 경험에서 느낀 점을 2~3문장으로.</p></li>
+        <li><h3>코드 품질은 팀이 함께 지키는 것 <span class="todo">작성 필요</span></h3><p>SonarQube를 도입했던 이유, 협업에서 중요하게 생각하는 것.</p></li>
+        <li><h3>내가 풀스택을 바라보는 이유 <span class="todo">작성 필요</span></h3><p>화면, 서버, 배포를 모두 보려는 이유와 어떤 개발자가 되고 싶은지.</p></li>
+        <li><h3>요즘 붙잡고 있는 것 <span class="todo">작성 필요</span></h3><p>지금 공부하거나 만들고 싶은 것, 앞으로의 계획.</p></li>
+      </ol>
+      <p class="todo-block">제목은 예시입니다. 본인 생각에 맞게 바꾸거나 새로 써 주세요.</p>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="sec-h"><span class="idx">07</span><h2>Contact</h2><span class="rule"></span><span class="meta">say hello</span></div>
+      <div class="big">같이 만들 일이 있다면,<br><span>편하게 연락 주세요.</span></div>
+      <p>메일은 가장 빠르게 확인합니다.</p>
+      <a class="mail" href="mailto:junsang13454@gmail.com">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        junsang13454@gmail.com <span class="go">→</span>
+      </a>
+      <footer>
+        <span>&copy; 2026 Junsang Heo</span>
+        <span>Plain HTML &amp; CSS · GitHub Pages · layout inspired by Brittany Chiang</span>
+      </footer>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // cursor spotlight
+  const spot=document.getElementById('spot');
+  window.addEventListener('pointermove',e=>{spot.style.setProperty('--x',e.clientX+'px');spot.style.setProperty('--y',e.clientY+'px');});
+  // scroll spy
+  const tocLinks=[...document.querySelectorAll('.toc a')];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){tocLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));}})},{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('main section').forEach(s=>io.observe(s));
+  // keep details / inner link clicks from triggering the card link
+  document.querySelectorAll('details, .card a.in').forEach(el=>el.addEventListener('click',e=>e.stopPropagation()));
+</script>
+</body>
+</html>

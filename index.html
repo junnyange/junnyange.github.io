@@ -45,7 +45,8 @@
   .shell{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 48px;display:flex;gap:72px}
 
   /* ================= LEFT (sticky hero) ================= */
-  .side{position:sticky;top:0;height:100vh;width:45%;display:flex;flex-direction:column;justify-content:space-between;padding:88px 0 64px}
+  .side{position:sticky;top:0;height:100vh;width:45%;display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:80px 0 48px;overflow-y:auto;scrollbar-width:none}
+  .side::-webkit-scrollbar{display:none}
   .status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.02em;padding:6px 12px 6px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(15,23,42,.6)}
   .status .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:pulse 2.4s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.55)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
@@ -231,6 +232,19 @@
   .status,.todo,.facts .k,summary,.tl .date,.card .top .kind,.side h1 .en .ko{font-family:inherit;letter-spacing:0;font-variant-numeric:tabular-nums}
   .status{font-size:12.5px}
   summary{font-size:13px;font-weight:600}
+
+  /* shorter laptop screens: tighten the sticky column so the nav never touches the footer icons */
+  @media (min-width:1025px) and (max-height:960px){
+    .side{padding:56px 0 36px}
+    .side h1{margin-top:20px;font-size:54px}
+    .side h1 .en{margin-top:10px}
+    .statement{margin-top:18px;font-size:21px}
+    .langs{margin-top:16px}
+    .langs.ai{margin-top:8px}
+    .focus{margin-top:10px;gap:6px}
+    .toc{margin-top:28px}
+    .toc a{padding:6px 0}
+  }
 
   /* ================= responsive ================= */
   @media (max-width:1024px){

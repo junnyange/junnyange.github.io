@@ -172,6 +172,9 @@
   .fix-r > span:first-child{font-size:11.5px;font-weight:700;padding-top:1px}
   .fix-r .sym{color:#fca5a5}.fix-r .cau{color:var(--warn)}.fix-r .sol{color:var(--accent)}
   .fix-r b{color:var(--text)}
+  details.fold{margin-top:14px}
+  details.fold + details{margin-top:10px}
+  details.fold .fix{margin-top:12px}
   .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
   .nums div{border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:rgba(15,23,42,.35)}
   .nums b{display:block;font-size:22px;font-weight:800;color:var(--head);letter-spacing:-.03em;line-height:1.2}
@@ -339,15 +342,15 @@
 
     <section id="about" class="about">
       <div class="sec-h"><span class="idx">01</span><h2>About</h2><span class="rule"></span><span class="meta">DGU · CSE 4학년</span></div>
-      <p class="lead">팀 프로젝트에서는 주로 <b>프론트엔드</b>를 맡았지만, 거기서 멈추지 않고 서비스가 맞게 동작하는지 <b>검증하는 로직</b>과 코드 품질을 지키는 <b>빌드 및 분석 파이프라인</b>까지 손을 대 왔습니다.</p>
-      <p>동국대학교 <b>컴퓨터공학전공 4학년</b>입니다. 공개SW프로젝트에서는 졸업요건 판정이 정말 맞는지 확인하기 위해 <b>Z3 Solver</b>로 검증 로직을 만들었고, GitHub Webhook에서 <b>Jenkins</b>, <b>SonarQube</b>로 이어지는 정적 분석 흐름을 구성했습니다. 소프트웨어공학 프로젝트에서는 유스케이스, 클래스, 시퀀스 다이어그램으로 설계하고 <b>API 명세</b>와 <b>1주 단위 스프린트</b>로 개발하면서, <b>React</b>로 마이페이지, 랭킹, 역량평가 화면을 만들어 Spring 서버와 연동했습니다.</p>
-      <p>배운 내용은 <a class="lnk" href="https://wnstkddl.tistory.com" target="_blank" rel="noopener">기술 블로그</a>에 정리하고 있습니다. <span class="todo">작성 필요</span></p>
+      <p class="lead">흩어진 데이터를 <b>쓸 수 있는 형태로 모으고</b>, 반복되는 일은 <b>자동화</b>한 뒤, 정말 나아졌는지 <b>숫자로 확인</b>하는 방식으로 일해 왔습니다.</p>
+      <p>동국대학교 <b>컴퓨터공학전공 4학년</b>입니다. 공모전 팀에서는 분석과 인프라 담당이 바로 쓸 수 있게 요청받은 형식대로 리뷰 데이터를 수집해 넘겼고, 첫 화면 24개에서 멈추던 크롤러를 고쳐 <b>92개 제품 전체를 끝까지 수집</b>했습니다. 5명이 디스코드로 주고받던 게임 정산은 데이터 관리 웹앱으로 옮겼고, 이후 <b>NestJS + MySQL로 다시 만들어 AWS에 배포</b>하면서 동시 수정 손실을 <b>50건 중 45건에서 0건</b>으로 줄였습니다.</p>
+      <p>팀 프로젝트에서는 주로 프론트엔드를 맡았지만, 졸업요건 판정이 맞는지 <b>Z3 Solver</b>로 검증하는 구조를 만들고 <b>Jenkins · SonarQube</b>로 정적 분석 환경을 구성하는 등 결과를 확인하는 일까지 맡아 왔습니다. 개발에는 Claude Code와 Aside 같은 AI 도구를 적극적으로 쓰되, 단계마다 기대 결과를 먼저 정하고 직접 교차 검증한 뒤 다음으로 넘어갑니다.</p>
+      <p>개발하면서 배운 내용과 과정은 <a class="lnk" href="https://wnstkddl.tistory.com" target="_blank" rel="noopener">기술 블로그</a>에 정리하고 있습니다.</p>
       <div class="facts">
-        <div><div class="v">3</div><div class="k">팀 프로젝트</div></div>
-        <div><div class="v">126</div><div class="k">OSSP · 동개 내 커밋</div></div>
-        <div><div class="v">5</div><div class="k">소개 프로젝트</div></div>
+        <div><div class="v">24 → 92</div><div class="k">크롤러 수집 제품 (전체 완주)</div></div>
+        <div><div class="v">45 → 0</div><div class="k">동시 수정 손실 (50건 중)</div></div>
+        <div><div class="v">15/15</div><div class="k">이식 후 정산액 1원 단위 일치</div></div>
       </div>
-      <p class="todo-block">위 소개는 레포와 커밋 기록을 바탕으로 쓴 초안입니다. 본인 말투로 다듬어 주세요. (취미나 개인적인 이야기 한 줄을 넣으면 인상이 좋아집니다. 예: 사회인야구 투수) 숫자 카드의 커밋 수는 OSSP 64 + 동개 62 기준입니다.</p>
     </section>
 
     <section id="projects">
@@ -375,17 +378,6 @@
               <div class="req-r"><span><b>인프라 담당</b> CSV 형식 표준화, 중복 제거, UTF-8</span><span>아마존 데이터와 컬럼 이름을 맞추고 <code>source</code> 컬럼으로 출처를 구분했습니다. 리뷰 앞 50자와 작성일 조합으로 중복을 거르고, 엑셀에서도 깨지지 않게 UTF-8(BOM)로 저장</span></div>
             </div>
 
-            <div class="fix" aria-label="멈춘 크롤러 고치기">
-              <div class="fix-h"><span class="lab">TROUBLESHOOTING · 멈춘 크롤러 고치기</span><span class="res">24개에서 멈추던 수집 → <b>92개 제품 전체 완주</b></span></div>
-              <div class="fix-r"><span class="sym">증상</span><span>제품 목록이 첫 화면 <b>24개에서 더 넘어가지 않음</b> (93개 중 24개만 수집)</span></div>
-              <div class="fix-r"><span class="cau">원인</span><span>목록이 번호 페이지가 아니라 'More' 버튼으로 아래에 붙는 구조였고, 버튼 글자(More (1/4) → (2/4))와 위치가 계속 바뀌어 고정 선택자로는 클릭이 실패</span></div>
-              <div class="fix-r"><span class="sol">해결</span><span>버튼을 화면 가운데로 스크롤한 뒤 JS로 클릭했습니다. 버튼 글자의 숫자를 정규식으로 읽어 마지막 페이지에서 반복을 끝내고, 클릭 후 로딩을 기다리며, 이미 본 항목은 건너뛰게 했습니다.</span></div>
-              <div class="fix-r"><span class="sym">증상</span><span>피부 정보가 없는 리뷰를 만나면 <b>NoneType 오류로 수집이 끊김</b></span></div>
-              <div class="fix-r"><span class="sol">해결</span><span>리뷰마다 값을 <code>N/A</code>로 먼저 채우고, 피부 정보 영역과 <code>dt</code> / <code>dd</code>가 있을 때만 읽도록 파싱을 바꿨습니다. 최종 9,069개 중 6,479개가 피부 정보 없이도 끊기지 않고 저장됐습니다.</span></div>
-              <div class="fix-r"><span class="sym">증상</span><span>성분 팝업이 열린 채 남으면 <b>다음 스크롤과 More 클릭이 가려져 진행이 막힘</b></span></div>
-              <div class="fix-r"><span class="sol">해결</span><span>닫기 버튼을 클래스 선택자로 먼저 찾고, 실패하면 버튼 글자로 다시 찾아 JS로 닫게 했습니다. 성분 표가 없는 제품은 <code>N/A</code>로 두고 넘어갑니다.</span></div>
-              <div class="fix-r"><span class="sol">대비</span><span>92개 제품을 도는 긴 실행이 한 건 때문에 통째로 죽지 않도록, 제품 단위로 예외를 격리하고 <b>10개마다 자동 저장</b>했습니다. 직접 중단하거나 예상 못한 오류가 나도 그때까지 모은 데이터를 저장하고 종료합니다.</span></div>
-            </div>
 
             <div class="nums">
               <div><b>92</b><span>제품 (검색 결과 전체)</span></div>
@@ -393,6 +385,20 @@
               <div><b>3</b><span>데이터 버전 전달</span></div>
             </div>
 
+            <details class="fold">
+              <summary>트러블슈팅 · 멈춘 크롤러 고치기</summary>
+              <div class="fix" aria-label="멈춘 크롤러 고치기">
+                <div class="fix-h"><span class="lab">TROUBLESHOOTING · 멈춘 크롤러 고치기</span><span class="res">24개에서 멈추던 수집 → <b>92개 제품 전체 완주</b></span></div>
+                <div class="fix-r"><span class="sym">증상</span><span>제품 목록이 첫 화면 <b>24개에서 더 넘어가지 않음</b> (93개 중 24개만 수집)</span></div>
+                <div class="fix-r"><span class="cau">원인</span><span>목록이 번호 페이지가 아니라 'More' 버튼으로 아래에 붙는 구조였고, 버튼 글자(More (1/4) → (2/4))와 위치가 계속 바뀌어 고정 선택자로는 클릭이 실패</span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>버튼을 화면 가운데로 스크롤한 뒤 JS로 클릭했습니다. 버튼 글자의 숫자를 정규식으로 읽어 마지막 페이지에서 반복을 끝내고, 클릭 후 로딩을 기다리며, 이미 본 항목은 건너뛰게 했습니다.</span></div>
+                <div class="fix-r"><span class="sym">증상</span><span>피부 정보가 없는 리뷰를 만나면 <b>NoneType 오류로 수집이 끊김</b></span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>리뷰마다 값을 <code>N/A</code>로 먼저 채우고, 피부 정보 영역과 <code>dt</code> / <code>dd</code>가 있을 때만 읽도록 파싱을 바꿨습니다. 최종 9,069개 중 6,479개가 피부 정보 없이도 끊기지 않고 저장됐습니다.</span></div>
+                <div class="fix-r"><span class="sym">증상</span><span>성분 팝업이 열린 채 남으면 <b>다음 스크롤과 More 클릭이 가려져 진행이 막힘</b></span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>닫기 버튼을 클래스 선택자로 먼저 찾고, 실패하면 버튼 글자로 다시 찾아 JS로 닫게 했습니다. 성분 표가 없는 제품은 <code>N/A</code>로 두고 넘어갑니다.</span></div>
+                <div class="fix-r"><span class="sol">대비</span><span>92개 제품을 도는 긴 실행이 한 건 때문에 통째로 죽지 않도록, 제품 단위로 예외를 격리하고 <b>10개마다 자동 저장</b>했습니다. 직접 중단하거나 예상 못한 오류가 나도 그때까지 모은 데이터를 저장하고 종료합니다.</span></div>
+              </div>
+            </details>
             <details>
               <summary>수집 과정에서 한 일</summary>
               <ul>
@@ -433,27 +439,8 @@
               <div class="req-r"><span><b>누적</b> 주차별 기록</span><span>원본은 숨김 시트에 주차별 JSON으로 보관하고, 사람이 보는 정산기록 · 가계부 시트는 원본에서 자동으로 다시 생성. 다음 주 미리 입력, 지난주 값 불러오기 지원</span></div>
             </div>
 
-            <div class="fix" aria-label="동시 입력 덮어쓰기 막기">
-              <div class="fix-h"><span class="lab">PROBLEM SOLVING · 동시 입력 덮어쓰기 막기</span><span class="res">5명이 같은 주차를 동시에 고쳐도 <b>입력값 보존</b></span></div>
-              <div class="fix-r"><span class="sym">문제</span><span>5명이 비슷한 시간에 입력하면 나중에 저장한 사람이 앞사람 값을 지워버리는 <b>갱신 손실(lost update)</b>이 생길 수 있음</span></div>
-              <div class="fix-r"><span class="cau">원인</span><span>한 주의 데이터를 JSON 하나로 저장하는 구조라, 두 요청이 같은 옛 버전을 읽고 각자 수정해 덮어쓰면 먼저 저장한 쪽 변경이 사라짐</span></div>
-              <div class="fix-r"><span class="sol">해결</span><span><code>LockService.getScriptLock()</code>으로 읽기 → 수정 → 저장 구간을 한 번에 한 요청씩 처리했습니다(최대 20초 대기). 중간에 오류가 나도 다른 사람이 막히지 않게 <code>finally</code>에서 항상 잠금을 풉니다.</span></div>
-              <div class="fix-r"><span class="sol">해결</span><span>브라우저는 주차 데이터 전체가 아니라 <b>바뀐 칸 하나</b>(예: 3번째 사람 생산 금액)만 보내고, 서버는 잠근 상태에서 읽은 최신 데이터에 그 변경만 적용합니다. 입력은 600ms 디바운스와 Promise 큐로 순서를 지켜 전송합니다.</span></div>
-              <div class="fix-r"><span class="sol">확인</span><span>배포 전에 가짜 백엔드로 여러 사용자의 입력을 재현해, 다른 사람의 수정이 사라지지 않고 화면에 반영되는 것을 확인했습니다.</span></div>
-              <div class="fix-r"><span class="cau">연결</span><span>데이터베이스시스템에서 배운 <b>동시성 제어(잠금)</b> 개념을 실제로 쓰는 서비스에 적용한 경험입니다.</span></div>
-            </div>
 
 
-            <div class="fix" aria-label="v4 백엔드 이식과 배포">
-              <div class="fix-h"><span class="lab">v4 · NestJS + MySQL + AWS로 이식</span><span class="res">동시 수정 손실 <b>45건 → 0건</b> · 기존 정산액 <b>15/15 일치</b></span></div>
-              <div class="fix-r"><span class="sym">이유</span><span>주마다 JSON 한 덩어리로 저장하고, 확정 잠금은 화면에서만 걸리고, 링크만 있으면 누구나 수정할 수 있고, 계산 로직에 테스트가 없었습니다. 무엇보다 <b>백엔드와 배포를 직접 경험</b>하려고 다시 만들었습니다.</span></div>
-              <div class="fix-r"><span class="sol">구조</span><span>테이블 4개로 정규화하고 정산 결과는 저장하지 않고 매번 계산합니다. 스키마는 TypeORM 마이그레이션으로만 바꾸고(<code>synchronize</code> 끔), 공용 접속 코드 + 서명 쿠키로 접근을 막고, 확정일 00:00(KST) 자동 잠금은 서버가 판단합니다.</span></div>
-              <div class="fix-r"><span class="sol">동시성</span><span>TypeORM <code>save()</code>가 version을 검사하지 않는 것을 라이브러리 소스로 확인하고, <code>UPDATE … WHERE version = ?</code> 한 문장 + 409 응답으로 바꿨습니다. 같은 칸에 동시 요청 10개 × 5회: 이전 50건 중 <b>45건 손실 → 0건</b>.</span></div>
-              <div class="fix-r"><span class="sol">이전</span><span>기존 시트 데이터 3주치를 옮긴 뒤 멤버별 정산액 15개를 <b>1원 단위까지 대조(15/15)</b>했습니다.</span></div>
-              <div class="fix-r"><span class="sol">배포</span><span>Docker Compose(앱 · MySQL · Caddy)로 AWS EC2 t4g.micro(Arm, 메모리 1GB)에 배포했습니다. 1GB에 맞춰 MySQL 메모리를 줄이고, 프록시 뒤 실제 IP를 위한 trust proxy를 설정했습니다. GitHub Actions CI가 push마다 테스트 56개와 amd64/arm64 이미지 빌드를 확인합니다.</span></div>
-              <div class="fix-r"><span class="cau">검증</span><span>구현은 Claude Code, 검토는 Aside로 나눴습니다. 단계마다 기대 결과를 먼저 정하고, 브라우저 직접 호출 · 손 계산 · 원본 계산식 · 실제 데이터 · 로컬과 서버 재확인으로 <b>교차 검증하며</b> 다음 단계로 넘어갔습니다.</span></div>
-              <div class="fix-r"><span class="cau">현황</span><span>팀은 아직 v3(Apps Script)를 쓰고 있고, v4는 AWS에 배포해 예시 데이터로 동작과 409까지 확인한 단계입니다.</span></div>
-            </div>
 
             <div class="nums">
               <div><b>45 → 0</b><span>동시 수정 손실 (50건 중)</span></div>
@@ -461,6 +448,31 @@
               <div><b>56</b><span>자동 테스트 (CI)</span></div>
             </div>
 
+            <details class="fold">
+              <summary>문제 해결 · 동시 입력 덮어쓰기 막기</summary>
+              <div class="fix" aria-label="동시 입력 덮어쓰기 막기">
+                <div class="fix-h"><span class="lab">PROBLEM SOLVING · 동시 입력 덮어쓰기 막기</span><span class="res">5명이 같은 주차를 동시에 고쳐도 <b>입력값 보존</b></span></div>
+                <div class="fix-r"><span class="sym">문제</span><span>5명이 비슷한 시간에 입력하면 나중에 저장한 사람이 앞사람 값을 지워버리는 <b>갱신 손실(lost update)</b>이 생길 수 있음</span></div>
+                <div class="fix-r"><span class="cau">원인</span><span>한 주의 데이터를 JSON 하나로 저장하는 구조라, 두 요청이 같은 옛 버전을 읽고 각자 수정해 덮어쓰면 먼저 저장한 쪽 변경이 사라짐</span></div>
+                <div class="fix-r"><span class="sol">해결</span><span><code>LockService.getScriptLock()</code>으로 읽기 → 수정 → 저장 구간을 한 번에 한 요청씩 처리했습니다(최대 20초 대기). 중간에 오류가 나도 다른 사람이 막히지 않게 <code>finally</code>에서 항상 잠금을 풉니다.</span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>브라우저는 주차 데이터 전체가 아니라 <b>바뀐 칸 하나</b>(예: 3번째 사람 생산 금액)만 보내고, 서버는 잠근 상태에서 읽은 최신 데이터에 그 변경만 적용합니다. 입력은 600ms 디바운스와 Promise 큐로 순서를 지켜 전송합니다.</span></div>
+                <div class="fix-r"><span class="sol">확인</span><span>배포 전에 가짜 백엔드로 여러 사용자의 입력을 재현해, 다른 사람의 수정이 사라지지 않고 화면에 반영되는 것을 확인했습니다.</span></div>
+                <div class="fix-r"><span class="cau">연결</span><span>데이터베이스시스템에서 배운 <b>동시성 제어(잠금)</b> 개념을 실제로 쓰는 서비스에 적용한 경험입니다.</span></div>
+              </div>
+            </details>
+            <details class="fold">
+              <summary>v4 이식 · NestJS + MySQL + AWS</summary>
+              <div class="fix" aria-label="v4 백엔드 이식과 배포">
+                <div class="fix-h"><span class="lab">v4 · NestJS + MySQL + AWS로 이식</span><span class="res">동시 수정 손실 <b>45건 → 0건</b> · 기존 정산액 <b>15/15 일치</b></span></div>
+                <div class="fix-r"><span class="sym">이유</span><span>주마다 JSON 한 덩어리로 저장하고, 확정 잠금은 화면에서만 걸리고, 링크만 있으면 누구나 수정할 수 있고, 계산 로직에 테스트가 없었습니다. 무엇보다 <b>백엔드와 배포를 직접 경험</b>하려고 다시 만들었습니다.</span></div>
+                <div class="fix-r"><span class="sol">구조</span><span>테이블 4개로 정규화하고 정산 결과는 저장하지 않고 매번 계산합니다. 스키마는 TypeORM 마이그레이션으로만 바꾸고(<code>synchronize</code> 끔), 공용 접속 코드 + 서명 쿠키로 접근을 막고, 확정일 00:00(KST) 자동 잠금은 서버가 판단합니다.</span></div>
+                <div class="fix-r"><span class="sol">동시성</span><span>TypeORM <code>save()</code>가 version을 검사하지 않는 것을 라이브러리 소스로 확인하고, <code>UPDATE … WHERE version = ?</code> 한 문장 + 409 응답으로 바꿨습니다. 같은 칸에 동시 요청 10개 × 5회: 이전 50건 중 <b>45건 손실 → 0건</b>.</span></div>
+                <div class="fix-r"><span class="sol">이전</span><span>기존 시트 데이터 3주치를 옮긴 뒤 멤버별 정산액 15개를 <b>1원 단위까지 대조(15/15)</b>했습니다.</span></div>
+                <div class="fix-r"><span class="sol">배포</span><span>Docker Compose(앱 · MySQL · Caddy)로 AWS EC2 t4g.micro(Arm, 메모리 1GB)에 배포했습니다. 1GB에 맞춰 MySQL 메모리를 줄이고, 프록시 뒤 실제 IP를 위한 trust proxy를 설정했습니다. GitHub Actions CI가 push마다 테스트 56개와 amd64/arm64 이미지 빌드를 확인합니다.</span></div>
+                <div class="fix-r"><span class="cau">검증</span><span>구현은 Claude Code, 검토는 Aside로 나눴습니다. 단계마다 기대 결과를 먼저 정하고, 브라우저 직접 호출 · 손 계산 · 원본 계산식 · 실제 데이터 · 로컬과 서버 재확인으로 <b>교차 검증하며</b> 다음 단계로 넘어갔습니다.</span></div>
+                <div class="fix-r"><span class="cau">현황</span><span>팀은 아직 v3(Apps Script)를 쓰고 있고, v4는 AWS에 배포해 예시 데이터로 동작과 409까지 확인한 단계입니다.</span></div>
+              </div>
+            </details>
             <details>
               <summary>내가 한 일</summary>
               <ul>
@@ -561,20 +573,6 @@
           </div>
         </li>
 
-        <li class="card">
-          <a class="stretch" href="https://github.com/junnyange?tab=repositories" target="_blank" rel="noopener" aria-label="알고리즘 레포"></a>
-          <div class="body">
-            <div class="top"><span class="no">P.05</span><span class="sep"></span><span>2022</span><span class="kind">Personal</span></div>
-            <h3>알고리즘 &amp; 자료구조 기록<span class="arr">↗</span></h3>
-            <div class="sub">C++ 풀이와 자료구조 직접 구현</div>
-            <ul>
-              <li><a class="in" href="https://github.com/junnyange/CodingTestStep" target="_blank" rel="noopener">CodingTestStep</a>: 백준 단계별 문제 풀이 (입출력부터 문자열, 기초 수학까지)</li>
-              <li><a class="in" href="https://github.com/junnyange/BOJ-code" target="_blank" rel="noopener">BOJ-code</a>: 스택, 큐, 덱, 재귀(하노이) 문제 풀이</li>
-              <li><a class="in" href="https://github.com/junnyange/DataStructure" target="_blank" rel="noopener">DataStructure</a>: 배열 리스트, 정렬 리스트, 배열 / 연결 스택과 큐 직접 구현</li>
-            </ul>
-            <div class="pills"><span class="pill">C++</span></div>
-          </div>
-        </li>
       </ol>
       <a class="more" href="https://github.com/junnyange?tab=repositories" target="_blank" rel="noopener">전체 레포 보기 <span>↗</span></a>
     </section>
@@ -678,7 +676,7 @@
         </li>
         <li>
           <div class="row"><h3>자료구조 · 객체지향 프로그래밍</h3><span class="lead-line"></span><span class="date">2022 · 2학기</span></div>
-          <p>C++로 배열 리스트, 정렬 리스트, 스택, 큐 같은 다양한 자료구조 방식을 배우고, 하나씩 직접 구현해보는 과정을 거쳤습니다.</p>
+          <p>C++로 배열 리스트, 정렬 리스트, 스택, 큐 같은 다양한 자료구조 방식을 배우고, 하나씩 직접 구현해보는 과정을 거쳤습니다. 구현한 코드는 <a class="in" href="https://github.com/junnyange/DataStructure" target="_blank" rel="noopener">DataStructure</a> 레포에 정리했고, 백준 문제 풀이(<a class="in" href="https://github.com/junnyange/CodingTestStep" target="_blank" rel="noopener">CodingTestStep</a>, <a class="in" href="https://github.com/junnyange/BOJ-code" target="_blank" rel="noopener">BOJ-code</a>)로 스택, 큐, 재귀를 문제에 적용해 보며 기본기를 다졌습니다.</p>
         </li>
       </ol>
     </section>

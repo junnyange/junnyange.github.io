@@ -343,9 +343,9 @@
 
     <section id="about" class="about">
       <div class="sec-h"><span class="idx">01</span><h2>About</h2><span class="rule"></span><span class="meta">DGU · CSE 4학년</span></div>
-      <p>동국대학교 <b>컴퓨터공학전공 4학년</b>입니다. 공모전 팀에서는 데이터 수집을 맡았는데, 분석 담당과 인프라 담당이 받자마자 바로 쓸 수 있게 요청받은 형식 그대로 리뷰 데이터를 모아서 넘겼습니다. 그 과정에서 첫 화면 24개에서 계속 멈추던 크롤러를 고쳐서 <b>92개 제품을 끝까지 다 수집</b>하였습니다. 그리고 5명이 디스코드로 주고받던 게임 정산은 데이터 관리 웹앱으로 옮겼고, 나중에 <b>NestJS + MySQL로 다시 만들어 AWS에 배포</b>했습니다. 이때 동시 수정 손실을 <b>50건 중 45건에서 0건</b>으로 줄였습니다.</p>
-      <p>팀 프로젝트에서는 주로 프론트엔드를 맡았습니다. 그런데 프론트만 한 건 아니고, 졸업요건 판정이 맞게 나오는지 <b>Z3 Solver</b>로 검증하는 구조를 만들거나 <b>Jenkins · SonarQube</b>로 정적 분석 환경을 구성하는 것처럼 결과를 확인하는 일까지 같이 해왔습니다. 개발할 때는 Claude Code나 Aside 같은 AI 도구를 많이 쓰는데, 단계마다 이렇게 나와야 한다는 기대 결과를 먼저 정해두고 직접 교차 검증한 다음에 넘어갑니다.</p>
-      <p>개발하면서 배운 것과 과정은 <a class="lnk" href="https://wnstkddl.tistory.com" target="_blank" rel="noopener">기술 블로그</a>에 정리하고 있습니다(개발일지 위주).</p>
+      <p>동국대학교 <b>컴퓨터공학전공 4학년</b>입니다. 지금은 종합설계1 팀장으로 CS 응대 에이전트를 만들고 있고, 지식베이스 전체를 읽던 구조를 <b>벡터 DB에서 유사한 답변만 가져오는 RAG</b>로 바꾼 뒤 기존 구조와 시간, 토큰, 정확도를 비교했습니다.</p>
+      <p>그 전에는 멈추던 크롤러를 고쳐 <b>끝까지 수집</b>하게 만들었고, 디스코드로 하던 게임 정산을 <b>NestJS + MySQL 웹앱으로 만들어 AWS에 배포</b>했습니다.</p>
+      <p>데이터를 모으고 가공해 자동화하는 백엔드 작업과, 그 결과가 맞는지 <b>기준을 세워 검증</b>하는 일(평가 지표 측정, Z3 Solver, CI)을 할 수 있습니다. AI 도구를 쓸 때도 기대 결과를 먼저 정하고 직접 교차 검증합니다. 과정은 <a class="lnk" href="https://wnstkddl.tistory.com" target="_blank" rel="noopener">기술 블로그</a>에 정리하고 있습니다.</p>
       <div class="facts">
         <div><div class="v">24 → 92</div><div class="k">크롤러 수집 제품 (전체 완주)</div></div>
         <div><div class="v">45 → 0</div><div class="k">동시 수정 손실 (50건 중)</div></div>
@@ -357,9 +357,73 @@
       <div class="sec-h"><span class="idx">02</span><h2>Selected Projects</h2><span class="rule"></span><span class="meta">2022 — 2026</span></div>
       <ol class="cards">
         <li class="card feat">
+          <a class="stretch" href="https://github.com/CSID-DGU/2026-2-CECD1-1-CSE-03" target="_blank" rel="noopener" aria-label="CS 응대 에이전트 GitHub"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.01</span><span class="sep"></span><span>2026.09 — 진행 중</span><span class="kind">종합설계1 · 팀장 · 4명</span></div>
+            <h3>CS 응대 에이전트 · 지식베이스 RAG<span class="arr">↗</span></h3>
+            <div class="sub">고객 문의 메일을 네 에이전트(접수 · 답장 · 검수 · 인계)가 처리하고 담당자가 백오피스에서 승인하는 CS 응대 에이전트 · 이 중 접수 에이전트의 지식베이스 검색(RAG)을 맡음</div>
+            <div class="role"><span><b>Backend</b></span><span><b>RAG</b></span><span>임베딩 · 벡터 DB</span><span>시간 · 정확도 측정</span><span>AWS IAM</span><span>AI 교차 검증</span></div>
+            <p class="d">악성 민원 대응을 주제로 고객 문의 메일을 자동으로 응대하는 에이전트를 팀으로 만들고 있습니다. 저는 팀장으로 진행을 맡으면서, 접수 에이전트가 문의가 올 때마다 지식베이스(KB) 전체를 읽던 구조에서 <b class="hl2">문의와 유사한 답변만 벡터 데이터베이스에서 가져오도록 RAG 작업</b>을 했습니다. 같은 평가 세트로 기존 구조와 시간, 토큰, 정확도를 비교했고, 지금은 <b class="hl2">KB를 늘리는 작업</b>을 하고 있습니다.</p>
+
+            <div class="flow" aria-label="RAG 흐름">
+              <span class="fl-lab">RAG</span>
+              <span class="st">KB 답변 <em>md</em></span><i>→</i><span class="st">바뀐 답변만 임베딩 <em>Cohere</em></span><i>→</i><span class="st">pgvector 저장</span><i>→</i><span class="st">문의 임베딩 <em>개인정보 가림</em></span><i>→</i><span class="st on">상위 5개만 접수 에이전트에</span>
+            </div>
+            <div class="flow" aria-label="진행 순서">
+              <span class="fl-lab">진행</span>
+              <span class="st">측정 도구</span><i>→</i><span class="st">RAG 모드 <em>mock</em></span><i>→</i><span class="st">pgvector</span><i>→</i><span class="st">Bedrock 연결</span><i>→</i><span class="st">기존 구조와 비교</span><i>→</i><span class="st on">PR 머지 <em>11/13</em></span>
+            </div>
+
+            <div class="nums">
+              <div><b>1.0</b><span>Recall@5 (실제 LLM 평가)</span></div>
+              <div><b>+1.5초</b><span>검색이 더한 시간 (p50)</span></div>
+              <div><b>0 / 153</b><span>검색 실패로 기존 방식 전환</span></div>
+            </div>
+
+            <details class="fold">
+              <summary>측정 결과 · 작은 KB에서 RAG가 손해였던 이유</summary>
+              <div class="fix" aria-label="측정 결과">
+                <div class="fix-h"><span class="lab">MEASUREMENT · 기존 구조 vs RAG</span><span class="res">검색은 정확했지만 <b>지금 KB 크기에서는 느려짐</b></span></div>
+                <div class="fix-r"><span class="sym">방법</span><span>팀이 만든 고정 평가 세트(가상 고객 시나리오)로 같은 코드, 같은 모델에서 스위치(<code>KB_MODE</code>)만 바꿔 두 번 돌렸습니다. 먼저 LLM만 가짜로 두고 검색 정확도를 싸게 확인하고, 그다음 실제 Claude로 26건을 비교했습니다.</span></div>
+                <div class="fix-r"><span class="sol">결과</span><span>문의 하나 처리 시간 p50이 <b>8.9초 → 10.6초</b>로 늘었고, 늘어난 대부분이 검색(임베딩 왕복) 1.5초였습니다. 접수 에이전트 입력 토큰은 오히려 <b>212 늘었습니다</b>. intent 정확도(0.893)와 채점 통과율(0.731)은 같았습니다.</span></div>
+                <div class="fix-r"><span class="cau">원인</span><span>KB가 채널당 답변 3~6개라 상위 5개를 고르면 <b>거의 전부</b>가 들어갑니다. 그래서 토큰은 못 줄이고 목차와 규칙만 더해졌고, 검색 시간만 순수하게 늘었습니다. RAG는 답변이 수백 개일 때 이득이 나는 구조라는 걸 숫자로 확인했습니다.</span></div>
+                <div class="fix-r"><span class="sym">발견</span><span>답변 6개 중 5개만 뽑히는 채널에서, 근거 답변 하나가 빠지면 에이전트가 "일부만 답할 수 있다"고 보고 사람에게 넘기는 경우가 생겼습니다. 틀린 답장이 나가는 게 아니라 <b>자동 처리될 문의가 사람 일로 넘어가는</b> 쪽이라, 정확도 손실이 아니라 자동화율 손실로 구분해서 기록했습니다.</span></div>
+                <div class="fix-r"><span class="cau">현황</span><span>결과 정확도가 0.839 → 0.774로 떨어진 2건은 검색 누락이 아니라서(Recall@5 1.0), 프롬프트 차이인지 실행마다 생기는 흔들림인지 반복 실행으로 확인하는 중입니다. KB를 키워서 RAG가 이득이 되는 지점을 찾는 게 다음 단계입니다.</span></div>
+              </div>
+            </details>
+            <details class="fold">
+              <summary>트러블슈팅 · 멈추는 테스트, 막힌 리전</summary>
+              <div class="fix" aria-label="트러블슈팅">
+                <div class="fix-h"><span class="lab">TROUBLESHOOTING</span><span class="res">전체 테스트 635개 <b>멈춤 없이 완주</b></span></div>
+                <div class="fix-r"><span class="sym">증상</span><span>전체 테스트가 200개쯤에서 멈춤. 혼자 돌리면 통과하던 Bedrock 시간 초과 테스트였습니다</span></div>
+                <div class="fix-r"><span class="cau">원인</span><span>테스트용 가짜 fetch가 원래 시간 초과 신호가 아니라 <code>new Request()</code>가 만든 복사본 신호를 넘기고 있었습니다. 복사본은 원래 신호를 약하게 참조해서, 메모리 정리(GC) 타이밍에 따라 시간 초과가 전달되지 않을 수 있었습니다</span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>원래 신호를 그대로 넘기고, 이미 시간 초과된 상태로 들어와도 바로 끝나게 바꿨습니다. 팀원이 만든 다른 테스트와 같은 방식입니다</span></div>
+                <div class="fix-r"><span class="sym">증상</span><span>AWS 무료 플랜이라 서울 리전에서 Bedrock을 쓸 수 없었음</span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>시드니에서 교차 리전 추론으로 호출되는 걸 직접 확인하고, 그 조건(요청이 다른 리전에서 처리될 수 있고 시간에 해외 왕복이 포함됨)을 결과표에 같이 적었습니다</span></div>
+              </div>
+            </details>
+            <details>
+              <summary>내가 한 일</summary>
+              <ul>
+                <li><b>기술 선택</b>: 팀원이 벡터 DB나 그래프 DB를 제안했는데, 우리 KB는 FAQ형이라 답변끼리 관계가 거의 없어서 벡터 검색으로 정했습니다. Claude API엔 임베딩 모델이 없어서, 레포가 이미 쓰는 AWS 안에서 해결되는 <b>Bedrock Cohere Embed v4</b>를 골랐고, 저장은 <b>PostgreSQL + pgvector를 KB 벡터 전용</b>으로 두고 운영 데이터는 기존 SQLite를 그대로 썼습니다.</li>
+                <li><b>바꾸는 범위 좁히기</b>: 답장 에이전트는 이미 검색 툴로 필요한 답변만 읽고 있어서, KB 전체를 받는 접수 에이전트만 바꿨습니다. 기본값은 기존과 똑같이 두고 스위치로만 켜지게 해서 다른 팀원 작업에 영향이 없게 했고, 한 곳만 바꿔야 차이가 RAG 때문이라고 말할 수 있었습니다.</li>
+                <li><b>안전장치</b>: 임베딩에는 개인정보를 가린 문의만 보내고, 답장을 검사하는 가드는 계속 KB 전체로 검사합니다. 임베딩이나 DB가 실패하면 그 문의만 기존 방식으로 처리하고 이유를 남깁니다.</li>
+                <li><b>색인 갱신</b>: 답변마다 "제목 + 본문" 해시를 저장해서 바뀐 답변만 다시 임베딩하고, 지워진 답변은 검색에서 빠지게 했습니다. KB 버전이 같으면 문의마다 색인 확인을 건너뛰어서 DB 왕복을 줄였습니다.</li>
+                <li><b>측정 도구</b>: 문의 한 통마다 처리 시간, 토큰, intent · 결과 정확도, Hit@5 · Recall@5를 기록하고 이전 실행과 비교표를 뽑게 했습니다. 결과가 바뀐 문의는 목록으로 따로 나오게 했습니다.</li>
+                <li><b>AWS 권한</b>: 개발용 IAM 사용자는 Cohere 임베딩 호출 하나만 허용하고, 정책 시뮬레이터로 다른 모델이나 서비스는 거부되는지 확인했습니다.</li>
+                <li><b>역할 분담</b>: 단계마다 지시문을 써서 Claude Code가 구현했고, Aside로 바뀐 코드와 금지 파일 변경 여부, AWS 설정을 검토했습니다. 저는 기술 선택, 범위 결정, 팀원 합의(<code>pg</code> 패키지 추가), 테스트와 평가 실행, 커밋과 PR을 했습니다.</li>
+              </ul>
+            </details>
+            <div class="pills">
+              <span class="pill">Node.js</span><span class="pill">RAG</span><span class="pill">Amazon Bedrock</span><span class="pill">Cohere Embed v4</span><span class="pill">PostgreSQL</span><span class="pill">pgvector</span><span class="pill">Docker</span><span class="pill">AWS IAM</span><span class="pill">node:test</span><span class="pill l2">Claude API 에이전트</span><span class="pill l2">Claude Code</span><span class="pill l2">Aside</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="card feat">
           <a class="stretch" href="https://github.com/junnyange/oliveyoung-Global-K-Beauty-Scrapper" target="_blank" rel="noopener" aria-label="K-Beauty Scraper GitHub"></a>
           <div class="body">
-            <div class="top"><span class="no">P.01</span><span class="sep"></span><span>2025.12 — 2026.01</span><span class="kind">공모전 팀 · 데이터 수집 담당</span></div>
+            <div class="top"><span class="no">P.02</span><span class="sep"></span><span>2025.12 — 2026.01</span><span class="kind">공모전 팀 · 데이터 수집 담당</span></div>
             <h3>Olive Young Global K-Beauty Scraper<span class="arr">↗</span></h3>
             <div class="sub">아모레퍼시픽 AI INNOVATION CHALLENGE 참가 · K-Beauty 리테일 인사이트 분석용 데이터 수집</div>
             <div class="role"><span><b>Data Provider</b></span><span>요구사항 반영</span><span>크롤러 장애 대응</span><span>Selenium · BeautifulSoup</span></div>
@@ -411,7 +475,7 @@
         <li class="card feat">
           <a class="stretch" href="https://github.com/junnyange/profit-split-api" target="_blank" rel="noopener" aria-label="주간 수익 정산 GitHub"></a>
           <div class="body">
-            <div class="top"><span class="no">P.02</span><span class="sep"></span><span>2026.10 — 운영 중</span><span class="kind">타이쿤 게임 · 실사용 5명</span></div>
+            <div class="top"><span class="no">P.03</span><span class="sep"></span><span>2026.10 — 운영 중</span><span class="kind">타이쿤 게임 · 실사용 5명</span></div>
             <h3>주간 수익 분배 정산 웹앱</h3>
             <div class="sub">같이 하는 타이쿤 게임에서 주간 수익·지출을 5명이 입력하고 관리하는 웹앱 · 처음엔 Apps Script + 구글 시트로 돌리다가 NestJS + MySQL + React로 옮겨서 AWS EC2에 배포</div>
             <div class="role"><span><b>Backend</b></span><span><b>Data Management</b></span><span>동시성 제어</span><span>데이터 모델링</span><span>DB 마이그레이션</span><span>AWS 배포</span><span>AI 교차 검증</span></div>
@@ -483,70 +547,6 @@
             </details>
             <div class="pills">
               <span class="pill">NestJS</span><span class="pill">TypeScript</span><span class="pill">MySQL</span><span class="pill">TypeORM</span><span class="pill">React</span><span class="pill">Docker</span><span class="pill">AWS EC2</span><span class="pill">GitHub Actions</span><span class="pill">Jest</span><span class="pill">Google Apps Script</span><span class="pill">LockService</span><span class="pill l2">Claude Code</span><span class="pill l2">Aside</span>
-            </div>
-          </div>
-        </li>
-
-        <li class="card feat">
-          <a class="stretch" href="https://github.com/CSID-DGU/2026-2-CECD1-1-CSE-03" target="_blank" rel="noopener" aria-label="CS 응대 에이전트 GitHub"></a>
-          <div class="body">
-            <div class="top"><span class="no">P.03</span><span class="sep"></span><span>2026.09 — 진행 중</span><span class="kind">종합설계1 · 팀장 · 4명</span></div>
-            <h3>CS 응대 에이전트 · 지식베이스 RAG<span class="arr">↗</span></h3>
-            <div class="sub">고객 문의 메일을 네 에이전트(접수 · 답장 · 검수 · 인계)가 처리하고 담당자가 백오피스에서 승인하는 CS 응대 에이전트 · 이 중 접수 에이전트의 지식베이스 검색(RAG)을 맡음</div>
-            <div class="role"><span><b>Backend</b></span><span><b>RAG</b></span><span>임베딩 · 벡터 DB</span><span>시간 · 정확도 측정</span><span>AWS IAM</span><span>AI 교차 검증</span></div>
-            <p class="d">악성 민원 대응을 주제로 고객 문의 메일을 자동으로 응대하는 에이전트를 팀으로 만들고 있습니다. 저는 팀장으로 진행을 맡으면서, 접수 에이전트가 문의가 올 때마다 지식베이스(KB) 전체를 읽던 구조에서 <b class="hl2">문의와 유사한 답변만 벡터 데이터베이스에서 가져오도록 RAG 작업</b>을 했습니다. 같은 평가 세트로 기존 구조와 시간, 토큰, 정확도를 비교했고, 지금은 <b class="hl2">KB를 늘리는 작업</b>을 하고 있습니다.</p>
-
-            <div class="flow" aria-label="RAG 흐름">
-              <span class="fl-lab">RAG</span>
-              <span class="st">KB 답변 <em>md</em></span><i>→</i><span class="st">바뀐 답변만 임베딩 <em>Cohere</em></span><i>→</i><span class="st">pgvector 저장</span><i>→</i><span class="st">문의 임베딩 <em>개인정보 가림</em></span><i>→</i><span class="st on">상위 5개만 접수 에이전트에</span>
-            </div>
-            <div class="flow" aria-label="진행 순서">
-              <span class="fl-lab">진행</span>
-              <span class="st">측정 도구</span><i>→</i><span class="st">RAG 모드 <em>mock</em></span><i>→</i><span class="st">pgvector</span><i>→</i><span class="st">Bedrock 연결</span><i>→</i><span class="st">기존 구조와 비교</span><i>→</i><span class="st on">PR 머지 <em>11/13</em></span>
-            </div>
-
-            <div class="nums">
-              <div><b>1.0</b><span>Recall@5 (실제 LLM 평가)</span></div>
-              <div><b>+1.5초</b><span>검색이 더한 시간 (p50)</span></div>
-              <div><b>0 / 153</b><span>검색 실패로 기존 방식 전환</span></div>
-            </div>
-
-            <details class="fold">
-              <summary>측정 결과 · 작은 KB에서 RAG가 손해였던 이유</summary>
-              <div class="fix" aria-label="측정 결과">
-                <div class="fix-h"><span class="lab">MEASUREMENT · 기존 구조 vs RAG</span><span class="res">검색은 정확했지만 <b>지금 KB 크기에서는 느려짐</b></span></div>
-                <div class="fix-r"><span class="sym">방법</span><span>팀이 만든 고정 평가 세트(가상 고객 시나리오)로 같은 코드, 같은 모델에서 스위치(<code>KB_MODE</code>)만 바꿔 두 번 돌렸습니다. 먼저 LLM만 가짜로 두고 검색 정확도를 싸게 확인하고, 그다음 실제 Claude로 26건을 비교했습니다.</span></div>
-                <div class="fix-r"><span class="sol">결과</span><span>문의 하나 처리 시간 p50이 <b>8.9초 → 10.6초</b>로 늘었고, 늘어난 대부분이 검색(임베딩 왕복) 1.5초였습니다. 접수 에이전트 입력 토큰은 오히려 <b>212 늘었습니다</b>. intent 정확도(0.893)와 채점 통과율(0.731)은 같았습니다.</span></div>
-                <div class="fix-r"><span class="cau">원인</span><span>KB가 채널당 답변 3~6개라 상위 5개를 고르면 <b>거의 전부</b>가 들어갑니다. 그래서 토큰은 못 줄이고 목차와 규칙만 더해졌고, 검색 시간만 순수하게 늘었습니다. RAG는 답변이 수백 개일 때 이득이 나는 구조라는 걸 숫자로 확인했습니다.</span></div>
-                <div class="fix-r"><span class="sym">발견</span><span>답변 6개 중 5개만 뽑히는 채널에서, 근거 답변 하나가 빠지면 에이전트가 "일부만 답할 수 있다"고 보고 사람에게 넘기는 경우가 생겼습니다. 틀린 답장이 나가는 게 아니라 <b>자동 처리될 문의가 사람 일로 넘어가는</b> 쪽이라, 정확도 손실이 아니라 자동화율 손실로 구분해서 기록했습니다.</span></div>
-                <div class="fix-r"><span class="cau">현황</span><span>결과 정확도가 0.839 → 0.774로 떨어진 2건은 검색 누락이 아니라서(Recall@5 1.0), 프롬프트 차이인지 실행마다 생기는 흔들림인지 반복 실행으로 확인하는 중입니다. KB를 키워서 RAG가 이득이 되는 지점을 찾는 게 다음 단계입니다.</span></div>
-              </div>
-            </details>
-            <details class="fold">
-              <summary>트러블슈팅 · 멈추는 테스트, 막힌 리전</summary>
-              <div class="fix" aria-label="트러블슈팅">
-                <div class="fix-h"><span class="lab">TROUBLESHOOTING</span><span class="res">전체 테스트 635개 <b>멈춤 없이 완주</b></span></div>
-                <div class="fix-r"><span class="sym">증상</span><span>전체 테스트가 200개쯤에서 멈춤. 혼자 돌리면 통과하던 Bedrock 시간 초과 테스트였습니다</span></div>
-                <div class="fix-r"><span class="cau">원인</span><span>테스트용 가짜 fetch가 원래 시간 초과 신호가 아니라 <code>new Request()</code>가 만든 복사본 신호를 넘기고 있었습니다. 복사본은 원래 신호를 약하게 참조해서, 메모리 정리(GC) 타이밍에 따라 시간 초과가 전달되지 않을 수 있었습니다</span></div>
-                <div class="fix-r"><span class="sol">해결</span><span>원래 신호를 그대로 넘기고, 이미 시간 초과된 상태로 들어와도 바로 끝나게 바꿨습니다. 팀원이 만든 다른 테스트와 같은 방식입니다</span></div>
-                <div class="fix-r"><span class="sym">증상</span><span>AWS 무료 플랜이라 서울 리전에서 Bedrock을 쓸 수 없었음</span></div>
-                <div class="fix-r"><span class="sol">해결</span><span>시드니에서 교차 리전 추론으로 호출되는 걸 직접 확인하고, 그 조건(요청이 다른 리전에서 처리될 수 있고 시간에 해외 왕복이 포함됨)을 결과표에 같이 적었습니다</span></div>
-              </div>
-            </details>
-            <details>
-              <summary>내가 한 일</summary>
-              <ul>
-                <li><b>기술 선택</b>: 팀원이 벡터 DB나 그래프 DB를 제안했는데, 우리 KB는 FAQ형이라 답변끼리 관계가 거의 없어서 벡터 검색으로 정했습니다. Claude API엔 임베딩 모델이 없어서, 레포가 이미 쓰는 AWS 안에서 해결되는 <b>Bedrock Cohere Embed v4</b>를 골랐고, 저장은 <b>PostgreSQL + pgvector를 KB 벡터 전용</b>으로 두고 운영 데이터는 기존 SQLite를 그대로 썼습니다.</li>
-                <li><b>바꾸는 범위 좁히기</b>: 답장 에이전트는 이미 검색 툴로 필요한 답변만 읽고 있어서, KB 전체를 받는 접수 에이전트만 바꿨습니다. 기본값은 기존과 똑같이 두고 스위치로만 켜지게 해서 다른 팀원 작업에 영향이 없게 했고, 한 곳만 바꿔야 차이가 RAG 때문이라고 말할 수 있었습니다.</li>
-                <li><b>안전장치</b>: 임베딩에는 개인정보를 가린 문의만 보내고, 답장을 검사하는 가드는 계속 KB 전체로 검사합니다. 임베딩이나 DB가 실패하면 그 문의만 기존 방식으로 처리하고 이유를 남깁니다.</li>
-                <li><b>색인 갱신</b>: 답변마다 "제목 + 본문" 해시를 저장해서 바뀐 답변만 다시 임베딩하고, 지워진 답변은 검색에서 빠지게 했습니다. KB 버전이 같으면 문의마다 색인 확인을 건너뛰어서 DB 왕복을 줄였습니다.</li>
-                <li><b>측정 도구</b>: 문의 한 통마다 처리 시간, 토큰, intent · 결과 정확도, Hit@5 · Recall@5를 기록하고 이전 실행과 비교표를 뽑게 했습니다. 결과가 바뀐 문의는 목록으로 따로 나오게 했습니다.</li>
-                <li><b>AWS 권한</b>: 개발용 IAM 사용자는 Cohere 임베딩 호출 하나만 허용하고, 정책 시뮬레이터로 다른 모델이나 서비스는 거부되는지 확인했습니다.</li>
-                <li><b>역할 분담</b>: 단계마다 지시문을 써서 Claude Code가 구현했고, Aside로 바뀐 코드와 금지 파일 변경 여부, AWS 설정을 검토했습니다. 저는 기술 선택, 범위 결정, 팀원 합의(<code>pg</code> 패키지 추가), 테스트와 평가 실행, 커밋과 PR을 했습니다.</li>
-              </ul>
-            </details>
-            <div class="pills">
-              <span class="pill">Node.js</span><span class="pill">RAG</span><span class="pill">Amazon Bedrock</span><span class="pill">Cohere Embed v4</span><span class="pill">PostgreSQL</span><span class="pill">pgvector</span><span class="pill">Docker</span><span class="pill">AWS IAM</span><span class="pill">node:test</span><span class="pill l2">Claude API 에이전트</span><span class="pill l2">Claude Code</span><span class="pill l2">Aside</span>
             </div>
           </div>
         </li>
@@ -714,7 +714,7 @@
       <ol class="tl">
         <li class="now">
           <div class="row"><h3>종합설계1</h3><span class="lead-line"></span><span class="date">2026 · 2학기 · now</span></div>
-          <p>"신규 PMF 검증 - 악성민원 대응"이 주제인 CS 민원 자동화 팀 프로젝트에서 팀장을 맡고, 접수 에이전트의 지식베이스 검색(<b>RAG</b>, P.03)을 만들고 있습니다.</p>
+          <p>"신규 PMF 검증 - 악성민원 대응"이 주제인 CS 민원 자동화 팀 프로젝트에서 팀장을 맡고, 접수 에이전트의 지식베이스 검색(<b>RAG</b>, P.01)을 만들고 있습니다.</p>
         </li>
         <li>
           <div class="row"><h3>아모레퍼시픽 AI INNOVATION CHALLENGE 참가</h3><span class="lead-line"></span><span class="date">2025.12 — 2026.01</span></div>
@@ -730,7 +730,7 @@
         </li>
         <li>
           <div class="row"><h3>데이터베이스시스템</h3><span class="lead-line"></span><span class="date">2023 · 1학기</span></div>
-          <p>ER 모델링, 관계형 모델과 제약조건, 관계대수, ER을 관계 스키마로 옮기는 매핑, 함수적 종속과 정규화를 배웠고, 인덱스, 질의 처리와 최적화, 트랜잭션, 동시성 제어, 회복까지 DBMS 안에서 어떻게 돌아가는지도 다뤘습니다. 실습에서는 Oracle로 COMPANY 스키마 테이블 6개를 기본키, 외래키(자기 참조, 복합키 포함)까지 직접 만들고 데이터를 넣은 다음에 조인, 셀프 조인, UNION, LIKE, BETWEEN, ORDER BY 질의 16개를 짜서 결과를 확인했습니다. 여기서 배운 동시성 제어는 나중에 정산 웹앱(P.02)에서 동시에 입력할 때 갱신 손실을 잠금으로 막는 데 그대로 써먹었습니다.</p>
+          <p>ER 모델링, 관계형 모델과 제약조건, 관계대수, ER을 관계 스키마로 옮기는 매핑, 함수적 종속과 정규화를 배웠고, 인덱스, 질의 처리와 최적화, 트랜잭션, 동시성 제어, 회복까지 DBMS 안에서 어떻게 돌아가는지도 다뤘습니다. 실습에서는 Oracle로 COMPANY 스키마 테이블 6개를 기본키, 외래키(자기 참조, 복합키 포함)까지 직접 만들고 데이터를 넣은 다음에 조인, 셀프 조인, UNION, LIKE, BETWEEN, ORDER BY 질의 16개를 짜서 결과를 확인했습니다. 여기서 배운 동시성 제어는 나중에 정산 웹앱(P.03)에서 동시에 입력할 때 갱신 손실을 잠금으로 막는 데 그대로 써먹었습니다.</p>
         </li>
         <li>
           <div class="row"><h3>자료구조 · 객체지향 프로그래밍</h3><span class="lead-line"></span><span class="date">2022 · 2학기</span></div>

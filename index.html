@@ -53,6 +53,18 @@
   #projects .panel { --p-h: 170px; }
   .proj-facts { margin: 0; display: grid; gap: var(--s-3); }
   .proj-facts > div { display: grid; grid-template-columns: 96px 1fr; gap: var(--s-3); }
+  .panel--rag { height: auto; align-self: stretch; }
+  .panel--rag .csv { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+  .panel--rag table { font-size: 15px; }
+  .panel--rag td:first-child { min-width: 0; }
+  .csv__note { margin: var(--s-4) 0 0; font-size: 14px; line-height: 1.6; color: var(--p-muted); word-break: keep-all; }
+  .rag-flow { list-style: none; margin: var(--s-7) 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s-4); counter-reset: f; }
+  .rag-flow li { position: relative; background: var(--p-surface); border-radius: var(--r-md); padding: var(--s-5) var(--s-5) var(--s-5) var(--s-5); display: grid; gap: 4px; counter-increment: f; }
+  .rag-flow li::before { content: counter(f); font: 500 13px/1 var(--font-text); color: var(--p-accent); margin-bottom: 6px; }
+  .rag-flow li:not(:last-child)::after { content: ""; position: absolute; right: -13px; top: 50%; width: 8px; height: 8px; border-top: 1.5px solid var(--p-muted); border-right: 1.5px solid var(--p-muted); transform: translateY(-50%) rotate(45deg); }
+  .rag-flow b { font-weight: 500; font-size: 16px; word-break: keep-all; }
+  .rag-flow span { font-size: 14px; color: var(--p-muted); }
+  @media (max-width: 1023px) { .rag-flow { grid-template-columns: 1fr 1fr; } .rag-flow li::after { display: none; } }
   .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .proj-facts dt { font: 500 var(--t-small)/1.55 var(--font-text); color: var(--p-accent); }
   .proj-facts dd { margin: 0; font-size: 15px; line-height: 1.55; word-break: keep-all; }
@@ -86,6 +98,7 @@
           <div class="wrap grid">
             <div class="menu-col span-3">
               <p class="t-label">데이터와 백엔드</p>
+              <a href="#current">CS 응대 에이전트 RAG<span>종합설계1 팀장, 진행 중</span></a>
               <a href="#projects">올리브영 리뷰 크롤러<span>공모전 데이터 수집 담당</span></a>
               <a href="#projects">수익 분배 정산 웹앱<span>NestJS, MySQL, AWS 배포</span></a>
             </div>
@@ -129,6 +142,43 @@
         <div class="btn-row"><a class="btn btn--primary" href="mailto:junsang13454@gmail.com">메일 보내기<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="#projects">프로젝트 보기</a></div>
       </div>
     </div></div>
+  </section>
+
+  <section class="section" id="current" aria-labelledby="current-h">
+    <div class="wrap">
+      <h2 id="current-h" class="sr-only">진행 중인 프로젝트</h2>
+      <div class="grid grid--top">
+        <article class="card card--open span-6">
+          <h3>CS 응대 에이전트 · 지식베이스 RAG</h3>
+          <p class="t-small muted card__meta">종합설계1 · 팀장 · 4명 · 2026.09~ 진행 중</p>
+          <dl class="proj-facts"><div><dt>프로젝트 개요</dt><dd>악성 민원 대응을 주제로, 고객 문의 메일을 네 에이전트(접수, 답장, 검수, 인계)가 처리하고 담당자가 승인하는 CS 응대 에이전트입니다.</dd></div><div><dt>맡은 일</dt><dd>팀장으로 진행을 맡으면서, 접수 에이전트가 지식베이스(KB) 전체를 읽던 구조를 문의와 비슷한 답변만 벡터 DB에서 가져오도록 RAG로 바꿨습니다. 같은 평가 세트로 시간, 토큰, 정확도를 비교했고 지금은 KB를 늘리고 있습니다.</dd></div><div><dt>트러블슈팅</dt><dd>전체 테스트가 200개쯤에서 멈췄습니다. 테스트용 가짜 fetch가 원래 시간 초과 신호 대신 new Request()가 만든 복사본을 넘기고 있어서, 원래 신호를 그대로 넘기게 고쳐 635개가 끝까지 돌게 했습니다.</dd></div><div><dt>사용 기술</dt><dd><span class="stack-badges"><span class="badge">Node.js</span> <span class="badge">Amazon Bedrock</span> <span class="badge">Cohere Embed v4</span> <span class="badge">PostgreSQL</span> <span class="badge">pgvector</span> <span class="badge">Docker</span> <span class="badge">AWS IAM</span> <span class="badge">Claude API</span></span></dd></div></dl>
+          <p><a class="link" href="https://wnstkddl.tistory.com/27">개발일지 읽기</a></p>
+        </article>
+        <div class="panel panel--rag span-6">
+          <div class="csv">
+            <p class="csv__file">기존 구조(KB 전체) vs RAG · 실제 LLM, 평가 26건</p>
+            <table>
+              <thead><tr><th>지표</th><th>기존</th><th>RAG</th></tr></thead>
+              <tbody>
+                <tr><td>문의 처리 시간 p50</td><td>8.9초</td><td>10.6초</td></tr>
+                <tr><td>검색이 더한 시간 p50</td><td>-</td><td>1.5초</td></tr>
+                <tr><td>접수 에이전트 입력 토큰</td><td>4,771</td><td>4,983</td></tr>
+                <tr><td>intent 정확도</td><td>0.893</td><td>0.893</td></tr>
+                <tr><td>Recall@5</td><td>-</td><td>1.0</td></tr>
+              </tbody>
+            </table>
+            <p class="csv__note">KB가 채널당 답변 3~6개라 상위 5개가 거의 전부여서, 지금 크기에서는 검색 시간만 늘었습니다. KB를 키워 이득이 나는 지점을 찾는 중입니다.</p>
+          </div>
+        </div>
+      </div>
+      <ol class="rag-flow" aria-label="RAG 처리 흐름">
+        <li><b>KB 답변</b><span>md 파일</span></li>
+        <li><b>바뀐 답변만 임베딩</b><span>Cohere Embed v4</span></li>
+        <li><b>pgvector 저장</b><span>PostgreSQL</span></li>
+        <li><b>문의 임베딩</b><span>개인정보 가린 뒤</span></li>
+        <li><b>상위 5개만 전달</b><span>접수 에이전트</span></li>
+      </ol>
+    </div>
   </section>
 
   <section class="section g2" id="projects" aria-labelledby="projects-h">
@@ -193,16 +243,16 @@
       <div class="grid grid--top">
         <ul class="rows span-6">
           <li><span class="rows__name">언어</span><span class="rows__value">C, C++, Python, JavaScript, Java</span></li>
-          <li><span class="rows__name">백엔드와 DB</span><span class="rows__value">NestJS, TypeORM, MySQL</span></li>
+          <li><span class="rows__name">백엔드와 DB</span><span class="rows__value">NestJS, TypeORM, MySQL, PostgreSQL, pgvector</span></li>
           <li><span class="rows__name">프론트엔드</span><span class="rows__value">React</span></li>
-          <li><span class="rows__name">데이터와 검증</span><span class="rows__value">Selenium, BeautifulSoup, Z3 Solver</span></li>
-          <li><span class="rows__name">배포와 CI</span><span class="rows__value">Docker Compose, AWS EC2, GitHub Actions, Jenkins, SonarQube</span></li>
+          <li><span class="rows__name">데이터와 검색</span><span class="rows__value">Selenium, BeautifulSoup, Z3 Solver, Bedrock 임베딩(RAG)</span></li>
+          <li><span class="rows__name">배포와 CI</span><span class="rows__value">Docker Compose, AWS EC2, AWS IAM, GitHub Actions, Jenkins, SonarQube</span></li>
           <li><span class="rows__name">설계와 협업</span><span class="rows__value">UML, API 명세, Scrum과 칸반, Notion</span></li>
           <li><span class="rows__name">AI 도구</span><span class="rows__value">Claude Code, Aside, Orca, Gemini</span></li>
         </ul>
         <div class="span-5 start-8 stack-4">
           <h3>지금 하는 일</h3>
-          <p>종합설계1에서 CS 민원 자동화 팀 프로젝트의 백엔드 개발을 맡고 있습니다.</p>
+          <p>종합설계1에서 팀장으로 CS 응대 에이전트를 만들고 있고, 접수 에이전트의 RAG를 맡고 있습니다.</p>
           <p>Aside로 매일 오전 8시에 캘린더, 이클래스, 메일을 한 번에 정리해 받습니다. 첫 주에 놓칠 뻔한 마감과 변경 5건을 찾았습니다.</p>
           <h3>들은 전공 과목</h3>
           <p>데이터베이스시스템, 자료구조와실습, 운영체제, 컴퓨터알고리즘과실습, 소프트웨어공학개론, 공개SW프로젝트, 인공지능, 암호학과네트워크보안</p>
@@ -239,7 +289,7 @@
   </section>
 </main>
 
-<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+<footer class="footer closing" id="contact" aria-labelledby="close-h">
   <div class="wrap">
     <div class="closing__cta close--type">
       <div class="section-head">
@@ -254,7 +304,7 @@
           <a class="nav__logo" href="#top"><span class="mark" data-mark="stack" aria-hidden="true"></span>허준상</a>
           <p class="footer__lede">동국대학교 컴퓨터공학전공 4학년, 신입 개발자 자리를 찾고 있습니다.</p>
         </div>
-        <div class="span-3 start-7 footer__col"><h3>프로젝트</h3><ul><li><a href="#projects">프로젝트 네 가지</a></li><li><a href="#check">확인하는 방법</a></li></ul></div>
+        <div class="span-3 start-7 footer__col"><h3>프로젝트</h3><ul><li><a href="#current">CS 응대 에이전트</a></li><li><a href="#projects">이전 프로젝트</a></li><li><a href="#check">확인하는 방법</a></li></ul></div>
         <div class="span-3 footer__col"><h3>기록</h3><ul><li><a href="https://github.com/junnyange">GitHub</a></li><li><a href="https://wnstkddl.tistory.com">개발 블로그</a></li></ul></div>
       </div>
       <div class="footer__legal">

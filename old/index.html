@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>허준상 | Junsang Heo</title>
+<meta name="description" content="동국대학교 컴퓨터공학전공 허준상의 포트폴리오. 프로젝트, 기술 스택, 배운 것과 생각을 정리했습니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#0b1120;
+    --panel:rgba(30,41,59,.45);
+    --text:#cbd5e1;
+    --muted:#8b97ad;
+    --dim:#56627a;
+    --head:#e8edf5;
+    --accent:#5eead4;
+    --accent-2:#93c5fd;
+    --accent-bg:rgba(45,212,191,.10);
+    --line:rgba(148,163,184,.14);
+    --line-2:rgba(148,163,184,.28);
+    --warn:#fcd34d;
+    --ok:#4ade80;
+    --mono:"JetBrains Mono","Pretendard Variable",Pretendard,ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--text);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;word-break:keep-all}
+  ::selection{background:rgba(94,234,212,.3);color:#fff}
+  a{color:inherit;text-decoration:none}
+  code{font-family:var(--mono);font-size:.88em;color:var(--head);background:rgba(148,163,184,.1);padding:1px 6px;border-radius:4px}
+
+  /* background: cursor spotlight + faint grid */
+  .spot{pointer-events:none;position:fixed;inset:0;z-index:0;
+    background:radial-gradient(640px at var(--x,30%) var(--y,20%),rgba(29,78,216,.14),transparent 80%)}
+  .grid-bg{pointer-events:none;position:fixed;inset:0;z-index:0;opacity:.5;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:72px 72px;
+    mask-image:radial-gradient(ellipse 70% 60% at 20% 30%,#000 10%,transparent 70%);
+    -webkit-mask-image:radial-gradient(ellipse 70% 60% at 20% 30%,#000 10%,transparent 70%)}
+
+  .shell{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 48px;display:flex;gap:72px}
+
+  /* ================= LEFT (sticky hero) ================= */
+  .side{position:sticky;top:0;height:100vh;width:45%;display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:80px 0 48px;overflow-y:auto;scrollbar-width:none}
+  .side::-webkit-scrollbar{display:none}
+  .status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.02em;padding:6px 12px 6px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(15,23,42,.6)}
+  .status .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.55)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+
+  .side h1{margin-top:28px;font-size:60px;line-height:1.02;color:var(--head);font-weight:800;letter-spacing:-.045em}
+  .side h1 .en{display:block;margin-top:14px;font-family:var(--mono);font-size:14px;font-weight:500;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+
+  /* statement headline: weight + color contrast */
+  .statement{margin-top:26px;max-width:420px;font-size:23px;line-height:1.5;letter-spacing:-.02em;font-weight:300;color:var(--muted)}
+  .statement strong{font-weight:700;color:var(--head)}
+  .statement .hl{font-weight:700;color:var(--accent);position:relative;white-space:nowrap}
+  .statement .hl:after{content:"";position:absolute;left:0;right:0;bottom:2px;height:6px;background:rgba(94,234,212,.14);border-radius:2px;z-index:-1}
+
+  .langs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:22px}
+  .langs .lk{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-right:4px}
+  .langs span:not(.lk){font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--head);background:var(--accent-bg);border:1px solid rgba(94,234,212,.28);border-radius:999px;padding:2px 11px}
+  .langs.ai{margin-top:10px}
+  .langs.ai .lk{min-width:76px}
+  .langs .lk{min-width:76px}
+  .langs.ai span:not(.lk){color:#c4b5fd;background:rgba(167,139,250,.10);border-color:rgba(167,139,250,.32)}
+  .focus{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .focus span{font-family:var(--mono);font-size:12px;color:var(--text);border:1px solid var(--line-2);border-radius:6px;padding:3px 10px;background:rgba(15,23,42,.5)}
+  .focus span b{color:var(--accent);font-weight:500;margin-right:6px}
+
+  .toc{margin-top:52px;list-style:none}
+  .toc a{display:flex;align-items:center;gap:14px;padding:9px 0;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);transition:color .2s}
+  .toc a .n{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:0;width:18px}
+  .toc a .bar{display:inline-block;height:1px;width:28px;background:var(--dim);transition:all .25s}
+  .toc a:hover,.toc a.on{color:var(--head)}
+  .toc a.on .n{color:var(--accent)}
+  .toc a:hover .bar,.toc a.on .bar{width:64px;background:var(--head)}
+
+  .side-foot{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .social{display:flex;gap:18px;align-items:center}
+  .social a{color:var(--muted);transition:color .15s,transform .15s;display:inline-flex}
+  .social a:hover{color:var(--head);transform:translateY(-2px)}
+  .social svg{width:22px;height:22px}
+  .loc{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+
+  /* ================= RIGHT ================= */
+  main{width:55%;padding:88px 0}
+  section{margin-bottom:120px;scroll-margin-top:72px}
+
+  /* section header row: index / label ---- meta */
+  .sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:28px}
+  .sec-h .idx{font-family:var(--mono);font-size:12px;color:var(--accent)}
+  .sec-h h2{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--head)}
+  .sec-h .rule{flex:1;height:1px;background:var(--line);transform:translateY(-4px)}
+  .sec-h .meta{font-family:var(--mono);font-size:12px;color:var(--dim)}
+
+  .about p{margin-bottom:18px;color:var(--muted);font-size:16.5px}
+  .about p.lead{font-size:20px;line-height:1.6;color:var(--text);letter-spacing:-.015em;font-weight:400}
+  .about p.lead b{color:var(--head);font-weight:700}
+  .about b{color:var(--head);font-weight:600}
+  .about a.lnk{color:var(--head);font-weight:600;border-bottom:1px solid var(--line-2)}
+  .about a.lnk:hover{color:var(--accent);border-color:var(--accent)}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:28px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .facts div{background:var(--bg);padding:16px 18px}
+  .facts .v{font-size:24px;font-weight:800;color:var(--head);letter-spacing:-.03em;line-height:1.2}
+  .facts .k{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-top:4px}
+
+  /* ----- project cards ----- */
+  .cards{list-style:none;display:flex;flex-direction:column;gap:14px}
+  .cards:hover .card{opacity:.55}
+  .cards .card:hover{opacity:1}
+  .card{position:relative;padding:24px 26px 22px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(30,41,59,.35),rgba(15,23,42,.2));transition:opacity .2s,border-color .2s,transform .2s,background .2s}
+  .card:hover{border-color:rgba(94,234,212,.35);background:linear-gradient(180deg,rgba(30,41,59,.6),rgba(15,23,42,.35));transform:translateY(-2px)}
+  .card.feat:before{content:"";position:absolute;left:26px;right:26px;top:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.7}
+  .card .top{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--dim)}
+  .card .top .no{color:var(--accent)}
+  .card .top .sep{width:18px;height:1px;background:var(--line-2)}
+  .card .top .kind{margin-left:auto;color:var(--muted);border:1px solid var(--line-2);border-radius:999px;padding:1px 10px}
+  .card h3{margin-top:12px;font-size:21px;font-weight:700;color:var(--head);line-height:1.35;letter-spacing:-.025em}
+  .card h3 .arr{display:inline-block;margin-left:6px;font-size:15px;color:var(--dim);transition:transform .2s,color .2s}
+  .card:hover h3{color:var(--accent)}
+  .card:hover h3 .arr{transform:translate(3px,-3px);color:var(--accent)}
+  .card .sub{font-size:14px;color:var(--muted);margin-top:4px}
+  .card .role{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+  .card .role span:before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent-2);margin-right:7px;vertical-align:2px}
+  .card .role b{color:var(--text);font-weight:600}
+  .card p.d{margin-top:12px;font-size:14.8px;color:var(--muted)}
+  .card ul{margin:12px 0 0;list-style:none}
+  .card ul li{position:relative;padding-left:18px;font-size:14.5px;color:var(--muted);margin-bottom:7px}
+  .card ul li:before{content:"";position:absolute;left:2px;top:11px;width:7px;height:1px;background:var(--accent)}
+  .card ul li b{color:var(--text);font-weight:600}
+  .stretch{position:absolute;inset:0;z-index:0;border-radius:12px}
+  .card .body{position:relative;z-index:1;pointer-events:none}
+  .card .body details,.card .body a{pointer-events:auto}
+  .card .body a.in{color:var(--text);border-bottom:1px solid var(--line-2)}
+  .card .body a.in:hover{color:var(--accent);border-color:var(--accent)}
+
+  details{margin-top:14px}
+  summary{cursor:pointer;font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--accent);list-style:none;display:inline-flex;align-items:center;gap:8px;user-select:none}
+  summary::-webkit-details-marker{display:none}
+  summary:before{content:"+";display:inline-grid;place-items:center;width:16px;height:16px;border:1px solid rgba(94,234,212,.5);border-radius:4px;font-size:12px;line-height:1;transition:transform .2s}
+  details[open] summary:before{content:"−"}
+  .metric{margin-top:14px;font-size:13.5px;color:var(--text);background:rgba(94,234,212,.06);border:1px solid rgba(94,234,212,.18);padding:10px 14px;border-radius:8px}
+  .metric .lab{font-family:var(--mono);font-size:11px;color:var(--accent);display:block;margin-bottom:2px}
+
+  .hl2{color:var(--head);font-weight:600}
+  .sec-intro{color:var(--muted);font-size:15px;margin:-8px 0 22px}
+  .sec-intro b{color:var(--head);font-weight:600}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 6px;margin-top:14px;font-size:12.5px}
+  .flow .fl-lab{font-family:var(--mono);font-size:11px;color:var(--accent);width:36px;flex:none}
+  .flow .st{color:var(--text);background:rgba(148,163,184,.08);border:1px solid var(--line);border-radius:6px;padding:2px 9px;line-height:1.6;white-space:nowrap}
+  .flow .st em{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-left:4px}
+  .flow .st.on{color:var(--accent);border-color:rgba(94,234,212,.4);background:var(--accent-bg)}
+  .flow i{font-style:normal;color:var(--dim);font-size:11px}
+  .req{margin-top:16px;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+  .req-h,.req-r{display:grid;grid-template-columns:42% 58%}
+  .req-h span{font-family:var(--mono);font-size:11px;color:var(--accent);padding:8px 14px;background:rgba(94,234,212,.06)}
+  .req-r span{padding:10px 14px;border-top:1px solid var(--line);color:var(--muted);line-height:1.6}
+  .req-r span:first-child{color:var(--text)}
+  .req-r span:first-child b{display:block;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--accent-2);margin-bottom:2px}
+  .req-r span:last-child{border-left:1px solid var(--line)}
+  .fix{margin-top:16px;border:1px solid rgba(252,211,77,.22);border-radius:10px;overflow:hidden;font-size:13.5px;background:rgba(252,211,77,.03)}
+  .fix-h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;padding:9px 14px;background:rgba(252,211,77,.06);border-bottom:1px solid rgba(252,211,77,.16)}
+  .fix-h .lab{font-family:var(--mono);font-size:11px;color:var(--warn)}
+  .fix-h .res{font-size:12.5px;color:var(--muted)}
+  .fix-h .res b{color:var(--head)}
+  .fix-r{display:grid;grid-template-columns:52px 1fr;gap:10px;padding:8px 14px;color:var(--muted);line-height:1.6}
+  .fix-r + .fix-r{border-top:1px dashed var(--line)}
+  .fix-r > span:first-child{font-size:11.5px;font-weight:700;padding-top:1px}
+  .fix-r .sym{color:#fca5a5}.fix-r .cau{color:var(--warn)}.fix-r .sol{color:var(--accent)}
+  .fix-r b{color:var(--text)}
+  details.fold{margin-top:14px}
+  details.fold + details{margin-top:10px}
+  details.fold .fix{margin-top:12px}
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+  .nums div{border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:rgba(15,23,42,.35)}
+  .nums b{display:block;font-size:22px;font-weight:800;color:var(--head);letter-spacing:-.03em;line-height:1.2}
+  .nums span{font-size:12px;color:var(--dim)}
+  .metric b{color:var(--head)}
+  .pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .pill{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--accent);background:var(--accent-bg);padding:3px 10px;border-radius:6px;line-height:1.6}
+  .pill.l2{color:#a5b4c8;background:rgba(148,163,184,.10)}
+  .pill.l3{color:var(--warn);background:rgba(252,211,77,.09)}
+
+  .more{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:14px;font-weight:600;color:var(--head);border-bottom:1px solid var(--line-2);padding-bottom:2px}
+  .more:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* ----- skills ----- */
+  .skill-row{display:grid;grid-template-columns:110px 1fr;gap:20px;padding:16px 0;border-bottom:1px dashed var(--line)}
+  .skill-row:last-of-type{border-bottom:none}
+  .skill-row .k{font-family:var(--mono);font-size:12px;color:var(--dim);padding-top:3px}
+  .skill-row .pills{margin-top:0}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px;font-size:12.5px;color:var(--dim)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:8px;height:8px;border-radius:2px;display:inline-block}
+
+  /* ----- learning: leader-line timeline ----- */
+  .tl{list-style:none}
+  .tl li{padding:16px 0;border-bottom:1px solid var(--line)}
+  .tl li:last-child{border-bottom:none}
+  .tl .row{display:flex;align-items:center;gap:14px}
+  .tl h3{font-size:16px;font-weight:600;color:var(--head);letter-spacing:-.01em}
+  .tl .lead-line{flex:1;min-width:24px;border-bottom:1px dotted var(--line-2);transform:translateY(-3px)}
+  .tl .date{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line-2);border-radius:999px;padding:1px 10px;white-space:nowrap}
+  .tl li.now .date{color:var(--accent);border-color:rgba(94,234,212,.45)}
+  .tl li.now .date:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:7px;vertical-align:1px}
+  .tl p{margin-top:6px;font-size:14.5px;color:var(--muted);max-width:560px}
+  .tl p a.in{color:var(--text);border-bottom:1px solid var(--line-2)}
+
+  /* ----- thoughts ----- */
+  .beliefs{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px;counter-reset:b}
+  .beliefs li{counter-increment:b;padding:22px 22px 20px;border:1px solid var(--line);border-radius:12px;background:rgba(15,23,42,.35);transition:border-color .2s}
+  .beliefs li:hover{border-color:var(--line-2)}
+  .beliefs li:before{content:counter(b,decimal-leading-zero);display:block;font-family:var(--mono);font-size:28px;font-weight:500;color:transparent;-webkit-text-stroke:1px rgba(94,234,212,.6);line-height:1;margin-bottom:14px}
+  .beliefs h3{font-size:16px;color:var(--head);font-weight:700;line-height:1.45;letter-spacing:-.015em}
+  .beliefs p{font-size:14px;color:var(--muted);margin-top:8px}
+
+  .todo{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--warn);border:1px dashed rgba(252,211,77,.5);border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:2px;letter-spacing:0;white-space:nowrap}
+  .todo-block{margin-top:10px;font-size:13px;color:var(--warn);opacity:.85}
+
+  /* ----- contact ----- */
+  .contact .big{font-size:40px;line-height:1.2;font-weight:800;letter-spacing:-.04em;color:var(--head)}
+  .contact .big span{font-weight:300;color:var(--muted)}
+  .contact p{margin-top:14px;color:var(--muted)}
+  .mail{display:inline-flex;align-items:center;gap:12px;margin-top:26px;padding:14px 22px;border:1px solid var(--accent);border-radius:10px;color:var(--accent);font-family:var(--mono);font-weight:500;font-size:14.5px;transition:background .15s,transform .15s}
+  .mail:hover{background:var(--accent-bg);transform:translateY(-2px)}
+  .mail .go{transition:transform .15s}
+  .mail:hover .go{transform:translateX(3px)}
+  footer{margin-top:80px;padding-top:20px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--dim);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  /* labels that contain Korean: use sans so spacing stays tight */
+  .status,.todo,.facts .k,summary,.tl .date,.card .top .kind,.side h1 .en .ko{font-family:inherit;letter-spacing:0;font-variant-numeric:tabular-nums}
+  .status{font-size:12.5px}
+  summary{font-size:13px;font-weight:600}
+
+  /* shorter laptop screens: tighten the sticky column so the nav never touches the footer icons */
+  @media (min-width:1025px) and (max-height:960px){
+    .side{padding:56px 0 36px}
+    .side h1{margin-top:20px;font-size:54px}
+    .side h1 .en{margin-top:10px}
+    .statement{margin-top:18px;font-size:21px}
+    .langs{margin-top:16px}
+    .langs.ai{margin-top:8px}
+    .focus{margin-top:10px;gap:6px}
+    .toc{margin-top:28px}
+    .toc a{padding:6px 0}
+  }
+
+  /* ================= responsive ================= */
+  @media (max-width:1024px){
+    .shell{display:block;padding:0 24px}
+    .side{position:relative;height:auto;width:100%;padding:64px 0 36px}
+    .toc{display:none}
+    .side-foot{margin-top:32px}
+    main{width:100%;padding:16px 0 64px}
+    section{margin-bottom:88px}
+    .sec-h{position:sticky;top:0;z-index:5;margin:0 -24px 20px;padding:14px 24px;background:rgba(11,17,32,.85);backdrop-filter:blur(8px)}
+    .cards:hover .card{opacity:1}
+  }
+  @media (max-width:640px){
+    .side h1{font-size:46px}
+    .statement{font-size:20px}
+    .facts{grid-template-columns:1fr 1fr 1fr}
+    .facts .v{font-size:20px}
+    .facts div{padding:14px 12px}
+    .facts .k{font-size:11.5px;line-height:1.4}
+    .card{padding:20px 18px}
+    .card.feat:before{left:18px;right:18px}
+    .card .top .kind{display:none}
+    .flow .fl-lab{width:100%}
+    .req-h{display:none}
+    .req-r{grid-template-columns:1fr}
+    .req-r span:last-child{border-left:none;border-top:1px dashed var(--line)}
+    .nums b{font-size:18px}
+    .skill-row{grid-template-columns:1fr;gap:8px}
+    .beliefs{grid-template-columns:1fr}
+    .tl .row{flex-wrap:wrap;gap:6px 10px}
+    .tl .lead-line{display:none}
+    .contact .big{font-size:30px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="spot" id="spot"></div>
+
+<div class="shell">
+
+  <!-- ===== LEFT ===== -->
+  <header class="side">
+    <div>
+      <div class="status"><span class="dot"></span>신입 개발자 포지션 찾는 중</div>
+      <h1>허준상<span class="en">Junsang Heo</span></h1>
+      <p class="statement">데이터를 쓸 수 있게 <span class="hl">가공</span>하고 <span class="hl">자동화</span>한 뒤, 그 결과가 맞는지 <strong>기준을 세워 확인하는 개발자</strong>가 되고 싶습니다.</p>
+      <div class="langs"><span class="lk">Languages</span><span>C</span><span>C++</span><span>Python</span><span>JavaScript</span><span>Java</span></div>
+      <div class="langs ai"><span class="lk">AI Tools</span><span>Claude Code</span><span>Aside</span><span>Orca</span><span>Gemini</span></div>
+      <div class="focus">
+        <span><b>FE</b>React</span>
+        <span><b>BE</b>NestJS · TypeORM · MySQL · PostgreSQL</span>
+        <span><b>SERVER</b>AWS EC2 · Docker Compose · Caddy</span>
+        <span><b>QA</b>Z3 Solver</span>
+        <span><b>CI</b>GitHub Actions · Jenkins · SonarQube</span>
+        <span><b>DATA</b>Selenium · BeautifulSoup</span>
+        <span><b>RAG</b>Bedrock Cohere 임베딩 · pgvector</span>
+      </div>
+      <nav>
+        <ul class="toc">
+          <li><a href="#about"><span class="n">01</span><span class="bar"></span>About</a></li>
+          <li><a href="#projects"><span class="n">02</span><span class="bar"></span>Projects</a></li>
+          <li><a href="#automation"><span class="n">03</span><span class="bar"></span>AI Automation</a></li>
+          <li><a href="#skills"><span class="n">04</span><span class="bar"></span>Skills</a></li>
+          <li><a href="#learning"><span class="n">05</span><span class="bar"></span>Learning</a></li>
+          <li><a href="#thoughts"><span class="n">06</span><span class="bar"></span>Thoughts</a></li>
+          <li><a href="#contact"><span class="n">07</span><span class="bar"></span>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="side-foot">
+      <div class="social">
+        <a href="https://github.com/junnyange" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+        </a>
+        <a href="https://wnstkddl.tistory.com" target="_blank" rel="noopener" aria-label="Tech Blog" title="Tech Blog (Tistory)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M12 8v9"/></svg>
+        </a>
+        <a href="mailto:junsang13454@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        </a>
+      </div>
+      <span class="loc">Seoul, KR · DGU CSE</span>
+    </div>
+  </header>
+
+  <!-- ===== RIGHT ===== -->
+  <main>
+
+    <section id="about" class="about">
+      <div class="sec-h"><span class="idx">01</span><h2>About</h2><span class="rule"></span><span class="meta">DGU · CSE 4학년</span></div>
+      <p>동국대학교 <b>컴퓨터공학전공 4학년</b>입니다. 지금은 종합설계1 팀장으로 CS 응대 에이전트를 만들고 있고, 지식베이스 전체를 읽던 구조를 <b>벡터 DB에서 유사한 답변만 가져오는 RAG</b>로 바꾼 뒤 기존 구조와 시간, 토큰, 정확도를 비교했습니다.</p>
+      <p>그 전에는 멈추던 크롤러를 고쳐 <b>끝까지 수집</b>하게 만들었고, 디스코드로 하던 게임 정산을 <b>NestJS + MySQL 웹앱으로 만들어 AWS에 배포</b>했습니다.</p>
+      <p>데이터를 모으고 가공해 자동화하는 백엔드 작업과, 그 결과가 맞는지 <b>기준을 세워 검증</b>하는 일(평가 지표 측정, Z3 Solver, CI)을 할 수 있습니다. AI 도구를 쓸 때도 기대 결과를 먼저 정하고 직접 교차 검증합니다. 과정은 <a class="lnk" href="https://wnstkddl.tistory.com" target="_blank" rel="noopener">기술 블로그</a>에 정리하고 있습니다.</p>
+      <div class="facts">
+        <div><div class="v">24 → 92</div><div class="k">크롤러 수집 제품 (전체 완주)</div></div>
+        <div><div class="v">45 → 0</div><div class="k">동시 수정 손실 (50건 중)</div></div>
+        <div><div class="v">15/15</div><div class="k">이식 후 정산액 1원 단위 일치</div></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="sec-h"><span class="idx">02</span><h2>Selected Projects</h2><span class="rule"></span><span class="meta">2022 — 2026</span></div>
+      <ol class="cards">
+        <li class="card feat">
+          <a class="stretch" href="https://github.com/CSID-DGU/2026-2-CECD1-1-CSE-03" target="_blank" rel="noopener" aria-label="CS 응대 에이전트 GitHub"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.01</span><span class="sep"></span><span>2026.09 — 진행 중</span><span class="kind">종합설계1 · 팀장 · 4명</span></div>
+            <h3>CS 응대 에이전트 · 지식베이스 RAG<span class="arr">↗</span></h3>
+            <div class="sub">고객 문의 메일을 네 에이전트(접수 · 답장 · 검수 · 인계)가 처리하고 담당자가 백오피스에서 승인하는 CS 응대 에이전트 · 이 중 접수 에이전트의 지식베이스 검색(RAG)을 맡음</div>
+            <div class="role"><span><b>Backend</b></span><span><b>RAG</b></span><span>임베딩 · 벡터 DB</span><span>시간 · 정확도 측정</span><span>AWS IAM</span><span>AI 교차 검증</span></div>
+            <p class="d">악성 민원 대응을 주제로 고객 문의 메일을 자동으로 응대하는 에이전트를 팀으로 만들고 있습니다. 저는 팀장으로 진행을 맡으면서, 접수 에이전트가 문의가 올 때마다 지식베이스(KB) 전체를 읽던 구조에서 <b class="hl2">문의와 유사한 답변만 벡터 데이터베이스에서 가져오도록 RAG 작업</b>을 했습니다. 같은 평가 세트로 기존 구조와 시간, 토큰, 정확도를 비교했고, 지금은 <b class="hl2">KB를 늘리는 작업</b>을 하고 있습니다.</p>
+
+            <div class="flow" aria-label="RAG 흐름">
+              <span class="fl-lab">RAG</span>
+              <span class="st">KB 답변 <em>md</em></span><i>→</i><span class="st">바뀐 답변만 임베딩 <em>Cohere</em></span><i>→</i><span class="st">pgvector 저장</span><i>→</i><span class="st">문의 임베딩 <em>개인정보 가림</em></span><i>→</i><span class="st on">상위 5개만 접수 에이전트에</span>
+            </div>
+            <div class="flow" aria-label="진행 순서">
+              <span class="fl-lab">진행</span>
+              <span class="st">측정 도구</span><i>→</i><span class="st">RAG 모드 <em>mock</em></span><i>→</i><span class="st">pgvector</span><i>→</i><span class="st">Bedrock 연결</span><i>→</i><span class="st">기존 구조와 비교</span><i>→</i><span class="st on">PR 머지 <em>11/13</em></span>
+            </div>
+
+            <div class="nums">
+              <div><b>1.0</b><span>Recall@5 (실제 LLM 평가)</span></div>
+              <div><b>+1.5초</b><span>검색이 더한 시간 (p50)</span></div>
+              <div><b>0 / 153</b><span>검색 실패로 기존 방식 전환</span></div>
+            </div>
+
+            <details class="fold">
+              <summary>측정 결과 · 작은 KB에서 RAG가 손해였던 이유</summary>
+              <div class="fix" aria-label="측정 결과">
+                <div class="fix-h"><span class="lab">MEASUREMENT · 기존 구조 vs RAG</span><span class="res">검색은 정확했지만 <b>지금 KB 크기에서는 느려짐</b></span></div>
+                <div class="fix-r"><span class="sym">방법</span><span>팀이 만든 고정 평가 세트(가상 고객 시나리오)로 같은 코드, 같은 모델에서 스위치(<code>KB_MODE</code>)만 바꿔 두 번 돌렸습니다. 먼저 LLM만 가짜로 두고 검색 정확도를 싸게 확인하고, 그다음 실제 Claude로 26건을 비교했습니다.</span></div>
+                <div class="fix-r"><span class="sol">결과</span><span>문의 하나 처리 시간 p50이 <b>8.9초 → 10.6초</b>로 늘었고, 늘어난 대부분이 검색(임베딩 왕복) 1.5초였습니다. 접수 에이전트 입력 토큰은 오히려 <b>212 늘었습니다</b>. intent 정확도(0.893)와 채점 통과율(0.731)은 같았습니다.</span></div>
+                <div class="fix-r"><span class="cau">원인</span><span>KB가 채널당 답변 3~6개라 상위 5개를 고르면 <b>거의 전부</b>가 들어갑니다. 그래서 토큰은 못 줄이고 목차와 규칙만 더해졌고, 검색 시간만 순수하게 늘었습니다. RAG는 답변이 수백 개일 때 이득이 나는 구조라는 걸 숫자로 확인했습니다.</span></div>
+                <div class="fix-r"><span class="sym">발견</span><span>답변 6개 중 5개만 뽑히는 채널에서, 근거 답변 하나가 빠지면 에이전트가 "일부만 답할 수 있다"고 보고 사람에게 넘기는 경우가 생겼습니다. 틀린 답장이 나가는 게 아니라 <b>자동 처리될 문의가 사람 일로 넘어가는</b> 쪽이라, 정확도 손실이 아니라 자동화율 손실로 구분해서 기록했습니다.</span></div>
+                <div class="fix-r"><span class="cau">현황</span><span>결과 정확도가 0.839 → 0.774로 떨어진 2건은 검색 누락이 아니라서(Recall@5 1.0), 프롬프트 차이인지 실행마다 생기는 흔들림인지 반복 실행으로 확인하는 중입니다. KB를 키워서 RAG가 이득이 되는 지점을 찾는 게 다음 단계입니다.</span></div>
+              </div>
+            </details>
+            <details class="fold">
+              <summary>트러블슈팅 · 멈추는 테스트, 막힌 리전</summary>
+              <div class="fix" aria-label="트러블슈팅">
+                <div class="fix-h"><span class="lab">TROUBLESHOOTING</span><span class="res">전체 테스트 635개 <b>멈춤 없이 완주</b></span></div>
+                <div class="fix-r"><span class="sym">증상</span><span>전체 테스트가 200개쯤에서 멈춤. 혼자 돌리면 통과하던 Bedrock 시간 초과 테스트였습니다</span></div>
+                <div class="fix-r"><span class="cau">원인</span><span>테스트용 가짜 fetch가 원래 시간 초과 신호가 아니라 <code>new Request()</code>가 만든 복사본 신호를 넘기고 있었습니다. 복사본은 원래 신호를 약하게 참조해서, 메모리 정리(GC) 타이밍에 따라 시간 초과가 전달되지 않을 수 있었습니다</span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>원래 신호를 그대로 넘기고, 이미 시간 초과된 상태로 들어와도 바로 끝나게 바꿨습니다. 팀원이 만든 다른 테스트와 같은 방식입니다</span></div>
+                <div class="fix-r"><span class="sym">증상</span><span>AWS 무료 플랜이라 서울 리전에서 Bedrock을 쓸 수 없었음</span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>시드니에서 교차 리전 추론으로 호출되는 걸 직접 확인하고, 그 조건(요청이 다른 리전에서 처리될 수 있고 시간에 해외 왕복이 포함됨)을 결과표에 같이 적었습니다</span></div>
+              </div>
+            </details>
+            <details>
+              <summary>내가 한 일</summary>
+              <ul>
+                <li><b>기술 선택</b>: 팀원이 벡터 DB나 그래프 DB를 제안했는데, 우리 KB는 FAQ형이라 답변끼리 관계가 거의 없어서 벡터 검색으로 정했습니다. Claude API엔 임베딩 모델이 없어서, 레포가 이미 쓰는 AWS 안에서 해결되는 <b>Bedrock Cohere Embed v4</b>를 골랐고, 저장은 <b>PostgreSQL + pgvector를 KB 벡터 전용</b>으로 두고 운영 데이터는 기존 SQLite를 그대로 썼습니다.</li>
+                <li><b>바꾸는 범위 좁히기</b>: 답장 에이전트는 이미 검색 툴로 필요한 답변만 읽고 있어서, KB 전체를 받는 접수 에이전트만 바꿨습니다. 기본값은 기존과 똑같이 두고 스위치로만 켜지게 해서 다른 팀원 작업에 영향이 없게 했고, 한 곳만 바꿔야 차이가 RAG 때문이라고 말할 수 있었습니다.</li>
+                <li><b>안전장치</b>: 임베딩에는 개인정보를 가린 문의만 보내고, 답장을 검사하는 가드는 계속 KB 전체로 검사합니다. 임베딩이나 DB가 실패하면 그 문의만 기존 방식으로 처리하고 이유를 남깁니다.</li>
+                <li><b>색인 갱신</b>: 답변마다 "제목 + 본문" 해시를 저장해서 바뀐 답변만 다시 임베딩하고, 지워진 답변은 검색에서 빠지게 했습니다. KB 버전이 같으면 문의마다 색인 확인을 건너뛰어서 DB 왕복을 줄였습니다.</li>
+                <li><b>측정 도구</b>: 문의 한 통마다 처리 시간, 토큰, intent · 결과 정확도, Hit@5 · Recall@5를 기록하고 이전 실행과 비교표를 뽑게 했습니다. 결과가 바뀐 문의는 목록으로 따로 나오게 했습니다.</li>
+                <li><b>AWS 권한</b>: 개발용 IAM 사용자는 Cohere 임베딩 호출 하나만 허용하고, 정책 시뮬레이터로 다른 모델이나 서비스는 거부되는지 확인했습니다.</li>
+                <li><b>역할 분담</b>: 단계마다 지시문을 써서 Claude Code가 구현했고, Aside로 바뀐 코드와 금지 파일 변경 여부, AWS 설정을 검토했습니다. 저는 기술 선택, 범위 결정, 팀원 합의(<code>pg</code> 패키지 추가), 테스트와 평가 실행, 커밋과 PR을 했습니다.</li>
+              </ul>
+            </details>
+            <div class="pills">
+              <span class="pill">Node.js</span><span class="pill">RAG</span><span class="pill">Amazon Bedrock</span><span class="pill">Cohere Embed v4</span><span class="pill">PostgreSQL</span><span class="pill">pgvector</span><span class="pill">Docker</span><span class="pill">AWS IAM</span><span class="pill">node:test</span><span class="pill l2">Claude API 에이전트</span><span class="pill l2">Claude Code</span><span class="pill l2">Aside</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="card feat">
+          <a class="stretch" href="https://github.com/junnyange/oliveyoung-Global-K-Beauty-Scrapper" target="_blank" rel="noopener" aria-label="K-Beauty Scraper GitHub"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.02</span><span class="sep"></span><span>2025.12 — 2026.01</span><span class="kind">공모전 팀 · 데이터 수집 담당</span></div>
+            <h3>Olive Young Global K-Beauty Scraper<span class="arr">↗</span></h3>
+            <div class="sub">아모레퍼시픽 AI INNOVATION CHALLENGE 참가 · K-Beauty 리테일 인사이트 분석용 데이터 수집</div>
+            <div class="role"><span><b>Data Provider</b></span><span>요구사항 반영</span><span>크롤러 장애 대응</span><span>Selenium · BeautifulSoup</span></div>
+            <p class="d">리뷰로 K-Beauty 트렌드를 분석하는 AI Agent 팀이었고, 저는 <b class="hl2">다른 팀원들이 쓸 데이터를 그 사람이 원하는 형태로 맞춰서 넘기는 역할</b>이었습니다. 리뷰 특징을 뽑는 분석 담당과 데이터를 적재하는 인프라 담당한테 요청이 올 때마다 컬럼, 수집 범위, 품질 기준을 고쳐서 다시 넘겼습니다.</p>
+
+
+            <div class="req" aria-label="요청과 반영">
+              <div class="req-h"><span>받은 요청</span><span>데이터에 반영한 것</span></div>
+              <div class="req-r"><span><b>분석 담당</b> 피부 타입과 고민별로 리뷰 특징을 뽑고 싶다</span><span>피부 정보가 한 칸에 다 뭉쳐 있어서 톤 / 타입 / 고민으로 나눠 다시 보냈고, 최종본에서는 분석 입력 형식에 맞게 <code>skin_type</code>, <code>skin_concern</code>으로 정리함</span></div>
+              <div class="req-r"><span><b>분석 담당</b> 성분은 데이터에 있을 때만 쓰고 추론하지 않는다</span><span>제품 상세에 있는 성분 팝업까지 열어서 <code>ingredients</code> 컬럼을 새로 수집함 (92개 중 87개 확보)</span></div>
+              <div class="req-r"><span><b>인프라 담당</b> 목표 데이터 양을 늘려달라</span><span>제품당 리뷰 상한을 30에서 100으로 올려서 2,760개에서 9,069개로 늘림. 추가로 수집할 곳으로 6개 플랫폼도 수집 가능한지 같이 검토해봄</span></div>
+              <div class="req-r"><span><b>인프라 담당</b> CSV 형식 표준화, 중복 제거, UTF-8</span><span>아마존 데이터와 컬럼 이름을 맞추고 <code>source</code> 컬럼으로 어디서 온 데이터인지 구분했습니다. 중복은 리뷰 앞 50자 + 작성일 조합으로 걸렀고, 엑셀로 열어도 안 깨지게 UTF-8(BOM)로 저장</span></div>
+            </div>
+
+
+            <div class="nums" style="grid-template-columns:repeat(2,1fr)">
+              <div><b>92</b><span>제품 (검색 결과 전체)</span></div>
+              <div><b>9,069</b><span>리뷰 (최종 전달본)</span></div>
+            </div>
+
+            <details class="fold">
+              <summary>트러블슈팅 · 멈춘 크롤러 고치기</summary>
+              <div class="fix" aria-label="멈춘 크롤러 고치기">
+                <div class="fix-h"><span class="lab">TROUBLESHOOTING · 멈춘 크롤러 고치기</span><span class="res">24개에서 멈추던 수집 → <b>92개 제품 전체 완주</b></span></div>
+                <div class="fix-r"><span class="sym">증상</span><span>제품 목록이 첫 화면 <b>24개에서 더 안 넘어감</b> (93개 중 24개만 수집됨)</span></div>
+                <div class="fix-r"><span class="cau">원인</span><span>목록이 번호 페이지가 아니라 'More' 버튼을 누르면 아래에 붙는 구조였는데, 버튼 글자(More (1/4) → (2/4))랑 위치가 계속 바뀌어서 고정 선택자로는 클릭이 안 됨</span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>버튼을 화면 가운데로 스크롤해서 JS로 클릭하게 바꿨습니다. 그리고 버튼 글자에 있는 숫자(1/4, 2/4)를 정규식으로 읽어서 마지막 페이지면 반복을 끝내고, 클릭하고 나면 로딩을 기다리고, 이미 본 항목은 건너뛰게 해주었습니다.</span></div>
+                <div class="fix-r"><span class="sym">증상</span><span>피부 정보가 없는 리뷰가 나오면 <b>NoneType 오류가 나면서 수집이 끊김</b></span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>리뷰마다 일단 <code>N/A</code>로 채워놓고, 피부 정보 영역과 <code>dt</code> / <code>dd</code>가 있을 때만 읽도록 파싱을 바꿨습니다. 최종 9,069개 중에 6,479개가 피부 정보가 없는 리뷰였는데(절반이 훨씬 넘음) 이것들도 안 끊기고 다 저장되었습니다.</span></div>
+                <div class="fix-r"><span class="sym">증상</span><span>성분 팝업이 열린 채로 남아 있으면 <b>다음 스크롤이랑 More 클릭이 가려져서 진행이 막힘</b></span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>닫기 버튼을 클래스 선택자로 먼저 찾고, 안 되면 버튼 글자로 다시 찾아서 JS로 닫게 했습니다. 성분 표가 없는 제품은 <code>N/A</code>로 두고 그냥 넘어갑니다.</span></div>
+                <div class="fix-r"><span class="sol">대비</span><span>92개 제품을 다 도는 데 시간이 꽤 걸리는데, 한 건 때문에 전체가 죽어버리면 곤란해서 제품 단위로 예외를 따로 잡고 <b>10개마다 자동 저장</b>하게 했습니다. 중간에 직접 멈추거나 예상 못한 오류가 나도 그때까지 모은 건 저장하고 끝납니다.</span></div>
+              </div>
+            </details>
+            <details>
+              <summary>수집 과정에서 한 일</summary>
+              <ul>
+                <li><b>데이터 소싱 판단</b>: 쿠팡, 레딧, X, 인스타그램, 아마존, 틱톡을 robots.txt, 공식 API, 차단 리스크 기준으로 표를 만들어 비교했습니다. 그중에서 리뷰를 합법적으로 모을 수 있는 경로를 골랐고, 이용약관 지키기, 개인정보 비식별화, 출처 명시 같은 원칙도 팀에 공유했습니다.</li>
+                <li><b>robots.txt 판별 오류 해결</b>: <code>Disallow: /delivery</code>라고 되어 있는데도 <code>RobotFileParser.can_fetch</code>가 계속 True를 반환했습니다. 이게 왜 True가 나오지? 싶어서 원인을 찾아보니 위에 있는 <code>Allow: /</code>가 먼저 적용되는 게 문제였습니다. 그래서 파싱 직후에 이 규칙만 빼도록 보정해서 금지 경로는 수집 안 하고 건너뛰게 했습니다.</li>
+                <li><b>값 가공</b>: 별점이 반쪽 별 아이콘 조합으로 표시돼서, 채워진 조각 수 × 0.125로 계산해 5점 만점 숫자로 바꿔주었습니다. 첫 버전 넘길 때는 리뷰에 많이 나온 키워드(블랙헤드, 건성)도 같이 공유했습니다.</li>
+              </ul>
+            </details>
+            <div class="pills">
+              <span class="pill">Python</span><span class="pill">Selenium</span><span class="pill">BeautifulSoup</span><span class="pill">urllib.robotparser</span><span class="pill l2">CSV 스키마 설계</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="card feat">
+          <a class="stretch" href="https://github.com/junnyange/profit-split-api" target="_blank" rel="noopener" aria-label="주간 수익 정산 GitHub"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.03</span><span class="sep"></span><span>2026.10 — 운영 중</span><span class="kind">타이쿤 게임 · 실사용 5명</span></div>
+            <h3>주간 수익 분배 정산 웹앱</h3>
+            <div class="sub">같이 하는 타이쿤 게임에서 주간 수익·지출을 5명이 입력하고 관리하는 웹앱 · 처음엔 Apps Script + 구글 시트로 돌리다가 NestJS + MySQL + React로 옮겨서 AWS EC2에 배포</div>
+            <div class="role"><span><b>Backend</b></span><span><b>Data Management</b></span><span>동시성 제어</span><span>데이터 모델링</span><span>DB 마이그레이션</span><span>AWS 배포</span><span>AI 교차 검증</span></div>
+            <p class="d">5명이 같이 하는 타이쿤 게임에서 매주 나오는 수익을 기여도대로 나눠왔습니다. 그런데 각자 원자재 생산 금액, 판매 전후 금액, 공동 지출 내역을 디스코드 대화로 주고받고 그걸 매번 모아서 계산하는 식이었습니다. 메시지에 숫자가 흩어져 있으니 다시 찾기도 힘들고 지난주와 비교하기도 어려웠습니다. 그래서 이 <b class="hl2">데이터를 한곳에 모아서 주차별로 쌓고, 확정하고, 누가 얼마를 돌려받아야 하는지까지 추적하는 데이터 관리 웹앱</b>을 만들었습니다. AI 에이전트(Aside)와 같이 요구사항을 쪼개서 구현하였고, 실제로 쓰면서 나온 요청들로 버전을 계속 올렸습니다. 그 후에 백엔드랑 배포를 직접 해보고 싶어서 같은 기능을 <b class="hl2">NestJS + MySQL + React로 다시 만들고 Docker Compose로 AWS EC2에 배포</b>했습니다.</p>
+
+            <div class="flow" aria-label="데이터 생애주기">
+              <span class="fl-lab">데이터</span>
+              <span class="st">디스코드 메시지 <em>이전</em></span><i>→</i><span class="st">5명 각자 입력</span><i>→</i><span class="st">분배율 · 정산액 자동 계산</span><i>→</i><span class="st">주차별 저장</span><i>→</i><span class="st">화요일 00:00 확정 · 잠금</span><i>→</i><span class="st">기록 시트 누적</span><i>→</i><span class="st on">매입자별 미정산 추적</span>
+            </div>
+            <div class="flow" aria-label="버전 이력">
+              <span class="fl-lab">버전</span>
+              <span class="st">v0 단일 HTML <em>로컬 저장</em></span><i>→</i><span class="st">v1 시트 공유 백엔드</span><i>→</i><span class="st">v2 서버 잠금 제거</span><i>→</i><span class="st">v3 매입자 · 분배받음 추적</span><i>→</i><span class="st on">v4 NestJS · MySQL · AWS <em>배포·검증</em></span>
+            </div>
+
+            <div class="req" aria-label="관리하는 데이터">
+              <div class="req-h"><span>관리하는 데이터</span><span>어떻게 관리했나</span></div>
+              <div class="req-r"><span><b>5명 각자</b> 원자재 생산 금액</span><span>입력하면 분배율(재료 기여 50% + 1인당 노동 10%)이 바로 계산되고, 화요일 00:00이 되면 그 주 값이 확정돼서 잠김</span></div>
+              <div class="req-r"><span><b>주차별</b> 판매 전 · 후 금액</span><span>차액에서 수수료 5%를 빼서 총수익을 계산함. 원 단위 아래는 버리는데, 버리고 남는 금액은 따로 표시해서 합계가 맞는지 확인할 수 있게 함</span></div>
+              <div class="req-r"><span><b>항목별</b> 가계부 · 지출</span><span>금액 ×105%를 차감하고, 항목마다 누가 샀는지(매입자)와 분배받았는지를 기록해서 매입자별 미정산 금액을 이번 주 / 전체 기간으로 나눠 보여줌</span></div>
+              <div class="req-r"><span><b>누적</b> 주차별 기록</span><span>원본은 숨김 시트에 주차별 JSON으로 두고, 사람이 보는 정산기록 · 가계부 시트는 원본에서 자동으로 다시 만들어줌. 다음 주 미리 입력이랑 지난주 값 불러오기도 됨</span></div>
+            </div>
+
+
+
+
+            <div class="nums">
+              <div><b>45 → 0</b><span>동시 수정 손실 (50건 중)</span></div>
+              <div><b>15/15</b><span>기존 데이터 정산액 일치</span></div>
+              <div><b>56</b><span>자동 테스트 (CI)</span></div>
+            </div>
+
+            <details class="fold">
+              <summary>문제 해결 · 동시 입력 덮어쓰기 막기</summary>
+              <div class="fix" aria-label="동시 입력 덮어쓰기 막기">
+                <div class="fix-h"><span class="lab">PROBLEM SOLVING · 동시 입력 덮어쓰기 막기</span><span class="res">5명이 같은 주차를 동시에 고쳐도 <b>입력값 보존</b></span></div>
+                <div class="fix-r"><span class="sym">문제</span><span>5명이 비슷한 시간에 입력하면 나중에 저장한 사람이 앞사람 값을 덮어써서 지워버릴 수 있음 (<b>갱신 손실, lost update</b>)</span></div>
+                <div class="fix-r"><span class="cau">원인</span><span>한 주 데이터를 JSON 하나로 통째로 저장하는 구조라서, 두 요청이 같은 옛 버전을 읽고 각자 고쳐서 덮어쓰면 먼저 저장한 쪽 변경이 날아감</span></div>
+                <div class="fix-r"><span class="sol">해결</span><span><code>LockService.getScriptLock()</code>으로 읽기, 수정, 저장 구간을 한 번에 한 요청씩만 처리하게 했습니다(최대 20초 대기). 중간에 오류가 나도 다른 사람이 막히면 안 되니까 <code>finally</code>에서 무조건 잠금을 풀어줍니다.</span></div>
+                <div class="fix-r"><span class="sol">해결</span><span>그리고 브라우저는 주차 데이터 전체를 보내는 게 아니라 <b>바뀐 칸 하나만</b>(예: 3번째 사람 생산 금액) 보내고, 서버는 잠근 상태에서 최신 데이터를 읽어서 그 변경만 적용합니다. 입력은 600ms 디바운스와 Promise 큐로 순서를 지켜서 보냅니다.</span></div>
+                <div class="fix-r"><span class="sol">확인</span><span>배포하기 전에 가짜 백엔드로 여러 사람이 입력하는 상황을 만들어서, 다른 사람이 고친 값이 안 사라지고 화면에 반영되는지 확인하였습니다.</span></div>
+                <div class="fix-r"><span class="cau">연결</span><span>데이터베이스시스템 수업에서 배운 <b>동시성 제어(잠금)</b>를 실제로 쓰는 서비스에 직접 적용해본 경험이었습니다.</span></div>
+              </div>
+            </details>
+            <details class="fold">
+              <summary>v4 이식 · NestJS + MySQL + AWS</summary>
+              <div class="fix" aria-label="v4 백엔드 이식과 배포">
+                <div class="fix-h"><span class="lab">v4 · NestJS + MySQL + AWS로 이식</span><span class="res">동시 수정 손실 <b>45건 → 0건</b> · 기존 정산액 <b>15/15 일치</b></span></div>
+                <div class="fix-r"><span class="sym">이유</span><span>기존 버전은 주마다 JSON 한 덩어리로 저장하고, 확정 잠금은 화면에서만 걸리고, 링크만 있으면 아무나 고칠 수 있었고, 계산 로직엔 테스트도 없었습니다. 그런데 사실 제일 큰 이유는 <b>백엔드랑 배포를 직접 해보고 싶어서</b>였습니다.</span></div>
+                <div class="fix-r"><span class="sol">구조</span><span>테이블 4개로 정규화했고, 정산 결과는 저장하지 않고 매번 계산합니다. 스키마는 TypeORM 마이그레이션으로만 바꾸게 했고(<code>synchronize</code> 끔), 접근은 공용 접속 코드 + 서명 쿠키로 막았습니다. 확정일 00:00(KST) 자동 잠금은 이제 서버가 판단합니다.</span></div>
+                <div class="fix-r"><span class="sol">동시성</span><span>TypeORM <code>save()</code>가 version을 검사하지 않는다는 걸 라이브러리 소스를 열어보고 확인했습니다. 그래서 <code>UPDATE … WHERE version = ?</code> 한 문장과 409 응답으로 바꿨습니다. 같은 칸에 동시 요청 10개를 5번 보내봤더니 이전엔 50건 중 45건이 손실됐고, 바꾼 뒤에는 <b>0건</b>이었습니다.</span></div>
+                <div class="fix-r"><span class="sol">이전</span><span>기존 시트 데이터 3주치를 옮기고, 멤버별 정산액 15개를 <b>1원 단위까지</b> 하나하나 대조했습니다(15/15).</span></div>
+                <div class="fix-r"><span class="sol">배포</span><span>Docker Compose(앱 · MySQL · Caddy)로 AWS EC2 t4g.micro(Arm, 메모리 1GB)에 올렸습니다. 메모리가 1GB밖에 안 돼서 MySQL 메모리를 줄였고, 프록시 뒤에서 실제 IP를 받으려고 trust proxy를 설정했습니다. GitHub Actions CI가 push할 때마다 테스트 56개와 amd64/arm64 이미지 빌드를 확인합니다.</span></div>
+                <div class="fix-r"><span class="cau">검증</span><span>구현은 Claude Code, 검토는 Aside로 나눴습니다. 단계마다 기대 결과를 먼저 정해두고, 브라우저 직접 호출, 손 계산, 원본 계산식, 실제 데이터, 로컬과 서버 재확인까지 <b>교차 검증</b>한 다음에 넘어갔습니다.</span></div>
+                <div class="fix-r"><span class="cau">현황</span><span>팀은 아직 v3(Apps Script)를 쓰고 있습니다. v4는 AWS에 배포해서 예시 데이터로 동작과 409 나오는 것까지 확인한 상태입니다.</span></div>
+              </div>
+            </details>
+            <details>
+              <summary>내가 한 일</summary>
+              <ul>
+                <li><b>저장 구조 설계</b>: 구글 시트를 DB처럼 썼습니다. 원본 데이터는 숨김 시트에 <code>settings</code>, <code>week:YYYY-MM-DD</code> 키로 주차별 JSON을 저장하고, 사람이 보는 정산기록과 가계부 시트는 이 원본에서 자동으로 다시 만들게 했습니다. 원본이랑 보는 화면을 분리한 것입니다.</li>
+                <li><b>동기화</b>: 15초마다 다른 사람이 바꾼 걸 가져오는데, 내가 입력 중이거나 아직 안 보낸 변경이 있으면 건너뛰게 했습니다. 왜냐하면 안 그러면 입력하던 값이 덮여버리기 때문입니다. 서버 응답은 JSON 문자열로 주고받아서 직렬화 문제를 피했습니다.</li>
+                <li><b>정산 로직</b>: 분배율(재료 기여 50% + 1인당 노동 10%), 수수료 5% 공제, 지출 ×105% 차감, 원 단위 절사와 남는 금액 표시를 구현하였습니다. 화요일 00:00 확정은 한국 시간(+09:00) 기준으로 계산합니다. 맞는지는 예시 값(22.98% ÷ 2 + 10% = 21.49%)이랑 결과를 직접 대조해서 확인했습니다.</li>
+                <li><b>권한 최소화</b>: 스크립트가 처음에 제 구글 시트 전체에 접근하는 권한을 달라고 해서, <code>@OnlyCurrentDoc</code>을 붙여 이 시트 하나만 접근하게 줄였습니다.</li>
+                <li><b>운영하며 발전</b>: 팀원 요청으로 v2에서는 서버 쪽 화요일 잠금을 빼고 화면 잠금만 남겼습니다. v3에서는 지출 항목마다 매입자와 분배받음 여부를 기록하게 하고, 매입자별 미정산 금액 요약이랑 가계부 시트를 추가했습니다. 배포 주소는 그대로 두고 버전만 바꿔서, 쓰는 사람은 새로고침만 하면 됩니다.</li>
+                <li><b>v4 역할 분담</b>: Claude Code(VS Code)는 지시문을 받아서 구현, 테스트, 측정, 작업 기록을 하고, Aside는 설계, 지시문 작성, 결과 검토, 브라우저 검증, AWS 콘솔 작업과 증거 캡처를 맡았습니다. 저는 기술 선택, 팀원 합의(접속 코드, 원자재만 잠금, 해제는 누구나), 개인정보 원칙(이니셜만 저장, 실제 데이터는 안 올림), 비용 결정(Free plan), 커밋을 했습니다.</li>
+                <li><b>v4에서 막힌 곳</b>: 자동 생성된 마이그레이션이 unique 인덱스를 지웠다가 다시 만들거나 데이터 변환을 빠뜨려서, 결국 직접 작성했습니다. 프록시 뒤에서 모든 사용자가 같은 IP로 보이는 문제와 HTTP에서 Secure 쿠키가 저장이 안 되는 문제는 설정으로 풀었습니다. 그리고 AWS Free plan은 서울 리전을 못 써서 시드니에 배포했습니다.</li>
+                <li><b>문제 해결</b>: 미리보기 창에서 저장소와 확인 팝업이 막혀서, 앱이 시작하자마자 멈추고 버튼이 하나도 안 눌리는 문제가 있었습니다. 저장소가 막혀도 돌아가게 대체 처리를 넣고, 확인창은 앱 안에서 뜨는 걸로 바꿨습니다. 배포 전에는 가짜 백엔드로 공유 동작을 로컬에서 먼저 테스트했습니다.</li>
+              </ul>
+            </details>
+            <div class="pills">
+              <span class="pill">NestJS</span><span class="pill">TypeScript</span><span class="pill">MySQL</span><span class="pill">TypeORM</span><span class="pill">React</span><span class="pill">Docker</span><span class="pill">AWS EC2</span><span class="pill">GitHub Actions</span><span class="pill">Jest</span><span class="pill">Google Apps Script</span><span class="pill">LockService</span><span class="pill l2">Claude Code</span><span class="pill l2">Aside</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="card feat">
+          <a class="stretch" href="https://github.com/CSID-DGU/2023-1-OSSP1-1921-5" target="_blank" rel="noopener" aria-label="졸업할 수 있을까 GitHub"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.04</span><span class="sep"></span><span>2023.03 — 2023.06</span><span class="kind">Team · 6명</span></div>
+            <h3>졸업할 수 있을까?<span class="arr">↗</span></h3>
+            <div class="sub">공개SW프로젝트 · 동국대 컴퓨터공학과 졸업요건 판정 서비스</div>
+            <div class="role"><span><b>FrontEnd</b></span><span><b>Z3 Solver</b> 검증</span><span><b>Jenkins / SonarQube</b> CI</span><span><b>Docker</b> 환경 구성</span><span>주제 발표</span><span>커밋 64개</span></div>
+            <p class="d">성적 파일을 올리면 연도별 졸업요건에 맞춰서 졸업할 수 있는지, 남은 과목은 무엇인지 알려주는 웹 서비스입니다. 2022년에 하던 프로젝트를 이어받았고, <b class="hl2">"학업 이수 체계가 바뀌어도 계속 쓸 수 있는 졸업요건 검증 시스템"</b>을 목표로 고쳐나갔습니다.</p>
+
+            <div class="flow" aria-label="CI 파이프라인">
+              <span class="fl-lab">CI</span>
+              <span class="st">GitHub push</span><i>→</i><span class="st">Webhook <em>구성</em></span><i>→</i><span class="st">Jenkins <em>Docker</em></span><i>→</i><span class="st">SonarScanner</span><i>→</i><span class="st on">SonarQube <em>Docker</em></span>
+            </div>
+            <div class="flow" aria-label="Z3 검증 흐름">
+              <span class="fl-lab">Z3</span>
+              <span class="st">졸업요건 xlsx</span><i>→</i><span class="st">과목별 Bool 변수</span><i>→</i><span class="st">And / Or / AtLeast</span><i>→</i><span class="st">성적 xlsx 입력</span><i>→</i><span class="st on">요건별 True / False</span>
+            </div>
+
+            <div class="metric"><span class="lab">TEAM RESULT · 기존 프로젝트 검증</span>테스트 데이터 <b>170개</b>(7종)로 돌려봤더니 졸업 가능 여부는 맞는 것 같았는데, 세부 항목까지 전부 맞은 데이터는 <b>2개</b>밖에 없었습니다. 이렇게 찾은 <b>판정 오류 7건</b>을 칸반 이슈로 올리고 개선 목표로 잡았습니다.</div>
+
+            <details>
+              <summary>내가 한 일</summary>
+              <ul>
+                <li><b>Z3 Solver 졸업요건 검증</b>: 테스트 데이터 정답을 사람이 하나하나 확인하거나 알고리즘에 하드코딩하기 싫어서, 교수님 피드백을 받고 Z3 SMT Solver를 도입했습니다. 처음에는 과목을 Int 변수로 뒀는데 조건끼리 충돌할 수 있다는 피드백을 받았고, 그래서 과목 이수 여부를 <b>Bool</b>(이수 / 미이수) 두 상태로 바꿨습니다. 학점은 Solver 밖에서 엑셀과 비교해서 계산하는 구조로 바꿨습니다.</li>
+                <li><b>요건을 데이터로 분리</b>: 연도별 졸업요건, 학수번호 변경, 신설 과목을 엑셀 템플릿 3종으로 정리했습니다. 이걸 읽어서 <b>And</b>(전공필수처럼 다 들어야 하는 과목), <b>Or</b>(학수번호가 바뀐 경우, 예: 2021년 EAS 변경), <b>AtLeast</b>("택 n" 과목)로 Solver에 조건을 넣도록 구현하였습니다. 영역별 최소 이수학점도 엑셀에서 읽은 값과 비교하기 때문에, 요건이 바뀌면 코드는 안 건드리고 파일만 고치면 됩니다. F 학점은 빼고 판정하고, 결과로는 요건별 충족 여부와 아직 안 들은 과목을 뽑아줍니다.</li>
+                <li><b>CI / 정적 분석</b>: 프론트, 백엔드, Solver를 나눠서 개발하다 보니 팀원마다 따로 push한 코드를 합칠 때 오류나 보안 이슈를 잡기가 어려웠습니다. 그래서 GitHub, Jenkins, SonarQube를 연동했습니다. Jenkinsfile 파이프라인은 SCM checkout 다음에 SonarQube Analysis 단계가 오고, 빌드가 끝나면 SonarScanner가 바로 정적 분석을 돌립니다. <b>GitHub Webhook</b>을 걸어서 push하면 바로 빌드랑 분석이 돌고 결과가 GitHub에 코멘트로 달리는 데까지 자동화했습니다. 그런데 Jenkins가 로컬 서버에서 돌아가는 한계가 있어서 최종적으로는 수동 빌드로 바꿨고, 자동 코멘트도 무엇을 고쳤는지 추적하기가 어려워서 뺐습니다.</li>
+                <li><b>Docker로 CI 환경 구성</b>: Jenkins와 SonarQube를 각각 Docker 이미지로 컨테이너화했습니다. 왜냐하면 도구마다 독립된 환경에서 안정적으로 돌고, 여러 도구를 연동하기도 편하기 때문입니다. 두 컨테이너는 Docker 내부 네트워크 주소로 연결했습니다. SonarScanner 속성에는 Jenkins 컨테이너 안의 작업 경로(<code>/var/jenkins_home/workspace</code>)와 컨테이너 안 Node 실행 경로를 지정해서 Python, JavaScript, Java 코드를 같이 분석하게 했습니다. 일부 코드가 분석이 안 되던 문제도 이 속성 파일을 고쳐서 해결했습니다.</li>
+                <li><b>분석 결과 반영</b>: SonarQube가 찾은 Critical / Major 이슈를 원인이랑 해결책까지 정리했습니다. 0으로 나누기 예외, Optional의 null 처리(<code>Optional.empty()</code>, <code>ofNullable</code>), finally 안의 return, <code>==</code> 대신 <code>equals</code> 비교, 보안용 난수(<code>SecureRandom</code>), 항상 참인 조건문 같은 것들이었고, 고친 다음에 다시 분석해서 확인했습니다. CSRF 보호 비활성화나 HTTP 메서드 허용 범위 같은 보안 이슈는 따로 문서로 남겼습니다.</li>
+                <li><b>SW 개발보안</b>: 개발보안 가이드에서 우리 프로젝트에 적용할 항목(업로드 파일 검증, HTTP 응답분할, 암호키 관리)과 정적 분석 도구 Yasca를 정리해서 팀에 공유했습니다.</li>
+                <li><b>협업 방식</b>: Notion과 GitHub 칸반 보드로 작업을 카드 단위로 관리했습니다. 동시에 진행하는 작업 수(WIP)는 프론트, 백엔드 각각 3개, 공통 1개로 제한했습니다. 주제 발표도 제가 했습니다.</li>
+              </ul>
+              <div class="metric"><span class="lab">TEAM RESULT · 성능</span>600건 동시 요청을 보내봤을 때 새 Spring 서버가 평균 15초, 기존 Node.js 서버가 평균 12초로 비슷한 수준이었음</div>
+            </details>
+            <div class="pills">
+              <span class="pill">Z3</span><span class="pill">Python</span><span class="pill">Jenkins</span><span class="pill">SonarQube</span><span class="pill">Docker</span><span class="pill">React</span><span class="pill">Spring</span><span class="pill">MySQL</span><span class="pill l2">Kanban</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="card feat">
+          <a class="stretch" href="https://github.com/juhno1023/Donggae" target="_blank" rel="noopener" aria-label="Donggae GitHub"></a>
+          <div class="body">
+            <div class="top"><span class="no">P.05</span><span class="sep"></span><span>2023.09 — 2023.12</span><span class="kind">Team · 5명</span></div>
+            <h3>Donggae<span class="arr">↗</span></h3>
+            <div class="sub">소프트웨어공학개론 · 동국대 개발자 팀 모집 커뮤니티 (팀 Otus)</div>
+            <div class="role"><span><b>FrontEnd</b></span><span>UML 설계 · API 명세</span><span>React · Spring 연동</span><span>커밋 62개</span></div>
+            <p class="d">개발자를 꿈꾸는 학생들이 팀원을 찾고 교류할 수 있는 웹 서비스입니다. GitHub 연동 로그인, 성향과 기술 스택으로 하는 추천, GitHub 활동으로 매기는 랭킹, 역량 평가 기능이 있습니다. 소프트웨어공학개론 수업 프로젝트라서 요구사항부터 설계, 스프린트까지 <b class="hl2">배운 프로세스를 그대로 밟으면서</b> 만들었습니다.</p>
+
+            <div class="flow" aria-label="개발 프로세스">
+              <span class="fl-lab">설계</span>
+              <span class="st">유스케이스 <em>9/26</em></span><i>→</i><span class="st">클래스 <em>10/3</em></span><i>→</i><span class="st">시퀀스 <em>10/10</em></span><i>→</i><span class="st">UI 디자인 <em>10/28</em></span>
+            </div>
+            <div class="flow" aria-label="구현 프로세스">
+              <span class="fl-lab">구현</span>
+              <span class="st">백로그 · 사용자 스토리 <em>11/2</em></span><i>→</i><span class="st">API 명세</span><i>→</i><span class="st on">1주 스프린트 × 4 <em>11/3 – 12/1</em></span>
+            </div>
+
+            <div class="nums">
+              <div><b>35</b><span>API 엔드포인트 명세</span></div>
+              <div><b>4</b><span>1주 단위 스프린트</span></div>
+              <div><b>3</b><span>UML 다이어그램 종류</span></div>
+            </div>
+
+            <details>
+              <summary>내가 한 일</summary>
+              <ul>
+                <li><b>설계</b>: 팀원 5명이 회의록을 남기면서 유스케이스, 클래스, 시퀀스 다이어그램과 UI 디자인을 순서대로 만들었고, 피드백 회의(10/1, 10/9)를 거쳐서 유스케이스와 클래스 설계를 고쳤습니다.</li>
+                <li><b>API 명세 기반 연동</b>: Notion API 명세서에 기능, URL, 메서드, Request, Response, 담당자를 적고, <b>BE 테스트 다음에 FE + BE 연동 테스트</b> 이렇게 2단계로 상태를 관리했습니다. 저는 로그인(GitHub OAuth), 회원가입, 마이페이지 조회와 수정, 랭킹, 모집글 검색, 팀 지원 등 API 7개 담당으로 화면 연동을 맡았습니다.</li>
+                <li><b>스프린트 / 칸반</b>: 백로그 회의에서 기능을 사용자 스토리로 바꾸고 우선순위를 정했습니다. 그 다음 Notion 칸반 카드를 스프린트별, Front / Back 팀별로 나눠서 1주 단위로 진행했고 코드는 GitHub으로 관리하였습니다.</li>
+                <li><b>마이페이지</b>: 내 정보 조회, 수정 화면을 만들었습니다. 백준 아이디를 입력하면 백준 랭크를 미리보기 카드에 보여줍니다.</li>
+                <li><b>랭킹</b>: 커밋, 이슈, PR 수로 계산한 동개 랭크를 받아와서 보여줍니다.</li>
+                <li><b>메인 / 모집 / 회원가입 / 로그인</b>: 메인페이지 디자인이랑 데이터 조회, 수정 연동을 하고 팀원 모집 글 페이지, 회원가입과 로그인 페이지도 만들었습니다.</li>
+                <li><b>역량 평가</b>: 테스트 목록이랑 문제 상세 페이지를 만들고, 문제 데이터를 받아와서 렌더링했습니다.</li>
+              </ul>
+            </details>
+            <div class="pills">
+              <span class="pill">React</span><span class="pill">React Router</span><span class="pill">Axios</span><span class="pill">Spring Boot</span><span class="pill">GitHub OAuth</span><span class="pill l2">UML</span><span class="pill l2">Scrum</span><span class="pill l2">Notion</span>
+            </div>
+          </div>
+        </li>
+
+      </ol>
+      <a class="more" href="https://github.com/junnyange?tab=repositories" target="_blank" rel="noopener">전체 레포 보기 <span>↗</span></a>
+    </section>
+
+    <section id="automation">
+      <div class="sec-h"><span class="idx">03</span><h2>AI Automation</h2><span class="rule"></span><span class="meta">daily use</span></div>
+      <p class="sec-intro">반복되는 일은 AI 에이전트한테 맡기고, 저는 <b>무엇을 읽고 어떤 기준으로 정리할지</b> 규칙을 짜는 쪽을 합니다. 여기엔 실제로 매일 쓰고 있는 것만 적었습니다.</p>
+      <ol class="cards">
+        <li class="card">
+          <div class="body">
+            <div class="top"><span class="no">A.01</span><span class="sep"></span><span>2026.10 — 운영 중</span><span class="kind">Personal · 실사용</span></div>
+            <h3>학업 일정 자동 브리핑</h3>
+            <div class="sub">구글 캘린더, 이클래스, 네이버 메일을 매일 아침 하나의 브리핑으로</div>
+            <div class="role"><span><b>요구사항 · 프롬프트 설계</b></span><span>예약 루틴</span><span>교차 검증</span></div>
+            <p class="d">과제 마감은 이클래스, 일정은 구글 캘린더, 공지는 메일로 다 흩어져 있어서 매번 세 군데를 들어가봐야 했습니다. 그래서 AI 에이전트가 매일 오전 8시에 세 곳을 <b class="hl2">읽기 전용으로</b> 확인하고 마감순으로 정리해서 알려주는 루틴을 만들었습니다.</p>
+
+            <div class="flow" aria-label="브리핑 흐름">
+              <span class="fl-lab">매일</span>
+              <span class="st">08:00 예약 실행</span><i>→</i><span class="st">캘린더 · 이클래스 · 메일 읽기</span><i>→</i><span class="st">중복 합치기 · 마감순 정렬</span><i>→</i><span class="st">[긴급] 표시</span><i>→</i><span class="st on">브리핑 알림</span>
+            </div>
+
+            <div class="nums">
+              <div><b>3</b><span>데이터 소스</span></div>
+              <div><b>10</b><span>브리핑 실행 (첫 주)</span></div>
+              <div><b>5</b><span>놓칠 뻔한 마감 · 변경 발견</span></div>
+            </div>
+
+            <details>
+              <summary>내가 한 일</summary>
+              <ul>
+                <li><b>규칙 설계</b>: 확인할 곳(캘린더 일정, 이클래스 예정된 할 일, 최근 24시간 메일)이랑 읽기 전용 원칙을 정했습니다. 메일 읽음 처리, 삭제, 일정 수정은 안 합니다. 메일은 교수님, 조교, 팀원, 학교에서 온 거나 답장이 필요하거나 기한이 있는 걸 먼저 보고, 광고와 로그인 알림은 빼게 했습니다. 출력은 오늘 일정, 7일 내 마감, 확인할 메일 순서로 하고, 오늘이나 내일 마감이면 [긴급]을 붙였습니다.</li>
+                <li><b>교차 검증으로 누락 찾기</b>: 캘린더랑 이클래스 할 일 목록만 보면 빠지는 일정이 있어서 강좌 공지까지 대조했습니다. 그렇게 해서 목록에 없던 학습 마감 2건, 마감 연장 1건(10/28에서 11/4로), 중간고사 일정을 찾아 캘린더에 넣었고, 메일로만 왔던 장학금 서약서 기한도 브리핑에서 따로 잡아냈습니다. 캘린더에는 30분 일찍 넣어둔 시간과 실제 마감 시간을 구분해서 보여주고, 수강 완료 여부는 사이버출결(출석 인정 시간 대비 실제 수강 시간)로 확인합니다.</li>
+                <li><b>이벤트 기반 루틴</b>: 교수님 서명 일정을 잡을 때는 07시부터 23시까지 20분마다 메일을 확인하는 루틴을 따로 만들었습니다. 답장에 시간이 적혀 있으면 캘린더에 일정을 만들고, 일이 끝나면 루틴은 정리했습니다.</li>
+                <li><b>운영 중 문제 해결</b>: 어느 날부터 브리핑이 하루에 두 번씩 와서 실행 기록을 열어봤습니다. 3일 연속으로, 8시에 PC가 절전 상태였다가 깨어나면서 놓친 실행을 따라잡느라 몇십 초 간격으로 두 번 실행되는 패턴이었습니다. 그리고 브리핑이 캘린더와 이클래스를 대조하다가 저장이 빠져 있던 일정 1건을 잡아내서 바로 채웠고, 그 뒤로는 일정을 바꾸면 저장 결과까지 확인하는 걸 원칙으로 하고 있습니다.</li>
+              </ul>
+            </details>
+            <div class="pills">
+              <span class="pill">Aside</span><span class="pill">AI Agent</span><span class="pill">Prompt Design</span><span class="pill">Scheduled Routine</span><span class="pill l2">Google Calendar</span><span class="pill l2">Browser Automation</span>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="skills">
+      <div class="sec-h"><span class="idx">04</span><h2>Skills</h2><span class="rule"></span><span class="meta">stack</span></div>
+      <div class="legend">
+        <span><i style="background:var(--accent)"></i>직접 기능 구현</span>
+        <span><i style="background:#a5b4c8"></i>사용 경험</span>
+        <span><i style="background:var(--warn)"></i>학습 중</span>
+      </div>
+      <div class="skill-row"><div class="k">language</div><div class="pills">
+        <span class="pill">C</span><span class="pill">C++</span><span class="pill">Python</span><span class="pill">JavaScript</span><span class="pill">Java</span><span class="pill">HTML / CSS</span><span class="pill l3">C#</span>
+      </div></div>
+      <div class="skill-row"><div class="k">frontend</div><div class="pills">
+        <span class="pill">React</span><span class="pill">React Router</span><span class="pill">Axios / Fetch</span><span class="pill l2">MUI</span><span class="pill l2">Tailwind CSS</span>
+      </div></div>
+      <div class="skill-row"><div class="k">backend</div><div class="pills">
+        <span class="pill">NestJS</span><span class="pill">TypeORM</span><span class="pill">MySQL</span><span class="pill">PostgreSQL · pgvector</span><span class="pill">Google Apps Script</span><span class="pill">Google Sheets (DB)</span><span class="pill l2">Node.js / Express</span><span class="pill l2">Spring Boot</span><span class="pill l2">SQL (Oracle)</span>
+      </div></div>
+      <div class="skill-row"><div class="k">data</div><div class="pills">
+        <span class="pill">RAG · 임베딩 검색</span><span class="pill">Z3 Solver</span><span class="pill">Selenium</span><span class="pill">BeautifulSoup</span>
+      </div></div>
+      <div class="skill-row"><div class="k">devops</div><div class="pills">
+        <span class="pill">Git / GitHub</span><span class="pill">GitHub Actions</span><span class="pill">Docker</span><span class="pill">Docker Compose</span><span class="pill">AWS EC2</span><span class="pill">Amazon Bedrock</span><span class="pill">AWS IAM</span><span class="pill">Caddy</span><span class="pill">Jest</span><span class="pill">Jenkins</span><span class="pill">SonarQube</span>
+      </div></div>
+      <div class="skill-row"><div class="k">ai</div><div class="pills">
+        <span class="pill">Claude Code</span><span class="pill">Aside · AI 브라우저 에이전트</span><span class="pill">Orca · 에이전트 IDE</span><span class="pill">Gemini</span><span class="pill l2">Claude API 에이전트</span><span class="pill">Prompt Design</span><span class="pill">Scheduled Routine</span>
+      </div></div>
+      <div class="skill-row"><div class="k">process</div><div class="pills">
+        <span class="pill">UML</span><span class="pill">API 명세</span><span class="pill">Scrum / Kanban</span><span class="pill">Notion</span>
+      </div></div>
+      <div class="skill-row"><div class="k">exploring</div><div class="pills">
+        <span class="pill l3">Unity</span><span class="pill l3">AR Foundation</span>
+      </div></div>
+    </section>
+
+    <section id="learning">
+      <div class="sec-h"><span class="idx">05</span><h2>Learning</h2><span class="rule"></span><span class="meta">timeline</span></div>
+      <ol class="tl">
+        <li class="now">
+          <div class="row"><h3>종합설계1</h3><span class="lead-line"></span><span class="date">2026 · 2학기 · now</span></div>
+          <p>"신규 PMF 검증 - 악성민원 대응"이 주제인 CS 민원 자동화 팀 프로젝트에서 팀장을 맡고, 접수 에이전트의 지식베이스 검색(<b>RAG</b>, P.01)을 만들고 있습니다.</p>
+        </li>
+        <li>
+          <div class="row"><h3>아모레퍼시픽 AI INNOVATION CHALLENGE 참가</h3><span class="lead-line"></span><span class="date">2025.12 — 2026.01</span></div>
+          <p>팀이 크롤링, 전처리, 임베딩(ChromaDB), RAG 에이전트로 이어지는 파이프라인을 만드는 동안 저는 수집 단계를 맡았습니다. 분석이랑 인프라 담당이 받아서 바로 쓸 수 있게, 요청받은 형식과 품질 기준에 맞춰서 데이터를 정리해 넘겼습니다.</p>
+        </li>
+        <li>
+          <div class="row"><h3>소프트웨어공학개론</h3><span class="lead-line"></span><span class="date">2023 · 2학기</span></div>
+          <p>회의록, UML(유스케이스, 클래스, 시퀀스), 사용자 스토리, API 명세, 스프린트와 칸반까지, 요구사항에서 구현으로 가는 팀 개발 프로세스를 처음부터 끝까지 한번 다 밟아봤습니다.</p>
+        </li>
+        <li>
+          <div class="row"><h3>공개SW프로젝트</h3><span class="lead-line"></span><span class="date">2023 · 1학기</span></div>
+          <p>기존 오픈소스를 이어받아서 테스트 데이터로 정확도를 검증해봤고, 제약 조건 검증(Z3), CI, 정적 분석(Jenkins, SonarQube), SW 개발보안을 이때 처음 다뤄봤습니다.</p>
+        </li>
+        <li>
+          <div class="row"><h3>데이터베이스시스템</h3><span class="lead-line"></span><span class="date">2023 · 1학기</span></div>
+          <p>ER 모델링, 관계형 모델과 제약조건, 관계대수, ER을 관계 스키마로 옮기는 매핑, 함수적 종속과 정규화를 배웠고, 인덱스, 질의 처리와 최적화, 트랜잭션, 동시성 제어, 회복까지 DBMS 안에서 어떻게 돌아가는지도 다뤘습니다. 실습에서는 Oracle로 COMPANY 스키마 테이블 6개를 기본키, 외래키(자기 참조, 복합키 포함)까지 직접 만들고 데이터를 넣은 다음에 조인, 셀프 조인, UNION, LIKE, BETWEEN, ORDER BY 질의 16개를 짜서 결과를 확인했습니다. 여기서 배운 동시성 제어는 나중에 정산 웹앱(P.03)에서 동시에 입력할 때 갱신 손실을 잠금으로 막는 데 그대로 써먹었습니다.</p>
+        </li>
+        <li>
+          <div class="row"><h3>자료구조 · 객체지향 프로그래밍</h3><span class="lead-line"></span><span class="date">2022 · 2학기</span></div>
+          <p>C++로 배열 리스트, 정렬 리스트, 스택, 큐 같은 여러 자료구조를 배우고 하나씩 직접 구현해봤습니다. 구현한 코드는 <a class="in" href="https://github.com/junnyange/DataStructure" target="_blank" rel="noopener">DataStructure</a> 레포에 정리해뒀고, 백준 문제 풀이(<a class="in" href="https://github.com/junnyange/CodingTestStep" target="_blank" rel="noopener">CodingTestStep</a>, <a class="in" href="https://github.com/junnyange/BOJ-code" target="_blank" rel="noopener">BOJ-code</a>)로 스택, 큐, 재귀를 문제에 적용해보면서 기본기를 쌓았습니다.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="thoughts">
+      <div class="sec-h"><span class="idx">06</span><h2>Thoughts</h2><span class="rule"></span><span class="meta">what I believe</span></div>
+      <ol class="beliefs">
+        <li><h3>확인한 것만 했다고 말합니다</h3><p>포트폴리오를 정리하다 보니 끝까지 구현했는지 기억이 잘 안 나는 기능이 있었습니다. 그런 건 일단 "설계했다"로 낮춰서 적어두고, 나중에 그때 코드랑 발표 자료를 찾아서 구현한 게 맞다고 확인한 다음에야 "구현했다"로 고쳤습니다. 리뷰 수가 240개에서 9,069개로 늘어난 것도 수집 상한을 올린 효과가 섞여 있어서 크롤러를 고친 성과에서는 뺐습니다. 숫자 하나를 부풀리면 나머지 숫자도 다 못 믿게 되는 것 같습니다.</p></li>
+        <li><h3>기대값을 먼저 정하고 넘어갑니다</h3><p>정산 웹앱을 NestJS + MySQL로 옮길 때 단계마다 "이렇게 나와야 한다"를 먼저 적어두고, 가상 데이터로 직접 계산한 값, 원본 계산식, 실제 데이터와 대조해본 다음에 넘어갔습니다. 그래서 기존 정산액 15개가 1원 단위까지 맞는 걸 보고 나서야 이식이 끝났다고 말할 수 있었습니다. AI가 코드를 짜줘도 그게 맞는지 판단하는 건 결국 제가 해야 하는 일이라고 생각합니다.</p></li>
+        <li><h3>받는 사람이 바로 쓸 수 있게 넘깁니다</h3><p>공모전에서 제가 만든 건 데이터였고, 그걸 쓰는 사람은 분석과 인프라 담당 팀원이었습니다. 피부 정보 컬럼을 나눠달라, CSV 형식을 맞춰달라 이런 요청이 올 때마다 데이터를 고쳐서 다시 넘겼습니다. 제 코드가 돌아가는 것도 중요하지만, 다음 사람이 손 안 대고 바로 쓸 수 있어야 완성이라고 생각합니다.</p></li>
+        <li><h3>요즘 붙잡고 있는 것</h3><p>종합설계1에서는 "신규 PMF 검증 - 악성민원 대응"이 주제인 CS 민원 자동화 팀 프로젝트에서 백엔드 개발을 맡고 있습니다. 정산 웹앱 v4는 AWS에 배포해서 동작하는 것까지는 확인했는데, 이제는 그 백엔드랑 배포가 실제로 어떻게 돌아가는지 하나하나 뜯어보면서 완전히 제 걸로 만드는 게 목표입니다. 그리고 야구와 데이터에 관심이 많아서, 사회인야구에서 제가 던지는 공을 분석해보려고 스마트폰 한 대로 투구를 추적하는 앱도 설계하고 있습니다.</p></li>
+      </ol>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="sec-h"><span class="idx">07</span><h2>Contact</h2><span class="rule"></span><span class="meta">say hello</span></div>
+      <div class="big">같이 만들 일이 있다면,<br><span>편하게 연락 주세요.</span></div>
+      <p>메일은 가장 빠르게 확인합니다.</p>
+      <a class="mail" href="mailto:junsang13454@gmail.com">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        junsang13454@gmail.com <span class="go">→</span>
+      </a>
+      <footer>
+        <span>&copy; 2026 Junsang Heo</span>
+        <span>Plain HTML &amp; CSS · GitHub Pages · layout inspired by Brittany Chiang</span>
+      </footer>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // cursor spotlight
+  const spot=document.getElementById('spot');
+  window.addEventListener('pointermove',e=>{spot.style.setProperty('--x',e.clientX+'px');spot.style.setProperty('--y',e.clientY+'px');});
+  // scroll spy
+  const tocLinks=[...document.querySelectorAll('.toc a')];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){tocLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));}})},{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('main section').forEach(s=>io.observe(s));
+  // keep details / inner link clicks from triggering the card link
+  document.querySelectorAll('details, .card a.in').forEach(el=>el.addEventListener('click',e=>e.stopPropagation()));
+</script>
+</body>
+</html>

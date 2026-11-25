@@ -67,6 +67,7 @@
   @media (max-width: 1023px) { .rag-flow { grid-template-columns: 1fr 1fr; } .rag-flow li::after { display: none; } }
   .contact-rows { max-width: 760px; margin-bottom: var(--s-6); }
   .contact-rows .rows__value { text-decoration: none; }
+  @media (max-width: 639px) { .contact-rows li { flex-wrap: wrap; row-gap: 4px; } .contact-rows .rows__value { white-space: normal; overflow-wrap: anywhere; text-align: left; min-width: 0; max-width: 100%; } }
   .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .proj-facts dt { font: 500 var(--t-small)/1.55 var(--font-text); color: var(--p-accent); }
   .proj-facts dd { margin: 0; font-size: 15px; line-height: 1.55; word-break: keep-all; }

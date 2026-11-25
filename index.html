@@ -44,7 +44,7 @@
   #hero-h, .hero__done { font-size: clamp(18px, 1.66vw, 24px) !important; line-height: 1.55 !important; letter-spacing: -0.01em; }
   #hero-h { font-weight: 600; }
   .hero__photo { align-self: start; height: auto !important; min-height: 0 !important; background: none !important; overflow: visible !important; }
-  .hero__photo img { aspect-ratio: 396 / 510; height: auto !important; max-height: 640px; border: 1px solid #e6e6e6; }
+  .hero__photo img { aspect-ratio: 396 / 510; width: 240px !important; max-width: 100%; height: auto !important; border: 1px solid #e6e6e6; border-radius: 16px; }
   .hero__done { margin: var(--s-6) 0 var(--s-7); padding: 0; list-style: none; display: grid; gap: var(--s-3); color: var(--p-ink); }
   .hero__done li { padding-left: 18px; position: relative; word-break: keep-all; }
   .hero__done li::before { content: ""; position: absolute; left: 0; top: .72em; width: 6px; height: 6px; border-radius: 50%; background: var(--p-accent); }
@@ -105,10 +105,10 @@
 <main id="top">
   <section class="hero hero--split" data-enter aria-labelledby="hero-h">
     <div class="wrap"><div class="hero-text grid hero__grid">
-      <div class="hero__media hero__photo span-4">
+      <div class="hero__media hero__photo span-3">
         <img src="img/profile.png" alt="허준상 증명사진" style="--ly-pos: 50% 30%" fetchpriority="high">
       </div>
-      <div class="hero__text span-7 start-6">
+      <div class="hero__text span-9 start-4">
         <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>동국대학교 컴퓨터공학전공 4학년</p>
         <h1 id="hero-h">안녕하세요,<br>저는 자동화에 관심이 많은 개발자 허준상이라고 합니다</h1>
         <ul class="hero__done">

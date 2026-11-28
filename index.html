@@ -68,6 +68,12 @@
   .contact-rows { max-width: 760px; margin-bottom: var(--s-6); }
   .contact-rows .rows__value { text-decoration: none; }
   @media (max-width: 639px) { .contact-rows li { flex-wrap: wrap; row-gap: 4px; } .contact-rows .rows__value { white-space: normal; overflow-wrap: anywhere; text-align: left; min-width: 0; max-width: 100%; } }
+  #career { height: auto !important; min-height: 0 !important; padding-top: 96px; padding-bottom: 16px; }
+  .career-rows { max-width: 900px; }
+  .career-rows .rows__name { font-size: 18px; font-weight: 500; }
+  .career-rows .rows__name small { display: block; margin-top: 4px; font-size: 15px; font-weight: 400; color: var(--p-muted); }
+  .career-rows .rows__value { font-variant-numeric: tabular-nums; color: var(--p-muted); white-space: nowrap; }
+  @media (max-width: 639px) { #career { padding-top: 72px; padding-bottom: 8px; } .career-rows li { flex-direction: column; align-items: flex-start; gap: 6px; } .career-rows .rows__value { order: -1; font-size: 14px; white-space: normal; } }
   .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .proj-facts dt { font: 500 var(--t-small)/1.55 var(--font-text); color: var(--p-accent); }
   .proj-facts dd { margin: 0; font-size: 15px; line-height: 1.55; word-break: keep-all; }
@@ -113,6 +119,7 @@
           </div>
         </div>
       </div>
+      <div class="nav__item"><a class="nav__link" href="#career">경력</a></div>
       <div class="nav__item"><a class="nav__link" href="#stack">기술</a></div>
       <div class="nav__item"><a class="nav__link" href="#check">확인하는 방법</a></div>
     </nav>
@@ -145,6 +152,19 @@
         <div class="btn-row"><a class="btn btn--primary" href="mailto:junsang13454@gmail.com">메일 보내기<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="#projects">프로젝트 보기</a></div>
       </div>
     </div></div>
+  </section>
+
+  <section class="section" id="career" aria-labelledby="career-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="career-h">경력</h2>
+      </div>
+      <ul class="rows career-rows">
+        <li><span class="rows__name">동국대학교 CAPS 학술동아리<small>프로그래밍 개발 동아리</small></span><span class="rows__value">2021.03 ~ 2025.02</span></li>
+        <li><span class="rows__name">이찬진코딩학원 코딩강사<small>초·중학생 5명에게 Python 기초와 알고리즘, 아두이노를 가르쳤습니다.</small></span><span class="rows__value">2021.11 ~ 2022.09</span></li>
+        <li><span class="rows__name">동국대학교 CAPS 부회장<small>신입 지원자 면접과 집행부 회의 진행을 맡았습니다.</small></span><span class="rows__value">2022.02 ~ 2023.02</span></li>
+      </ul>
+    </div>
   </section>
 
   <section class="section" id="current" aria-labelledby="current-h">
